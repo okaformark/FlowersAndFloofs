@@ -38,14 +38,14 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        //public void Add(AddCustomerCommand customer)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public void Delete(int customerIdToDelete)
-        //{
-
-        //}
+        public IEnumerable<Product> GetAllByTypeId(int typeId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"Select * from Product where TypeId = @typeId";
+                var products = db.Query<Product>(sql);
+                return products;
+            }
+        }
     }
 }

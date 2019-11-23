@@ -34,10 +34,10 @@ namespace FlowersAndFloofs.DataAccess
             using (var db = new SqlConnection(_connectionString))
             {
 
-                var sql = @"Update [Customer]
-                               SET [Name] = name
-                               ,[YearsOfExperience] = @yearsOfExperience
-                               ,[Specialty] = @specialty
+                var sql = @"Update [CustomerPersonal]
+                               SET [FirstName] = @firstName
+                               ,[LastName] = @lastName
+                               ,[CustomerEmail] = @customerEmail
                         output inserted.*
                             where id = @id";
 
