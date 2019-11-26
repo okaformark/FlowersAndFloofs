@@ -28,10 +28,10 @@ namespace FlowersAndFloofs.DataAccess
             {
                 var sql = @"Select *
                             from Product
-                            where Id = @productId";
+                            where [Id] = @ProductId";
                 var parameters = new
                 {
-                    Id = productId
+                    ProductId = productId
                 };
                 var product = db.QueryFirst<Product>(sql, parameters);
                 return product;
@@ -42,8 +42,15 @@ namespace FlowersAndFloofs.DataAccess
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sql = @"Select * from Product where ProductTypeId = @productTypeId";
-                var products = db.Query<Product>(sql);
+                var sql = @"Select * from Product 
+                          where ProductTypeId = @productTypeId";
+                var parameters = new
+                {
+                    ProductTypeId = productTypeId
+                };
+
+                var products = db.Query<Product>(sql, parameters);
+
                 return products;
             }
         }

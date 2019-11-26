@@ -10,7 +10,7 @@ namespace FlowersAndFloofs.Commands
 {
     //Customers will need to be able to GET a single product, GET all products, and GET products by typeId
 
-    [Route("api/[controller]")]
+    [Route("api/products")]
     [ApiController]
     public class ProductsController
     {
@@ -30,7 +30,7 @@ namespace FlowersAndFloofs.Commands
             return product;
         }
 
-        [HttpGet("{typeId}")]
+        [HttpGet("productType/{typeId}")]
         public IEnumerable<Product> GetProductsByType(int typeId)
         {
             var repo = new ProductRepository();

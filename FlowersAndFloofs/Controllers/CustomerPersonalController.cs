@@ -16,7 +16,7 @@ namespace FlowersAndFloofs.Controllers
     //  Customers may NOT get CustomerPersonal data other than their own and their initial CustomerPersonal record will automatically
     //  be added when they register (POST)
 
-    [Route("api/[controller]")]
+    [Route("api/customerPersonal")]
     [ApiController]
     public class CustomerPersonalInfoController : ControllerBase
     {
