@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlowersAndFloofs.Models
+namespace FlowersAndFloofs.DTOs
 {
-    public class CustomerPersonalInfo
+    public class UpdateCustomerPersonalInfoDTO
     {
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CustomerEmail { get; set; }

@@ -14,21 +14,8 @@ namespace FlowersAndFloofs.Commands
         [ApiController]
         public class CustomerController : ControllerBase
         {
-            [HttpGet]
-            public IEnumerable<Customer> GetCustomers()
-            {
-                var repo = new CustomerRepository();
-                var customers = repo.GetAll();
-                return customers;
-            }
+            // Customers will not need to do anything with customer data (id, dateCreated, dateDeleted, firebaseKey)
 
-            [HttpGet("{customerId}")]
-            public Customer GetCustomer(int customerId)
-            {
-                var repo = new CustomerRepository();
-                var customer = repo.Get(customerId);
-                return customer;
-            }
         }
     }
 }

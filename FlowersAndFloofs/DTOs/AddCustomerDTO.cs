@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FlowersAndFloofs.Commands
 {
-    public class AddCustomerCommand
+    public class AddCustomerDTO
     {
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }

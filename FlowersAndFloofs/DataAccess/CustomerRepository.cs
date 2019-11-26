@@ -10,6 +10,6 @@ namespace FlowersAndFloofs.DataAccess
 {
     public class CustomerRepository
     {
-
+        // Customers will not need to do anything with customer data (id, dateCreated, dateDeleted, firebaseKey)
     }
 }

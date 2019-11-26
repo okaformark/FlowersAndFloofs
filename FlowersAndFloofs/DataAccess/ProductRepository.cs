@@ -31,18 +31,18 @@ namespace FlowersAndFloofs.DataAccess
                             where Id = @productId";
                 var parameters = new
                 {
-                    ProductId = productId
+                    Id = productId
                 };
                 var product = db.QueryFirst<Product>(sql, parameters);
                 return product;
             }
         }
 
-        public IEnumerable<Product> GetAllByTypeId(int typeId)
+        public IEnumerable<Product> GetAllByTypeId(int productTypeId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sql = @"Select * from Product where TypeId = @typeId";
+                var sql = @"Select * from Product where ProductTypeId = @productTypeId";
                 var products = db.Query<Product>(sql);
                 return products;
             }

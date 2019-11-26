@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace FlowersAndFloofs.Commands
 {
+    //Customers will need to be able to GET a single product, GET all products, and GET products by typeId
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController
@@ -21,11 +23,19 @@ namespace FlowersAndFloofs.Commands
         }
 
         [HttpGet("{productId}")]
-        public ProductsController GetProduct(int productId)
+        public Product GetProduct(int productId)
         {
             var repo = new ProductRepository();
             var product = repo.Get(productId);
             return product;
+        }
+
+        [HttpGet("{typeId}")]
+        public IEnumerable<Product> GetProductsByType(int typeId)
+        {
+            var repo = new ProductRepository();
+            var productsWithTypeId = repo.GetAllByTypeId(typeId);
+            return productsWithTypeId;
         }
     }
 }
