@@ -25,8 +25,11 @@ namespace FlowersAndFloofs.Controllers
 
         // POST: api/PaymentMethod
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IEnumerable<PaymentMethod> Post(AddPaymentMethodDTO paymentMethodToAdd)
         {
+            var repo = new PaymentMethodRepository();
+            repo.AddCustomerPaymentMethod(paymentMethodToAdd);
+            return repo.GetPaymentMethodByCustomerId(paymentMethodToAdd.CustomerId);
         }
 
         // PUT: api/PaymentMethod/5

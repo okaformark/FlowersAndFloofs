@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using FlowersAndFloofs.Models;
 using System.Data.SqlClient;
+using FlowersAndFloofs.DTOs;
 
 namespace FlowersAndFloofs.DataAccess
 {
@@ -25,6 +26,31 @@ namespace FlowersAndFloofs.DataAccess
                 };
                 var customerPaymentMethods = db.Query<PaymentMethod>(sql, parameters);
                 return customerPaymentMethods;
+            }
+        }
+
+        public bool AddCustomerPaymentMethod(AddPaymentMethodDTO paymentMethodToAdd)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO[dbo].[PaymentMethod]
+                                                ([CustomerId]
+                                                ,[PaymentTypeId]
+                                                ,[CardNumber]
+                                                ,[NameOnCard]
+                                                ,[ExpirationDate]
+                                                ,[CVV])
+                                            VALUES
+                                                (@CustomerId
+                                                , @PaymentTypeId
+                                                , @CardNumber
+                                                , @NameOnCard
+                                                , @ExpirationDate
+                                                , @CVV)";
+
+
+                return db.Execute(sql, paymentMethodToAdd) == 1;
+
             }
         }
     }
