@@ -38,10 +38,15 @@ namespace FlowersAndFloofs.Controllers
         {
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE: api/PaymentMethod/5
+        [HttpDelete("{paymentMethodId}")]
+        public IActionResult DeletePaymentMethod(int paymentMethodId)
         {
+            var repo = new PaymentMethodRepository();
+            repo.DeletePaymentMethod(paymentMethodId);
+
+            return Ok();
+
         }
     }
 }

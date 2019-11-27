@@ -53,5 +53,16 @@ namespace FlowersAndFloofs.DataAccess
 
             }
         }
+
+        public bool DeletePaymentMethod(int paymentMethodId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"delete
+                            from PaymentMethod
+                            where [Id] = @paymentMethodId";
+                return db.Execute(sql, new { paymentMethodId }) == 1;
+            }
+        }
     }
 }
