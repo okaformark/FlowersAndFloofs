@@ -7,9 +7,7 @@ namespace FlowersAndFloofs.Commands
 {
     public class AddCustomerDTO
     {
-        public int Id { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DateDeleted { get; set; }
         public string FirebaseKey { get; set; }
     }
 }
