@@ -32,10 +32,10 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // GET: api/BillingAddress/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{customerId}", Name = "Get")]
+        public Address Get(int customerId)
         {
-            return "value";
+            return _repo.GetAddress().FirstOrDefault(customer => customer.Id == customerId);
         }
 
         // POST: api/BillingAddress
