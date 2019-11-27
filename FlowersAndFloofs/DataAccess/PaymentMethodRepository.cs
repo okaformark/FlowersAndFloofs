@@ -54,6 +54,28 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
+        public bool UpdatePaymentMethod(int id, UpdatePaymentMethodDTO paymentMethodToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+
+                var sql = @"Update [PaymentMethod]
+                               SET [PaymentTypeId] = @PaymentTypeId
+                               ,[CardNumber] = @CardNumber
+                               ,[NameOnCard] = @NameOnCard
+                               ,[ExpirationDate] = @ExpirationDate
+                               ,[CVV] = @CVV
+                            Where [Id] = @Id";
+
+
+                paymentMethodToUpdate.Id = id;
+
+                return db.Execute(sql, paymentMethodToUpdate) == 1;
+
+
+            }
+        }
+
         public bool DeletePaymentMethod(int paymentMethodId)
         {
             using (var db = new SqlConnection(_connectionString))

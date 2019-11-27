@@ -25,7 +25,7 @@ namespace FlowersAndFloofs.Controllers
 
         // POST: api/PaymentMethod
         [HttpPost]
-        public IEnumerable<PaymentMethod> Post(AddPaymentMethodDTO paymentMethodToAdd)
+        public IEnumerable<PaymentMethod> AddPaymentMethod(AddPaymentMethodDTO paymentMethodToAdd)
         {
             var repo = new PaymentMethodRepository();
             repo.AddCustomerPaymentMethod(paymentMethodToAdd);
@@ -33,9 +33,13 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // PUT: api/PaymentMethod/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("update/{paymentMethodId}")]
+        public IActionResult UpdatePaymentMethodById(int paymentMethodId, UpdatePaymentMethodDTO paymentMethodToUpdate)
         {
+            var repo = new PaymentMethodRepository();
+            repo.UpdatePaymentMethod(paymentMethodId, paymentMethodToUpdate);
+
+            return Ok();
         }
 
         // DELETE: api/PaymentMethod/5
