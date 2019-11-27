@@ -10,6 +10,21 @@ namespace FlowersAndFloofs.DataAccess
 {
     public class CustomerRepository
     {
-        // Customers will not need to do anything with customer data (id, dateCreated, dateDeleted, firebaseKey)
+        string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
+
+        public Customer Add(Customer newCustomer)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO[dbo].[Customer]
+                                                    ([DateCreated]
+                                                    ,[FirebaseKey])
+	                                        output inserted.*
+                                                VALUES
+                                                    (@dateCreated
+                                                    , @firebaseKey)";
+                return db.QueryFirst<Customer>(sql, newCustomer);
+            }
+        }
     }
 }

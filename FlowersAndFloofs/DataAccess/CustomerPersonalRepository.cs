@@ -17,12 +17,14 @@ namespace FlowersAndFloofs.DataAccess
             using (var db = new SqlConnection(_connectionString))
             {
                 var sql = @"INSERT INTO[dbo].[CustomerPersonalInfo]
-                                                ([FirstName]
+                                                ([CustomerId]
+                                                ,[FirstName]
                                                 ,[LastName]
                                                 ,[CustomerEmail])
                                             output inserted.*
                                             VALUES
-                                                (@firstName
+                                                (@customerId
+                                                , @firstName
                                                 , @lastName
                                                 , @customerEmail)";
                 return db.QueryFirst<CustomerPersonalInfo>(sql, newCustomerPersonalInfo);
@@ -57,10 +59,9 @@ namespace FlowersAndFloofs.DataAccess
                         output inserted.*
                             where id = @id";
 
-
                 updatedCustomerPersonalInfo.Id = id;
 
-                var customer = db.QueryFirst<CustomerPersonalInfo>(sql, updatedCustomerPersonalInfo);
+                var customer = db.QueryFirstOrDefault<CustomerPersonalInfo>(sql, updatedCustomerPersonalInfo);
 
                 return customer;
 

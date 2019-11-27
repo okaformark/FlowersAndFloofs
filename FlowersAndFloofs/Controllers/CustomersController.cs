@@ -8,14 +8,24 @@ using System.Threading.Tasks;
 
 namespace FlowersAndFloofs.Commands
 {
-    public class CustomersController
+    [Route("api/customers")]
+    [ApiController]
+    public class CustomersController : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        public class CustomerController : ControllerBase
+        [HttpPost]
+        public IActionResult CreateCustomer(AddCustomerDTO newCustomerDTO)
         {
-            // Customers will not need to do anything with customer data (id, dateCreated, dateDeleted, firebaseKey)
+            var newCustomer = new Customer
+            {
+                DateCreated = newCustomerDTO.DateCreated,
+                FirebaseKey = newCustomerDTO.FirebaseKey
+            };
 
+            var repo = new CustomerRepository();
+            var customerThatGotCreated = repo.Add(newCustomer);
+
+            return Created($"api/customers/{customerThatGotCreated.Id}", customerThatGotCreated);
         }
+
     }
 }

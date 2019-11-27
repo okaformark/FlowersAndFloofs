@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlowersAndFloofs.Models
+namespace FlowersAndFloofs.DTOs
 {
-    public class Order
+    public class AddOrderDTO
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }

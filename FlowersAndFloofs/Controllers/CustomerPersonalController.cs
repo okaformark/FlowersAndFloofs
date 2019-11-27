@@ -10,11 +10,8 @@ using System.Threading.Tasks;
 
 namespace FlowersAndFloofs.Controllers
 {
-    //  Customers will need to GET their CustomerPersonal data, PUT updated CustomerPersonal data, and DELETE CustomerPersonal data
-    //  if they no longer want an account
-
-    //  Customers may NOT get CustomerPersonal data other than their own and their initial CustomerPersonal record will automatically
-    //  be added when they register (POST)
+    //  Customers will need to GET their CustomerPersonal data, POST CustomerPersonal data when they create an acct, 
+    //  PUT updated CustomerPersonal data, and DELETE CustomerPersonal data if they no longer want an account
 
     [Route("api/customerPersonal")]
     [ApiController]
@@ -26,6 +23,24 @@ namespace FlowersAndFloofs.Controllers
             var repo = new CustomerPersonalInfoRepository();
             var product = repo.Get(customerId);
             return product;
+        }
+
+        [HttpPost]
+        public IActionResult CreateCustomerPersonal(AddCustomerPersonalInfoDTO newCustomerPersonalInfoDTO)
+        {
+            var newCustomerPersonalInfo = new CustomerPersonalInfo
+            {
+                Id = 1,
+                CustomerId = newCustomerPersonalInfoDTO.CustomerId,
+                FirstName = newCustomerPersonalInfoDTO.FirstName,
+                LastName = newCustomerPersonalInfoDTO.LastName,
+                CustomerEmail = newCustomerPersonalInfoDTO.CustomerEmail
+            };
+
+            var repo = new CustomerPersonalInfoRepository();
+            var customerPersonalInfoThatGotCreated = repo.Add(newCustomerPersonalInfo);
+
+            return Created($"api/customerPersonalInfo/{customerPersonalInfoThatGotCreated.Id}", customerPersonalInfoThatGotCreated);
         }
 
         [HttpPut("{id}")]
