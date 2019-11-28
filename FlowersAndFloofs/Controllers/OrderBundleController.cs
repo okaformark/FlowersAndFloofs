@@ -40,9 +40,12 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{orderBundleId}")]
+        public IActionResult Delete(int orderBundleId)
         {
+            var repo = new OrderBundleRepository();
+            repo.DeleteOrderBundle(orderBundleId);
+            return Ok();
         }
     }
 }
