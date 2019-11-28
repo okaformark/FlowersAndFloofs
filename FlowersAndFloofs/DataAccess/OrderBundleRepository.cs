@@ -24,5 +24,26 @@ namespace FlowersAndFloofs.DataAccess
                 return allOrderBundles;
             }
         }
+
+        public bool AddNewOrderBundle(AddOrderBundleDTO orderBundleToAdd)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO[dbo].[OrderBundle]
+                                                ([OrderId]
+                                                ,[BundleId]
+                                                ,[Quantity]
+                                                ,[UnitCost])
+                                            VALUES
+                                                (@OrderId
+                                                , @BundleId
+                                                , @Quantity
+                                                , @UnitCost)";
+
+
+                return db.Execute(sql, orderBundleToAdd) == 1;
+
+            }
+        }
     }
 }

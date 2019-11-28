@@ -26,8 +26,11 @@ namespace FlowersAndFloofs.Controllers
 
         // POST: api/OrderBundle
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IEnumerable<OrderBundle> AddOrderBundle(AddOrderBundleDTO orderBundleToAdd)
         {
+            var repo = new OrderBundleRepository();
+            repo.AddNewOrderBundle(orderBundleToAdd);
+            return repo.GetAllOrderBundles();
         }
 
         // PUT: api/OrderBundle/5
