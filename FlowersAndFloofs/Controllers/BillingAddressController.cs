@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FlowersAndFloofs.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/billingAddress")]
     [ApiController]
     public class BillingAddressController : ControllerBase
     {
