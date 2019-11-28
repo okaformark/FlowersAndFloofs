@@ -46,6 +46,24 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
+        public bool UpdateOrderBundle(int orderBundleId, UpdateOrderBundleDTO orderBundleToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+
+                var sql = @"Update [OrderBundle]
+                               SET [OrderId] = @OrderId
+                               ,[BundleId] = @BundleId
+                               ,[Quantity] = @Quantity
+                               ,[UnitCost] = @UnitCost
+                            Where [Id] = @Id";
+
+                orderBundleToUpdate.Id = orderBundleId;
+
+                return db.Execute(sql, orderBundleToUpdate) == 1;
+            }
+        }
+
         public bool DeleteOrderBundle(int orderBundleId)
         {
             using (var db = new SqlConnection(_connectionString))

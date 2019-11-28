@@ -34,9 +34,13 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // PUT: api/OrderBundle/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("update/{orderBundleId}")]
+        public IActionResult UpdateOrderBundleById(int orderBundleId, UpdateOrderBundleDTO orderBundleToUpdate)
         {
+            var repo = new OrderBundleRepository();
+            repo.UpdateOrderBundle(orderBundleId, orderBundleToUpdate);
+
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
