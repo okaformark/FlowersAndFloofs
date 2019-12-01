@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FlowersAndFloofs.DataAccess;
+using FlowersAndFloofs.DTOs;
 using FlowersAndFloofs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace FlowersAndFloofs.Controllers
     public class BillingAddressController : ControllerBase
     {
         private readonly ILogger<BillingAddressController> _logger;
-        private readonly IBillingAddressRepository _repo;
+        private readonly IAddressRepository _repo;
 
 
-        public BillingAddressController(ILogger<BillingAddressController> logger, IBillingAddressRepository repo)
+        public BillingAddressController(ILogger<BillingAddressController> logger, IAddressRepository repo)
         {
             _logger = logger;
             _repo = repo;
@@ -40,8 +41,9 @@ namespace FlowersAndFloofs.Controllers
 
         // POST: api/BillingAddress
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(AddAddressDTO newAddress)
         {
+            _repo.AddAddress(newAddress);
         }
 
         // PUT: api/BillingAddress/5

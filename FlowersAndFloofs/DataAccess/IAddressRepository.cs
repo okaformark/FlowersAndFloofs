@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace FlowersAndFloofs.DataAccess
 {
-     public interface IBillingAddressRepository
+     public interface IAddressRepository
     {
         IEnumerable<Address> GetAddress();
         bool AddAddress(AddAddressDTO newAddress);
         bool UpdateAddress(Address addressToUpdate, int id);
+
     }
 }
