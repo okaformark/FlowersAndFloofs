@@ -67,12 +67,9 @@ namespace FlowersAndFloofs.DataAccess
                                ,[CVV] = @CVV
                             Where [Id] = @Id";
 
-
                 paymentMethodToUpdate.Id = id;
 
                 return db.Execute(sql, paymentMethodToUpdate) == 1;
-
-
             }
         }
 

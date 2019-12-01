@@ -51,7 +51,7 @@ namespace FlowersAndFloofs
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+           app.UseMvc();
             app.UseCors("MyPolicy");
         }
     }
