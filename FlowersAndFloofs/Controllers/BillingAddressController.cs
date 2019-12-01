@@ -47,9 +47,10 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // PUT: api/BillingAddress/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{addressIdToUpdate}/update")]
+        public void Put(Address addressToUpdate, int addressIdToUpdate)
         {
+            _repo.UpdateAddress(addressToUpdate, addressIdToUpdate);
         }
 
         // DELETE: api/ApiWithActions/5

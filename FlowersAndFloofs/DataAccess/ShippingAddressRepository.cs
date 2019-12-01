@@ -7,7 +7,7 @@ using FlowersAndFloofs.Models;
 
 namespace FlowersAndFloofs.DataAccess
 {
-    public class ShippingAddressRepository
+    public class ShippingAddressRepository : IAddressRepository
     {
         public bool AddAddress(AddAddressDTO newAddress)
         {

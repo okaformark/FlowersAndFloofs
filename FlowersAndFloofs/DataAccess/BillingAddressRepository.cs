@@ -45,9 +45,22 @@ namespace FlowersAndFloofs.DataAccess
             };
         }
 
-        public bool UpdateAddress(Address addressToUpdate, int id)
+        public bool UpdateAddress(Address addressToUpdate, int addressIdToUpdate)
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"UPDATE [dbo].[BillingAddress]
+                                    SET [CustomerId] = @CustomerId
+                                        ,[StreetAddress] = @StreetAddress
+                                        ,[AptOrHouseNum] = @AptOrHouseNum
+                                        ,[City] = @City
+                                        ,[State] = @State
+                                        ,[ZipCode] = @ZipCode
+                                    WHERE Id = @Id";
+
+                addressToUpdate.Id = addressIdToUpdate;
+                return db.Execute(sql, addressToUpdate) == 1;
+            }
         }
     }
 }
