@@ -29,6 +29,7 @@ namespace FlowersAndFloofs
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.AddControllers();
             services.AddScoped<IAddressRepository, BillingAddressRepository>();
+            services.AddScoped<IAddressRepository, ShippingAddressRepository>();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
