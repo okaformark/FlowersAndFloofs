@@ -14,6 +14,11 @@ namespace FlowersAndFloofs.DataAccess
             throw new NotImplementedException();
         }
 
+        public bool DeleteAddress(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Address> GetAddress()
         {
             throw new NotImplementedException();

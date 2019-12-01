@@ -7,7 +7,7 @@ using FlowersAndFloofs.DTOs;
 using FlowersAndFloofs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
 
 namespace FlowersAndFloofs.Controllers
 {
@@ -15,13 +15,12 @@ namespace FlowersAndFloofs.Controllers
     [ApiController]
     public class BillingAddressController : ControllerBase
     {
-        private readonly ILogger<BillingAddressController> _logger;
+        //private readonly ILogger<BillingAddressController> _logger;
         private readonly IAddressRepository _repo;
 
-
-        public BillingAddressController(ILogger<BillingAddressController> logger, IAddressRepository repo)
+        public BillingAddressController(/*ILogger<BillingAddressController> logger, */IAddressRepository repo)
         {
-            _logger = logger;
+            //_logger = logger;
             _repo = repo;
 
         }
@@ -54,9 +53,10 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{addressIdToDelete}/delete")]
+        public void Delete(int addressIdToDelete)
         {
+            _repo.DeleteAddress(addressIdToDelete);
         }
     }
 }

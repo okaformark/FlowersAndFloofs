@@ -34,6 +34,16 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
+        public bool DeleteAddress(int addressIdToDelete)
+        {
+           using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"DELETE FROM [dbo].[BillingAddress]
+                                               WHERE Id = @addressIdToDelete";
+
+                return db.Execute(sql, new { addressIdToDelete }) == 1;
+            }
+        }
 
         public IEnumerable<Address> GetAddress()
         {

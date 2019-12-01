@@ -12,6 +12,7 @@ namespace FlowersAndFloofs.DataAccess
         IEnumerable<Address> GetAddress();
         bool AddAddress(AddAddressDTO newAddress);
         bool UpdateAddress(Address addressToUpdate, int id);
+        bool DeleteAddress(int id);
 
     }
 }
