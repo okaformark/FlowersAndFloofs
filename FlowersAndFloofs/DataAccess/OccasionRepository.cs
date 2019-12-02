@@ -42,6 +42,22 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
+        public bool UpdateOccasion(int occasionId, UpdateOccasionDTO occasionToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+
+                var sql = @"Update [Occasion]
+                               SET [Name] = @Name
+                               ,[Description] = @Description
+                            Where [Id] = @Id";
+
+                occasionToUpdate.Id = occasionId;
+
+                return db.Execute(sql, occasionToUpdate) == 1;
+            }
+        }
+
         public bool DeleteOccasion(int occasionId)
         {
             using (var db = new SqlConnection(_connectionString))

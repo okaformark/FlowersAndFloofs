@@ -32,10 +32,14 @@ namespace FlowersAndFloofs.Controllers
             return repo.GetAllOccasions();
         }
 
-        // PUT: api/Occasion/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/Occasion/update/5
+        [HttpPut("update/{occasionId}")]
+        public IActionResult UpdateOccasionById(int occasionId, UpdateOccasionDTO occasionToUpdate)
         {
+            var repo = new OccasionRepository();
+            repo.UpdateOccasion(occasionId, occasionToUpdate);
+
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
