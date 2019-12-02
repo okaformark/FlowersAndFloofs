@@ -39,9 +39,12 @@ namespace FlowersAndFloofs.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{occasionId}")]
+        public IActionResult Delete(int occasionId)
         {
+            var repo = new OccasionRepository();
+            repo.DeleteOccasion(occasionId);
+            return Ok();
         }
     }
 }

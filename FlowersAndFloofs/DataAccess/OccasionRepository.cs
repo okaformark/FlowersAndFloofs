@@ -41,5 +41,16 @@ namespace FlowersAndFloofs.DataAccess
 
             }
         }
+
+        public bool DeleteOccasion(int occasionId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"delete
+                            from Occasion
+                            where [Id] = @occasionId";
+                return db.Execute(sql, new { occasionId }) == 1;
+            }
+        }
     }
 }
