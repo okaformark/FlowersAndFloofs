@@ -25,8 +25,11 @@ namespace FlowersAndFloofs.Controllers
 
         // POST: api/Occasion
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IEnumerable<Occasion> AddOccasion(AddOccasionDTO occasionToAdd)
         {
+            var repo = new OccasionRepository();
+            repo.AddNewOccasion(occasionToAdd);
+            return repo.GetAllOccasions();
         }
 
         // PUT: api/Occasion/5

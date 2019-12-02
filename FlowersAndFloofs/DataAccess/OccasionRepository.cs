@@ -25,5 +25,21 @@ namespace FlowersAndFloofs.DataAccess
                 return allOccasions;
             }
         }
+
+        public bool AddNewOccasion(AddOccasionDTO occasionToAdd)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO[dbo].[Occasion]
+                                                ([Name]
+                                                ,[Description])
+                                            VALUES
+                                                (@Name
+                                                , @Description)";
+
+                return db.Execute(sql, occasionToAdd) == 1;
+
+            }
+        }
     }
 }
