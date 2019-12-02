@@ -7,45 +7,42 @@ using FlowersAndFloofs.DTOs;
 using FlowersAndFloofs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Extensions.Logging;
 
 namespace FlowersAndFloofs.Controllers
 {
-    [Route("api/billingAddress")]
+    [Route("api/ShippingAddress")]
     [ApiController]
-    public class BillingAddressController : ControllerBase
+    public class ShippingAddressController : ControllerBase
     {
-        //private readonly ILogger<BillingAddressController> _logger;
         private readonly IAddressRepository _repo;
 
-        public BillingAddressController(/*ILogger<BillingAddressController> logger, */IAddressRepository repo)
+        public ShippingAddressController(IAddressRepository repo)
         {
-            //_logger = logger;
             _repo = repo;
 
         }
-        // GET: api/BillingAddress
+        // GET: api/Shipping
         [HttpGet]
         public IEnumerable<Address> Get()
         {
             return _repo.GetAddress();
         }
 
-        // GET: api/BillingAddress/5
-        [HttpGet("{customerId}", Name = "GetBillingAddress")]
+        // GET: api/ShippingAddress/5
+        [HttpGet("{customerId}", Name = "GetShippingAddress")]
         public Address Get(int customerId)
         {
             return _repo.GetAddress().FirstOrDefault(customer => customer.Id == customerId);
         }
 
-        // POST: api/BillingAddress
+        // POST: api/ShippingAddress
         [HttpPost]
         public void Post(AddAddressDTO newAddress)
         {
             _repo.AddAddress(newAddress);
         }
 
-        // PUT: api/BillingAddress/5
+        // PUT: api/ShippingAddress/5
         [HttpPut("{addressIdToUpdate}/update")]
         public void Put(Address addressToUpdate, int addressIdToUpdate)
         {
