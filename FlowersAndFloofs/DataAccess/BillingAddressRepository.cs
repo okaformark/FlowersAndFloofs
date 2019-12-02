@@ -9,12 +9,40 @@ using Dapper;
 
 namespace FlowersAndFloofs.DataAccess
 {
-    public class BillingAddressRepository : IBillingAddressRepository
+    public class BillingAddressRepository : IAddressRepository
     {
         string _connectionString = "Server = localhost; Database = FlowersAndFloofs; Trusted_Connection = True";
         public bool AddAddress(AddAddressDTO newAddress)
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"INSERT INTO [dbo].[BillingAddress]
+                                               ([CustomerId]
+                                               ,[StreetAddress]
+                                               ,[AptOrHouseNum]
+                                               ,[City]
+                                               ,[State]
+                                               ,[ZipCode])
+                                         VALUES
+                                               (@CustomerId
+                                               ,@StreetAddress
+                                               ,@AptOrHouseNum
+                                               ,@City
+                                               ,@State
+                                               ,@ZipCode)";
+                return db.Execute(sql, newAddress) ==1;
+            }
+        }
+
+        public bool DeleteAddress(int addressIdToDelete)
+        {
+           using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"DELETE FROM [dbo].[BillingAddress]
+                                               WHERE Id = @addressIdToDelete";
+
+                return db.Execute(sql, new { addressIdToDelete }) == 1;
+            }
         }
 
         public IEnumerable<Address> GetAddress()
@@ -27,9 +55,22 @@ namespace FlowersAndFloofs.DataAccess
             };
         }
 
-        public bool UpdateAddress(Address addressToUpdate, int id)
+        public bool UpdateAddress(Address addressToUpdate, int addressIdToUpdate)
         {
-            throw new NotImplementedException();
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"UPDATE [dbo].[BillingAddress]
+                                    SET [CustomerId] = @CustomerId
+                                        ,[StreetAddress] = @StreetAddress
+                                        ,[AptOrHouseNum] = @AptOrHouseNum
+                                        ,[City] = @City
+                                        ,[State] = @State
+                                        ,[ZipCode] = @ZipCode
+                                    WHERE Id = @Id";
+
+                addressToUpdate.Id = addressIdToUpdate;
+                return db.Execute(sql, addressToUpdate) == 1;
+            }
         }
     }
 }
