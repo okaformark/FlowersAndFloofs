@@ -14,31 +14,33 @@ namespace FlowersAndFloofs.Controllers
     [ApiController]
     public class OccasionController : ControllerBase
     {
+        private readonly IOccasionRepository _repo;
+
+        public OccasionController(IOccasionRepository repo)
+        {
+            _repo = repo;
+
+        }
         // GET: api/Occasion
         [HttpGet]
         public IEnumerable<Occasion> Get()
         {
-            var repo = new OccasionRepository();
-            var allOccasions = repo.GetAllOccasions();
-            return allOccasions;
+            return _repo.GetAllOccasions();
         }
 
         // POST: api/Occasion
         [HttpPost]
         public IEnumerable<Occasion> AddOccasion(AddOccasionDTO occasionToAdd)
         {
-            var repo = new OccasionRepository();
-            repo.AddNewOccasion(occasionToAdd);
-            return repo.GetAllOccasions();
+            _repo.AddNewOccasion(occasionToAdd);
+            return _repo.GetAllOccasions();
         }
 
         // PUT: api/Occasion/update/5
         [HttpPut("update/{occasionId}")]
         public IActionResult UpdateOccasionById(int occasionId, UpdateOccasionDTO occasionToUpdate)
         {
-            var repo = new OccasionRepository();
-            repo.UpdateOccasion(occasionId, occasionToUpdate);
-
+            _repo.UpdateOccasion(occasionId, occasionToUpdate);
             return Ok();
         }
 
@@ -46,8 +48,7 @@ namespace FlowersAndFloofs.Controllers
         [HttpDelete("{occasionId}")]
         public IActionResult Delete(int occasionId)
         {
-            var repo = new OccasionRepository();
-            repo.DeleteOccasion(occasionId);
+            _repo.DeleteOccasion(occasionId);
             return Ok();
         }
     }

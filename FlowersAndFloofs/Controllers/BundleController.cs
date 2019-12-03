@@ -14,31 +14,35 @@ namespace FlowersAndFloofs.Controllers
     [ApiController]
     public class BundleController : ControllerBase
     {
+        private readonly IBundleRepository _repo;
+
+        public BundleController(IBundleRepository repo)
+        {
+            _repo = repo;
+
+        }
         // GET: api/Bundle
         [HttpGet]
         public IEnumerable<Bundle> Get()
         {
-            var repo = new BundleRepository();
-            var allBundles = repo.GetAllBundles();
-            return allBundles;
+            //var repo = new BundleRepository();
+            //var allBundles = repo.GetAllBundles();
+            return _repo.GetAllBundles();
         }
 
         // POST: api/Bundle
         [HttpPost]
         public IEnumerable<Bundle> AddBundle(AddBundleDTO bundleToAdd)
         {
-            var repo = new BundleRepository();
-            repo.AddNewBundle(bundleToAdd);
-            return repo.GetAllBundles();
+            _repo.AddNewBundle(bundleToAdd);
+            return _repo.GetAllBundles();
         }
 
         // PUT: api/Bundle/update/5
         [HttpPut("update/{bundleId}")]
         public IActionResult UpdateOrderBundleById(int bundleId, UpdateBundleDTO bundleToUpdate)
         {
-            var repo = new BundleRepository();
-            repo.UpdateBundle(bundleId, bundleToUpdate);
-
+            _repo.UpdateBundle(bundleId, bundleToUpdate);
             return Ok();
         }
 
@@ -46,8 +50,7 @@ namespace FlowersAndFloofs.Controllers
         [HttpDelete("{bundleId}")]
         public IActionResult Delete(int bundleId)
         {
-            var repo = new BundleRepository();
-            repo.DeleteBundle(bundleId);
+            _repo.DeleteBundle(bundleId);
             return Ok();
         }
     }
