@@ -30,6 +30,7 @@ namespace FlowersAndFloofs
             //services.AddControllers();
             services.AddScoped<IAddressRepository, BillingAddressRepository>();
             services.AddScoped<IAddressRepository, ShippingAddressRepository>();
+            services.AddScoped<IBundleRepository, BundleRepository>();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
