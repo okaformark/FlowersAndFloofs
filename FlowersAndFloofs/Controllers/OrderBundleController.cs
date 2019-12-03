@@ -14,13 +14,18 @@ namespace FlowersAndFloofs.Controllers
     [ApiController]
     public class OrderBundleController : ControllerBase
     {
+        private readonly IOrderBundleRepository _repo;
+
+        public OrderBundleController(IOrderBundleRepository repo)
+        {
+            _repo = repo;
+
+        }
         // GET: api/OrderBundle
         [HttpGet]
         public IEnumerable<OrderBundle> GetAllOrderBundles()
         {
-            var repo = new OrderBundleRepository();
-            var allOrderBundles = repo.GetAllOrderBundles();
-            return allOrderBundles;
+            return _repo.GetAllOrderBundles();
         }
 
 
@@ -28,18 +33,15 @@ namespace FlowersAndFloofs.Controllers
         [HttpPost]
         public IEnumerable<OrderBundle> AddOrderBundle(AddOrderBundleDTO orderBundleToAdd)
         {
-            var repo = new OrderBundleRepository();
-            repo.AddNewOrderBundle(orderBundleToAdd);
-            return repo.GetAllOrderBundles();
+            _repo.AddNewOrderBundle(orderBundleToAdd);
+            return _repo.GetAllOrderBundles();
         }
 
         // PUT: api/OrderBundle/5
         [HttpPut("update/{orderBundleId}")]
         public IActionResult UpdateOrderBundleById(int orderBundleId, UpdateOrderBundleDTO orderBundleToUpdate)
         {
-            var repo = new OrderBundleRepository();
-            repo.UpdateOrderBundle(orderBundleId, orderBundleToUpdate);
-
+            _repo.UpdateOrderBundle(orderBundleId, orderBundleToUpdate);
             return Ok();
         }
 
@@ -47,8 +49,7 @@ namespace FlowersAndFloofs.Controllers
         [HttpDelete("{orderBundleId}")]
         public IActionResult Delete(int orderBundleId)
         {
-            var repo = new OrderBundleRepository();
-            repo.DeleteOrderBundle(orderBundleId);
+            _repo.DeleteOrderBundle(orderBundleId);
             return Ok();
         }
     }

@@ -14,31 +14,33 @@ namespace FlowersAndFloofs.Controllers
     [ApiController]
     public class PaymentMethodController : ControllerBase
     {
+        private readonly IPaymentMethodRepository _repo;
+
+        public PaymentMethodController(IPaymentMethodRepository repo)
+        {
+            _repo = repo;
+
+        }
         // GET: api/PaymentMethod/5
         [HttpGet("{id}")]
         public IEnumerable<PaymentMethod> GetByCustomerId(int id)
         {
-            var repo = new PaymentMethodRepository();
-            var paymentMethodsById = repo.GetPaymentMethodByCustomerId(id);
-            return paymentMethodsById;
+            return _repo.GetPaymentMethodByCustomerId(id);
         }
 
         // POST: api/PaymentMethod
         [HttpPost]
         public IEnumerable<PaymentMethod> AddPaymentMethod(AddPaymentMethodDTO paymentMethodToAdd)
         {
-            var repo = new PaymentMethodRepository();
-            repo.AddCustomerPaymentMethod(paymentMethodToAdd);
-            return repo.GetPaymentMethodByCustomerId(paymentMethodToAdd.CustomerId);
+            _repo.AddCustomerPaymentMethod(paymentMethodToAdd);
+            return _repo.GetPaymentMethodByCustomerId(paymentMethodToAdd.CustomerId);
         }
 
         // PUT: api/PaymentMethod/5
         [HttpPut("update/{paymentMethodId}")]
         public IActionResult UpdatePaymentMethodById(int paymentMethodId, UpdatePaymentMethodDTO paymentMethodToUpdate)
         {
-            var repo = new PaymentMethodRepository();
-            repo.UpdatePaymentMethod(paymentMethodId, paymentMethodToUpdate);
-
+            _repo.UpdatePaymentMethod(paymentMethodId, paymentMethodToUpdate);
             return Ok();
         }
 
@@ -46,11 +48,8 @@ namespace FlowersAndFloofs.Controllers
         [HttpDelete("{paymentMethodId}")]
         public IActionResult DeletePaymentMethod(int paymentMethodId)
         {
-            var repo = new PaymentMethodRepository();
-            repo.DeletePaymentMethod(paymentMethodId);
-
+            _repo.DeletePaymentMethod(paymentMethodId);
             return Ok();
-
         }
     }
 }
