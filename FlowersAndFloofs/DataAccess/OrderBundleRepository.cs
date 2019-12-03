@@ -9,7 +9,7 @@ using FlowersAndFloofs.DTOs;
 
 namespace FlowersAndFloofs.DataAccess
 {
-    public class OrderBundleRepository
+    public class OrderBundleRepository : IOrderBundleRepository
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
