@@ -32,16 +32,23 @@ namespace FlowersAndFloofs.Controllers
             return repo.GetAllBundles();
         }
 
-        // PUT: api/Bundle/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/Bundle/update/5
+        [HttpPut("update/{bundleId}")]
+        public IActionResult UpdateOrderBundleById(int bundleId, UpdateBundleDTO bundleToUpdate)
         {
+            var repo = new BundleRepository();
+            repo.UpdateBundle(bundleId, bundleToUpdate);
+
+            return Ok();
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{bundleId}")]
+        public IActionResult Delete(int bundleId)
         {
+            var repo = new BundleRepository();
+            repo.DeleteBundle(bundleId);
+            return Ok();
         }
     }
 }
