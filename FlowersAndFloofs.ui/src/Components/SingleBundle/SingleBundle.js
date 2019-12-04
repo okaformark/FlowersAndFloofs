@@ -56,8 +56,7 @@ class SingleBundle extends React.Component {
       <div>
         <Card body className="text-center">
           <CardHeader><h4>Bundle</h4></CardHeader>
-            <CardText>Flower: {flower.title}</CardText>
-            <CardText>Puppy: {puppy.title}</CardText>
+            <CardText>{flower.title} {"&"} {puppy.title}</CardText>
         </Card>
       </div>
     )
