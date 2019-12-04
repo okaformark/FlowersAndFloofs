@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './SingleBundle.scss';
+
 import productRequest from '../../DataRequests/productRequest';
 
 import {
@@ -30,31 +32,33 @@ class SingleBundle extends React.Component {
 
   }
 
-  // getFlower = () => {
-  //   productRequest.getSingleProduct(this.props.flowerId).then(data => {
+  // getFlower = (flowerId) => {
+  //   productRequest.getSingleProduct(flowerId).then(data => {
   //     this.setState({flower: data})
-  //     return <div>Flower: {this.state.flower.title}</div>;
+  //     return <div>{this.state.flower.title}</div>;
   //   })
   // }
 
-  // getPuppy = () => {
-  //   productRequest.getSingleProduct(this.props.puppyId).then(data => {
+  // getPuppy = (puppyId) => {
+  //   productRequest.getSingleProduct(puppyId).then(data => {
   //     this.setState({puppy: data})
-  //    return <div>Puppy: {this.state.flower.title}</div>;
+  //    return <div>{this.state.flower.title}</div>;
   //   })
   // }
 
   render() {
     const {
-      id,
-      flowerId,
-      puppyId,
-      occasionId
-    } = this.props;
+      flower,
+      puppy
+    } = this.state;
 
     return (
       <div>
-
+        <Card body className="text-center">
+          <CardHeader><h4>Bundle</h4></CardHeader>
+            <CardText>Flower: {flower.title}</CardText>
+            <CardText>Puppy: {puppy.title}</CardText>
+        </Card>
       </div>
     )
   }
