@@ -1,13 +1,8 @@
 import React from 'react';
 
-import {
-  Card,
-  CardText,
-  CardHeader,
-  Button,
-} from 'reactstrap';
-
 import bundleRequest from '../../DataRequests/bundleRequest';
+import SingleBundle from '../SingleBundle/SingleBundle';
+
 
 class Shop extends React.Component {
   state = {
@@ -27,15 +22,24 @@ class Shop extends React.Component {
     const allBundles = [...this.state.bundles];
     console.error(allBundles);
 
-    return allBundles.map(value => <div>{value.Id}</div>);
+    return allBundles.map(value => <div><h2>Bundle: </h2>{value.id}</div>);
   }
 
 
   render() {
+
+    const makeBundles = this.state.bundles.map(bundle => (
+      <SingleBundle 
+      key={bundle.id}
+      flowerId={bundle.flowerId}
+      puppyId={bundle.puppyId}
+      occasionId={bundle.occasionId}
+      />
+    ));
     return (
       <div>
         <h1>Shop</h1>
-        {this.showAllBundles()}
+          {makeBundles}
       </div>
     )
   }
