@@ -32,11 +32,15 @@ namespace FlowersAndFloofs.DataAccess
                 var sql = @"INSERT INTO[dbo].[Bundle]
                                                 ([FlowerId]
                                                 ,[PuppyId]
-                                                ,[OccasionId])
+                                                ,[OccasionId]
+                                                ,[Description]
+                                                ,[ProductImageUrl])
                                             VALUES
                                                 (@FlowerId
                                                 , @PuppyId
-                                                , @OccasionId)";
+                                                , @OccasionId
+                                                , @Description
+                                                , @ProductImageUrl)";
 
                 return db.Execute(sql, bundleToAdd) == 1;
 
@@ -52,6 +56,8 @@ namespace FlowersAndFloofs.DataAccess
                                SET [FlowerId] = @FlowerId
                                ,[PuppyId] = @PuppyId
                                ,[OccasionId] = @OccasionId
+                               ,[Description] = @Description
+                               ,[ProductImageUrl] = @ProductImageUrl
                             Where [Id] = @Id";
 
                 bundleToUpdate.Id = bundleId;

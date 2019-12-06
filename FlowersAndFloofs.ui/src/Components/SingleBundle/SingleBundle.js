@@ -53,8 +53,8 @@ class SingleBundle extends React.Component {
       <div>
         <Card body className="text-center">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
-          <img top width="100%" src={this.props.image} alt="Card image cap" />
-          
+          <CardImg top width="100%" src={this.props.image} alt="Card image cap" />
+          <CardText className="">{this.props.description}</CardText>
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
         
