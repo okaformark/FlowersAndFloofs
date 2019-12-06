@@ -25,8 +25,6 @@ namespace FlowersAndFloofs.Controllers
         [HttpGet]
         public IEnumerable<Bundle> Get()
         {
-            //var repo = new BundleRepository();
-            //var allBundles = repo.GetAllBundles();
             return _repo.GetAllBundles();
         }
 

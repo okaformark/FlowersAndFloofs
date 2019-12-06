@@ -11,5 +11,7 @@ namespace FlowersAndFloofs.DTOs
         public int FlowerId { get; set; }
         public int PuppyId { get; set; }
         public int OccasionId { get; set; }
+        public int Description { get; set; }
+        public int ProudctImageUrl { get; set; }
     }
 }
