@@ -8,6 +8,7 @@ import {
   Card,
   CardText,
   CardHeader,
+  CardImg,
   Button,
 } from 'reactstrap';
 
@@ -44,11 +45,13 @@ class SingleBundle extends React.Component {
       puppy
     } = this.state;
 
+    const {image} = this.props;
+
     return (
       <div>
         <Card body className="text-center">
-          <CardHeader><h4>Bundle</h4></CardHeader>
-            <CardText>{flower.title} {"&"} {puppy.title}</CardText>
+          <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
+          <CardImg top width="100%" src="https://via.placeholder.com/300x200" alt="Card image cap" />
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
         

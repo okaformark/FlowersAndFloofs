@@ -34,6 +34,7 @@ class Shop extends React.Component {
       flowerId={bundle.flowerId}
       puppyId={bundle.puppyId}
       occasionId={bundle.occasionId}
+      image={bundle.productImageUrl}
       />
     ));
     return (
