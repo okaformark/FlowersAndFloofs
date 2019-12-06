@@ -39,19 +39,22 @@ class SingleBundle extends React.Component {
     return totalPrice.toFixed(2);
   }
 
+  getProductImage = () => {
+
+  }
+
   render() {
     const {
       flower,
       puppy
     } = this.state;
 
-    const {image} = this.props;
-
     return (
       <div>
         <Card body className="text-center">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
-          <CardImg top width="100%" src="https://via.placeholder.com/300x200" alt="Card image cap" />
+          <img top width="100%" src={this.props.image} alt="Card image cap" />
+          
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
         

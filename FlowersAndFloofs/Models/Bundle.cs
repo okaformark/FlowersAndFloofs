@@ -11,6 +11,7 @@ namespace FlowersAndFloofs.Models
         public int FlowerId { get; set; }
         public int PuppyId { get; set; }
         public int OccasionId { get; set; }
-
+        public string Description { get; set; }
+        public string ProductImageUrl { get; set; }
     }
 }

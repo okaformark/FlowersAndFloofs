@@ -26,6 +26,7 @@ class Shop extends React.Component {
   }
 
 
+
   render() {
 
     const makeBundles = this.state.bundles.map(bundle => (
@@ -34,14 +35,19 @@ class Shop extends React.Component {
       flowerId={bundle.flowerId}
       puppyId={bundle.puppyId}
       occasionId={bundle.occasionId}
+      description={bundle.description}
       image={bundle.productImageUrl}
       />
+    ));
+    const images = this.state.bundles.map(bundle => (
+      console.error("bundle", bundle)
     ));
     return (
       <div className="container">
         <h1>Shop</h1>
         <div className="row">
         {makeBundles}
+        {images}
         </div>
 
       </div>
