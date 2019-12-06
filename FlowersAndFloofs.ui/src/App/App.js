@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import Shop from '../Shop/Shop';
+import Shop from '../Components/Shop/Shop';
 
 function App() {
   return (
