@@ -50,7 +50,7 @@ class SingleBundle extends React.Component {
     } = this.state;
 
     return (
-      <div>
+      <div className="col-4">
         <Card body className="text-center">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
           <CardImg top width="100%" src={this.props.image} alt="Card image cap" />
