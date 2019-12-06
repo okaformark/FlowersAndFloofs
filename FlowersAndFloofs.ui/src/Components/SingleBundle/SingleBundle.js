@@ -32,19 +32,11 @@ class SingleBundle extends React.Component {
 
   }
 
-  // getFlower = (flowerId) => {
-  //   productRequest.getSingleProduct(flowerId).then(data => {
-  //     this.setState({flower: data})
-  //     return <div>{this.state.flower.title}</div>;
-  //   })
-  // }
-
-  // getPuppy = (puppyId) => {
-  //   productRequest.getSingleProduct(puppyId).then(data => {
-  //     this.setState({puppy: data})
-  //    return <div>{this.state.flower.title}</div>;
-  //   })
-  // }
+  calcBundlePrice = () => {
+    const {flower, puppy} = this.state;
+    const totalPrice = flower.price + puppy.price;
+    return totalPrice.toFixed(2);
+  }
 
   render() {
     const {
@@ -57,7 +49,9 @@ class SingleBundle extends React.Component {
         <Card body className="text-center">
           <CardHeader><h4>Bundle</h4></CardHeader>
             <CardText>{flower.title} {"&"} {puppy.title}</CardText>
+            <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
+        
       </div>
     )
   }
