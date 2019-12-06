@@ -37,9 +37,12 @@ class Shop extends React.Component {
       />
     ));
     return (
-      <div>
+      <div className="container">
         <h1>Shop</h1>
-          {makeBundles}
+        <div className="row">
+        {makeBundles}
+        </div>
+
       </div>
     )
   }
