@@ -14,14 +14,10 @@ class Shop extends React.Component {
       let allBundles = [...data];
       this.setState({bundles: allBundles});
     })
-    console.error(this.state.bundles);
-
   }
 
   showAllBundles(){
     const allBundles = [...this.state.bundles];
-    console.error(allBundles);
-
     return allBundles.map(value => <div><h2>Bundle: </h2>{value.id}</div>);
   }
 
