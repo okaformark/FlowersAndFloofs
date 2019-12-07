@@ -57,7 +57,6 @@ class SingleBundle extends React.Component {
           <CardText className="">{this.props.description}</CardText>
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
-        
       </div>
     )
   }
