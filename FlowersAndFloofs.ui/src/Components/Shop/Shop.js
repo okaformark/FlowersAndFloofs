@@ -50,7 +50,7 @@ class Shop extends React.Component {
         key={occasion.id}
         id={occasion.id}
         className="occasionCategoryButton"
-        onClick={this.filterByCategory}
+        onClick={this.filterBundlesByCategory}
       >
         {occasion.name}
       </Button>
