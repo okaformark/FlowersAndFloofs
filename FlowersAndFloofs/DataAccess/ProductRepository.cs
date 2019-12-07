@@ -12,7 +12,7 @@ namespace FlowersAndFloofs.DataAccess
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<Product> GetAllProducts()
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -22,7 +22,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public Product Get(int productId)
+        public Product GetProduct(int productId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -38,7 +38,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public IEnumerable<Product> GetAllByTypeId(int productTypeId)
+        public IEnumerable<Product> GetAllProductsByTypeId(int productTypeId)
         {
             using (var db = new SqlConnection(_connectionString))
             {

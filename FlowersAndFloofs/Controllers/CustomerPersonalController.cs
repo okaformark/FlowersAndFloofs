@@ -21,7 +21,7 @@ namespace FlowersAndFloofs.Controllers
         public CustomerPersonalInfo GetCustomerPersonalInfo(int customerId)
         {
             var repo = new CustomerPersonalInfoRepository();
-            var product = repo.Get(customerId);
+            var product = repo.GetCustomerPersonalInfo(customerId);
             return product;
         }
 
@@ -38,7 +38,7 @@ namespace FlowersAndFloofs.Controllers
             };
 
             var repo = new CustomerPersonalInfoRepository();
-            var customerPersonalInfoThatGotCreated = repo.Add(newCustomerPersonalInfo);
+            var customerPersonalInfoThatGotCreated = repo.AddNewCustomerPersonalInfo(newCustomerPersonalInfoDTO);
 
             return Created($"api/customerPersonalInfo/{customerPersonalInfoThatGotCreated.Id}", customerPersonalInfoThatGotCreated);
         }
@@ -57,7 +57,7 @@ namespace FlowersAndFloofs.Controllers
                 CustomerEmail = updatedCustomerPersonalInfoDTO.CustomerEmail,
             };
 
-            var customerPersonalInfoThatGotUpdated = repo.Update(updatedCustomerPersonalInfo, id);
+            var customerPersonalInfoThatGotUpdated = repo.UpdateCustomerPersonalInfo(updatedCustomerPersonalInfoDTO, id);
 
             if (customerPersonalInfoThatGotUpdated == null)
             {
@@ -71,7 +71,7 @@ namespace FlowersAndFloofs.Controllers
         public IActionResult DeleteCustomerPersonalInfo(int customerId)
         {
             var repo = new CustomerPersonalInfoRepository();
-            repo.Remove(customerId);
+            repo.DeleteCustomerPersonalInfo(customerId);
 
             return Ok();
 

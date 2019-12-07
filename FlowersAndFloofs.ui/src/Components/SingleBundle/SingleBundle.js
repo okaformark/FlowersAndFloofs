@@ -9,7 +9,7 @@ import {
   CardText,
   CardHeader,
   CardImg,
-  Button,
+  // Button,
 } from 'reactstrap';
 
 class SingleBundle extends React.Component {
