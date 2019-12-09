@@ -21,7 +21,7 @@ class NavBar extends React.Component {
 
     componentDidMount() {
         productRequest.getAllProducts().then(data => {
-            this.setState({searchResults: data})
+            this.setState({allProducts: data})
             console.error("all products: ",this.state.searchResults);
           })
     }
@@ -37,10 +37,12 @@ class NavBar extends React.Component {
     searchInput = (e) => {
     e.preventDefault();
     const allProducts = this.state.allProducts;
-    const searchTerm = e.target.value;
-    allProducts.forEach((result) => {
+    //console.error("result", allProducts)
+
+    const searchTerm = e.target.value.toLowerCase();
+    allProducts.forEach(result => {
         const title = result.title.toLowerCase();
-        if (searchTerm.includes(title)) {
+        if (title.includes(searchTerm) && searchTerm !== "") {
             console.error("result", title)
         }
     });
