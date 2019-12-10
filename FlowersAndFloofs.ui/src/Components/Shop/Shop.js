@@ -26,7 +26,6 @@ class Shop extends React.Component {
   }
 
 
-
   render() {
 
     const makeBundles = this.state.bundles.map(bundle => (
