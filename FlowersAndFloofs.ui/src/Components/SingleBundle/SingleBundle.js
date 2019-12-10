@@ -35,10 +35,6 @@ class SingleBundle extends React.Component {
     return totalPrice.toFixed(2);
   }
 
-  getProductImage = () => {
-
-  }
-
   render() {
     const {
       flower,

@@ -1,10 +1,9 @@
 import React from 'react';
 import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
-import SearchBarIcon from './Icons/SearchBarIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
-import productRequest from '../../DataRequests/productRequest';
-import {Input} from 'reactstrap';
+
+
 import { Search, Grid, Header, Segment } from 'semantic-ui-react'
 
 const style = {
@@ -13,40 +12,6 @@ display:'flex'
 
 // remember to replace hrefs with react link
 class NavBar extends React.Component {
-
-    state = {
-        allProducts: [],
-        singleSearchResult: {}
-    }
-
-    componentDidMount() {
-        productRequest.getAllProducts().then(data => {
-            this.setState({allProducts: data})
-            console.error("all products: ",this.state.searchResults);
-          })
-    }
-
-    // getSearchResults = (e) => {
-    //     e.preventDefault();
-    //     productRequest.getAllProducts().then(data => {
-    //         this.setState({searchResults: data})
-    //         console.error("all products: ",this.state.searchResults);
-    //       })
-    // }
-
-    searchInput = (e) => {
-    e.preventDefault();
-    const allProducts = this.state.allProducts;
-    //console.error("result", allProducts)
-
-    const searchTerm = e.target.value.toLowerCase();
-    allProducts.forEach(result => {
-        const title = result.title.toLowerCase();
-        if (title.includes(searchTerm) && searchTerm !== "") {
-            console.error("result", title)
-        }
-    });
-    }
 
     render() {
         return (
@@ -73,13 +38,13 @@ class NavBar extends React.Component {
                         <button className = "btn btn-success btn-sm ml-3" style={style}>
                             <ShoppingCartIcon /> Your Cart
                         </button>
-                        <form className="form-inline my-2 my-lg-0" >
+                        {/* <form className="form-inline my-2 my-lg-0" >
                         {/* <Search /> */}
-                            <Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
-                            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" style={style} onClick={this.getSearchResults}>
+                            {/* <Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
+                            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" style={style}>
                                 <SearchBarIcon /> Search
                             </button>
-                        </form>
+                        </form> */} 
                         
                         <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style}>
                             <LockIcon />Log Out
