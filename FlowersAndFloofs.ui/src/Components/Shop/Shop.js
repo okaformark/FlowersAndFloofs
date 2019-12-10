@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 
 import bundleRequest from '../../DataRequests/bundleRequest';
 import SingleBundle from '../SingleBundle/SingleBundle';
@@ -40,7 +41,6 @@ class Shop extends React.Component {
       let allOccasions = [...data];
       this.setState({occasions: allOccasions});
     });
-    // console.error(this.state.occasions);
   }
 
   render() {
@@ -55,29 +55,29 @@ class Shop extends React.Component {
       </Button>
     ))
     const makeBundles = this.state.filteredBundles.map(bundle => (
-      <SingleBundle 
-      key={bundle.id}
-      flowerId={bundle.flowerId}
-      puppyId={bundle.puppyId}
-      occasionId={bundle.occasionId}
-      description={bundle.description}
-      image={bundle.productImageUrl}
-      />
+      <Col>
+        <SingleBundle 
+        key={bundle.id}
+        flowerId={bundle.flowerId}
+        puppyId={bundle.puppyId}
+        occasionId={bundle.occasionId}
+        description={bundle.description}
+        image={bundle.productImageUrl}
+        />
+      </Col>
     ));
     return (
-      <div className="container">
-        <h1>Categories</h1>
-        <div className = "row">
-          <ButtonGroup>
+      <Container>
+        <Row>
+          <Col xs="3" id="shopProductCategoriesContainer">
+          <ButtonGroup vertical>
             {makeOccasions}
             <Button id="showAllBtn" onClick={this.showAllBundles}>Show All</Button>
           </ButtonGroup>
-        </div>
-        <h1>Shop</h1>
-        <div className="row">
-            {makeBundles}
-        </div>
-      </div>
+          </Col>
+          {makeBundles}
+        </Row>
+      </Container>
     )
   }
 }
