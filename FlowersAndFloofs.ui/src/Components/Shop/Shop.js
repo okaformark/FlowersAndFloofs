@@ -6,7 +6,8 @@ import SingleBundle from '../SingleBundle/SingleBundle';
 
 class Shop extends React.Component {
   state = {
-    bundles: []
+    bundles: [],
+    cart: ""
   }
 
   componentDidMount(){
@@ -25,6 +26,9 @@ class Shop extends React.Component {
     return allBundles.map(value => <div><h2>Bundle: </h2>{value.id}</div>);
   }
 
+  getCartItemLength=(cartLen)=>{
+    this.setState({ cart: cartLen});
+  }
 
   render() {
 
@@ -36,6 +40,8 @@ class Shop extends React.Component {
       occasionId={bundle.occasionId}
       description={bundle.description}
       image={bundle.productImageUrl}
+      bundleId={bundle.id}
+      cartLength = {this.getCartItemLength}
       />
     ));
     const images = this.state.bundles.map(bundle => (

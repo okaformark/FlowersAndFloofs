@@ -11,13 +11,14 @@ import {
   CardImg,
   Button,
 } from 'reactstrap';
+import NavBar from '../NavBar/NavBar';
 
 const cart = [];
 class SingleBundle extends React.Component {
   state = {
     flower: [],
     puppy:[],
-    MyCart:[]
+    myCart:[]
   }
 
   componentDidMount() {
@@ -30,7 +31,6 @@ class SingleBundle extends React.Component {
       this.setState({puppy: data})
       console.error("puppy: ", this.state.puppy.id);
       console.error(this.state.puppy.title);
-     //return <div>Puppy: {this.state.flower.title}</div>;
     })
 
   }
@@ -45,13 +45,38 @@ class SingleBundle extends React.Component {
 
   }
 
-  handleAddToCart= () => {
+  getCartLength = ()=> {
+    const cartLen = this.state.myCart.length;
+    console.log(cartLen);
+  }
+
+
+  handleAddToCart= (e) => {
+    e.preventDefault();
+    const { bundleId, quantity } = this.props;
     const newCart = Object.assign({quantity:0}, this.props);
     cart.push(newCart);
-    this.setState({ MyCart: [...cart]}, () =>{
-    console.log(this.state.MyCart)
-    })
+
+    // returns product already in the cart that matches the one the users clicks on 
+    const existingCart = cart.filter(product => product.bundleId === bundleId);
+    console.error("existing", existingCart);
+
+    
+    // returns products already in the cart different from the one the user adds to cart
+    const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
+    console.error("notexisting", uniqueObjects);
+
+    //if there are  matching products that exists
+    if(existingCart.length > 0 && uniqueObjects.length > 0){
+
+      this.setState({ myCart: [...uniqueObjects]}, () =>{
+      this.getCartLength()
+      console.log(this.state.myCart)
+      })
+    }
   };  
+
+
 
   render() {
     const {
@@ -68,7 +93,7 @@ class SingleBundle extends React.Component {
           <CardText className="">{this.props.description}</CardText>
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
-        <Button type="button" className="btn btn-danger btn-sm " onClick={this.handleAddToCart}>Add to Cart 
+        <Button type="button" className="btn btn-danger btn-sm " onClick={this.handleAddToCart}>Add to Cart
         </Button>
         <select className="custom-select custom-select-sm">
           <option defaultValue={'Quantity'}>Quantity</option>

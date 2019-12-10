@@ -3,13 +3,13 @@ import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import SearchBarIcon from './Icons/SearchBarIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
+import singleBundle from '../SingleBundle/SingleBundle';
 import './NavBar.scss';
 // import Logo from '../Logo/logo.png';<img src={Logo} alt="Logo"
 
 const style = {
 display:'flex'
 };
-
 
 // remember to replace hrefs with react link
 const NavBar = () => {
