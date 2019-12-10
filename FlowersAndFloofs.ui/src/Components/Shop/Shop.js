@@ -22,10 +22,9 @@ class Shop extends React.Component {
   filterBundlesByCategory = (e) => {
     e.preventDefault();
     const buttonCategory = e.target.id;
-    const regex = new RegExp(buttonCategory, 'gi');
     const { bundles } = this.state;
     this.setState({ filteredBundles: bundles });
-    const filteredResults = this.state.filteredBundles.filter(bundle => bundle.occasionId.match(regex));
+    const filteredResults = this.state.bundles.filter(bundle => bundle.occasionId == buttonCategory);
     this.setState({ filteredBundles: filteredResults });
   }
 
@@ -41,7 +40,7 @@ class Shop extends React.Component {
       let allOccasions = [...data];
       this.setState({occasions: allOccasions});
     });
-    console.error(this.state.occasions);
+    // console.error(this.state.occasions);
   }
 
   render() {
@@ -65,9 +64,6 @@ class Shop extends React.Component {
       image={bundle.productImageUrl}
       />
     ));
-    const images = this.state.bundles.map(bundle => (
-      console.error("bundle", bundle)
-    ));
     return (
       <div className="container">
         <h1>Categories</h1>
@@ -80,9 +76,7 @@ class Shop extends React.Component {
         <h1>Shop</h1>
         <div className="row">
             {makeBundles}
-        {images}
         </div>
-
       </div>
     )
   }

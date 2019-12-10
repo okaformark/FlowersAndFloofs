@@ -21,13 +21,13 @@ class SingleBundle extends React.Component {
   componentDidMount() {
     productRequest.getSingleProduct(this.props.flowerId).then(data => {
       this.setState({flower: data})
-      console.error("flower: ",this.state.flower.id);
-      console.error(this.state.flower.title);
+      // console.error("flower: ",this.state.flower.id);
+      // console.error(this.state.flower.title);
     })
     productRequest.getSingleProduct(this.props.puppyId).then(data => {
       this.setState({puppy: data})
-      console.error("puppy: ", this.state.puppy.id);
-      console.error(this.state.puppy.title);
+      // console.error("puppy: ", this.state.puppy.id);
+      // console.error(this.state.puppy.title);
      //return <div>Puppy: {this.state.flower.title}</div>;
     })
 
