@@ -44,19 +44,27 @@ class Shop extends React.Component {
   }
 
   render() {
-
-    const makeBundles = this.state.bundles.map(bundle => (
-      <SingleBundle 
-      key={bundle.id}
-      flowerId={bundle.flowerId}
-      puppyId={bundle.puppyId}
-      occasionId={bundle.occasionId}
-      description={bundle.description}
-      image={bundle.productImageUrl}
-      />
-    ));
-    const images = this.state.bundles.map(bundle => (
-      console.error("bundle", bundle)
+    const makeOccasions = this.state.occasions.map(occasion => (
+      <Button
+        key={occasion.id}
+        id={occasion.id}
+        className="occasionCategoryButton"
+        onClick={this.filterBundlesByCategory}
+      >
+        {occasion.name}
+      </Button>
+    ))
+    const makeBundles = this.state.filteredBundles.map(bundle => (
+      <Col>
+        <SingleBundle 
+        key={bundle.id}
+        flowerId={bundle.flowerId}
+        puppyId={bundle.puppyId}
+        occasionId={bundle.occasionId}
+        description={bundle.description}
+        image={bundle.productImageUrl}
+        />
+      </Col>
     ));
     return (
       <Container>
