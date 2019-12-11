@@ -1,16 +1,18 @@
 import React from 'react';
+import { Container, Row, Col, ButtonGroup, Button, Input } from 'reactstrap';
 
 import productRequest from '../../DataRequests/productRequest';
 import bundleRequest from '../../DataRequests/bundleRequest';
 import SingleBundle from '../SingleBundle/SingleBundle';
 import SearchBarIcon from '../NavBar/Icons/SearchBarIcon';
-import {Input, Button} from 'reactstrap';
+import occasionRequest from '../../DataRequests/occasionRequest';
 
 
 class Shop extends React.Component {
   state = {
     bundles: [],
-    filteredBundles: []
+    filteredBundles: [],
+    occasions: [],
   }
 
   componentDidMount(){
@@ -22,8 +24,29 @@ class Shop extends React.Component {
       this.setState({allProducts: data})
       console.error("all products: ",this.state.allProducts);
     })
+    this.getBundles();
+    occasionRequest.getAllOccasions().then(data => {
+      let allOccasions = [...data];
+      this.setState({occasions: allOccasions});
+    });
   }
-      makeBundles = (results) => {
+
+  getBundles = () => {
+    bundleRequest.getAllBundles()
+    .then(bundles => this.setState({ bundles, filteredBundles: bundles }))
+    .catch(err => console.error('no bundles for you', err))
+  }
+
+  filterBundlesByCategory = (e) => {
+    e.preventDefault();
+    const buttonCategory = e.target.id;
+    const { bundles } = this.state;
+    this.setState({ filteredBundles: bundles });
+    const filteredResults = this.state.bundles.filter(bundle => bundle.occasionId == buttonCategory);
+    this.setState({ filteredBundles: filteredResults });
+  }
+  
+  makeBundles = (results) => {
         return results.map(bundle => (
           <SingleBundle 
           key={bundle.id}
@@ -36,7 +59,7 @@ class Shop extends React.Component {
         ));
       } 
 
-      searchInput = (e) => {
+  searchInput = (e) => {
         e.preventDefault();
         let resultBundles = [];
         const bundles = this.state.bundles;
@@ -54,8 +77,32 @@ class Shop extends React.Component {
   render() {
     const makeCards = (this.state.filteredBundles.length > 0 ? this.makeBundles(this.state.filteredBundles) :
     this.makeBundles(this.state.bundles));
+
+    const makeOccasions = this.state.occasions.map(occasion => (
+      <Button
+        key={occasion.id}
+        id={occasion.id}
+        className="occasionCategoryButton"
+        onClick={this.filterBundlesByCategory}
+      >
+        {occasion.name}
+      </Button>
+    ))
+    const makeBundles = this.state.filteredBundles.map(bundle => (
+      <Col>
+        <SingleBundle 
+        key={bundle.id}
+        flowerId={bundle.flowerId}
+        puppyId={bundle.puppyId}
+        occasionId={bundle.occasionId}
+        description={bundle.description}
+        image={bundle.productImageUrl}
+        />
+      </Col>
+          ));
+
     return (
-      <div className="container">
+      <Container>
       <form className="form-inline my-2 my-lg-0" >
       {/* <Search /> */}
         <Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
@@ -63,14 +110,21 @@ class Shop extends React.Component {
           <SearchBarIcon /> Search
       </Button>
       </form>
+      <Row>
+          <Col xs="3" id="shopProductCategoriesContainer">
+          <ButtonGroup vertical>
+            {makeOccasions}
+            <Button id="showAllBtn" onClick={this.getBundles}>Show All</Button>
+          </ButtonGroup>
+          </Col>
+        </Row>
         <h1>Shop</h1>
-        <div className="row">
+        <Row>
           {makeCards}
-        </div>
-
-      </div>
-    )
-  }
+        </Row>
+      </Container>
+      )
+    }
 }
 
 export default Shop;

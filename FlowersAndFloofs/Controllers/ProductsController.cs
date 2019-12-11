@@ -18,7 +18,7 @@ namespace FlowersAndFloofs.Commands
         public IEnumerable<Product> GetProducts()
         {
             var repo = new ProductRepository();
-            var products = repo.GetAll();
+            var products = repo.GetAllProducts();
             return products;
         }
 
@@ -26,7 +26,7 @@ namespace FlowersAndFloofs.Commands
         public Product GetProduct(int productId)
         {
             var repo = new ProductRepository();
-            var product = repo.Get(productId);
+            var product = repo.GetProduct(productId);
             return product;
         }
 
@@ -34,7 +34,7 @@ namespace FlowersAndFloofs.Commands
         public IEnumerable<Product> GetProductsByType(int typeId)
         {
             var repo = new ProductRepository();
-            var productsWithTypeId = repo.GetAllByTypeId(typeId);
+            var productsWithTypeId = repo.GetAllProductsByTypeId(typeId);
             return productsWithTypeId;
         }
     }

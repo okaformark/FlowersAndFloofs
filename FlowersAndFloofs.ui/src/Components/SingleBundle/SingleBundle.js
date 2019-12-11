@@ -9,7 +9,7 @@ import {
   CardText,
   CardHeader,
   CardImg,
-  Button,
+  // Button,
 } from 'reactstrap';
 
 class SingleBundle extends React.Component {
@@ -24,7 +24,6 @@ class SingleBundle extends React.Component {
     })
     productRequest.getSingleProduct(this.props.puppyId).then(data => {
       this.setState({puppy: data})
-     //return <div>Puppy: {this.state.flower.title}</div>;
     })
 
   }
@@ -41,7 +40,7 @@ class SingleBundle extends React.Component {
       puppy
     } = this.state;
     return (
-      <div className="col-4">
+      <div className="col">
         <Card body className="text-center">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
           <CardImg top width="100%" src={this.props.image} alt="Card image cap" />

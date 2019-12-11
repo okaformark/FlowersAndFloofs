@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using FlowersAndFloofs.DTOs;
 using FlowersAndFloofs.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace FlowersAndFloofs.DataAccess
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
-        public CustomerPersonalInfo Add(CustomerPersonalInfo newCustomerPersonalInfo)
+        public CustomerPersonalInfo AddNewCustomerPersonalInfo(AddCustomerPersonalInfoDTO newCustomerPersonalInfo)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -31,7 +32,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public CustomerPersonalInfo Get(int customerId)
+        public CustomerPersonalInfo GetCustomerPersonalInfo(int customerId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -47,7 +48,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public CustomerPersonalInfo Update(CustomerPersonalInfo updatedCustomerPersonalInfo, int id)
+        public CustomerPersonalInfo UpdateCustomerPersonalInfo(UpdateCustomerPersonalInfoDTO updatedCustomerPersonalInfo, int id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -68,7 +69,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public bool Remove(int customerId)
+        public bool DeleteCustomerPersonalInfo(int customerId)
         {
             using (var db = new SqlConnection(_connectionString))
             {

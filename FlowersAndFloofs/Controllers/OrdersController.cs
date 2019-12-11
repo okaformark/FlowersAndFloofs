@@ -19,7 +19,7 @@ namespace FlowersAndFloofs.Commands
         public IEnumerable<Order> GetOrders()
         {
             var repo = new OrderRepository();
-            var orders = repo.GetAll();
+            var orders = repo.GetAllOrders();
             return orders;
         }
 
@@ -27,7 +27,7 @@ namespace FlowersAndFloofs.Commands
         public Order GetOrder(int orderId)
         {
             var repo = new OrderRepository();
-            var order = repo.Get(orderId);
+            var order = repo.GetOrder(orderId);
             return order;
         }
 
@@ -46,7 +46,7 @@ namespace FlowersAndFloofs.Commands
             };
 
             var repo = new OrderRepository();
-            var orderThatGotCreated = repo.Add(newOrder);
+            var orderThatGotCreated = repo.AddNewOrder(newAddOrderDTO);
 
             return Created($"api/orders/{orderThatGotCreated.Id}", orderThatGotCreated);
         }

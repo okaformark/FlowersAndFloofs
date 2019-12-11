@@ -1,10 +1,12 @@
 ﻿using FlowersAndFloofs.Models;
+using FlowersAndFloofs.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using FlowersAndFloofs.Commands;
 
 namespace FlowersAndFloofs.DataAccess
 {
@@ -12,7 +14,7 @@ namespace FlowersAndFloofs.DataAccess
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
-        public Customer Add(Customer newCustomer)
+        public Customer AddNewCustomer(AddCustomerDTO newCustomer)
         {
             using (var db = new SqlConnection(_connectionString))
             {
