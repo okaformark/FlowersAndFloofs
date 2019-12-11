@@ -34,16 +34,11 @@ class SingleBundle extends React.Component {
     return totalPrice.toFixed(2);
   }
 
-  getProductImage = () => {
-
-  }
-
   render() {
     const {
       flower,
       puppy
     } = this.state;
-
     return (
       <div className="col">
         <Card body className="text-center">
