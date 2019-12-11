@@ -44,6 +44,16 @@ class Shop extends React.Component {
   }
 
   render() {
+    const makeOccasions = this.state.occasions.map(occasion => (
+      <Button
+        key={occasion.id}
+        id={occasion.id}
+        className="occasionCategoryButton"
+        onClick={this.filterBundlesByCategory}
+      >
+        {occasion.name}
+      </Button>
+    ))
 
     const makeBundles = this.state.bundles.map(bundle => (
       <SingleBundle 
@@ -53,6 +63,7 @@ class Shop extends React.Component {
       occasionId={bundle.occasionId}
       description={bundle.description}
       image={bundle.productImageUrl}
+      bundleId={bundle.id}
       />
     ));
     const images = this.state.bundles.map(bundle => (

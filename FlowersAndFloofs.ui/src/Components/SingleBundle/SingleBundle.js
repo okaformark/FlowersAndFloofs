@@ -10,7 +10,7 @@ import {
   CardText,
   CardHeader,
   CardImg,
-  // Button,
+  Button,
 } from 'reactstrap';
 
 
@@ -54,7 +54,7 @@ class SingleBundle extends React.Component {
     const { bundleId, quantity } = this.props;
     const newCart = Object.assign({quantity:0}, this.props);
     cart.push(newCart);
-
+    console.error("fiiiii",cart)
     // returns product already in the cart that matches the one the users clicks on 
     const existingCart = cart.filter(product => product.bundleId === bundleId);
     console.error("existing", existingCart);
