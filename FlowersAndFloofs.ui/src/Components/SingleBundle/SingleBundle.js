@@ -40,7 +40,6 @@ class SingleBundle extends React.Component {
       flower,
       puppy
     } = this.state;
-
     return (
       <div className="col-4">
         <Card body className="text-center">

@@ -10,8 +10,6 @@ import {Input, Button} from 'reactstrap';
 class Shop extends React.Component {
   state = {
     bundles: [],
-    searchResults: [],
-    singleSearchResult: {},
     filteredBundles: []
   }
 
@@ -21,19 +19,10 @@ class Shop extends React.Component {
       this.setState({bundles: allBundles});
     });
     productRequest.getAllProducts().then(data => {
-      this.setState({searchResults: data})
-      console.error("all products: ",this.state.searchResults);
+      this.setState({allProducts: data})
+      console.error("all products: ",this.state.allProducts);
     })
   }
-
-  showAllBundles(){
-    const allBundles = [...this.state.bundles];
-    return allBundles.map(value => <div><h2>Bundle: </h2>{value.id}</div>);
-  }
-
-  
-
-
       makeBundles = (results) => {
         return results.map(bundle => (
           <SingleBundle 
@@ -50,25 +39,21 @@ class Shop extends React.Component {
       searchInput = (e) => {
         e.preventDefault();
         let resultBundles = [];
-        const searchResults = this.state.searchResults;
+        const bundles = this.state.bundles;
         const searchTerm = e.target.value.toLowerCase();
-        searchResults.forEach(result => {
-            const title = result.title.toLowerCase();
-            if (title.includes(searchTerm) && searchTerm !== "") {
-              const matchedBundle = result.productTypeId = 1 ? this.state.bundles.filter(bundle => bundle.puppyId === result.id) :
-              this.state.bundles.filter(bundle => bundle.flowerId === result.id)
-
-              resultBundles.push(matchedBundle);
+        bundles.forEach(product => {
+            const desc = product.description.toLowerCase();
+            if (desc.includes(searchTerm) && searchTerm !== "") {
+               resultBundles.push(product);
             }
+            this.setState({filteredBundles: resultBundles});
+            this.makeBundles(this.state.filteredBundles);
           });
-          console.error("result bundle", resultBundles);
-          this.setState({filteredBundles: resultBundles});
-         // this.makeBundles(this.state.filteredBundles);
         }
 
   render() {
-    const notSearching = this.makeBundles(this.state.bundles);
-    const searching = this.makeBundles(this.state.filteredBundles);
+    const makeCards = (this.state.filteredBundles.length > 0 ? this.makeBundles(this.state.filteredBundles) :
+    this.makeBundles(this.state.bundles));
     return (
       <div className="container">
       <form className="form-inline my-2 my-lg-0" >
@@ -80,7 +65,7 @@ class Shop extends React.Component {
       </form>
         <h1>Shop</h1>
         <div className="row">
-          {this.state.filteredBundles.length > 0 ? searching : notSearching}
+          {makeCards}
         </div>
 
       </div>
