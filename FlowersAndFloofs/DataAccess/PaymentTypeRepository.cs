@@ -12,7 +12,7 @@ namespace FlowersAndFloofs.DataAccess
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
-        public PaymentType Get(int paymentTypeId)
+        public PaymentType GetPaymentType(int paymentTypeId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -28,7 +28,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public IEnumerable<PaymentType> GetAll()
+        public IEnumerable<PaymentType> GetAllPaymentTypes()
         {
             using (var db = new SqlConnection(_connectionString))
             {

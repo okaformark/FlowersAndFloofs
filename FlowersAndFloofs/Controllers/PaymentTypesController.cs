@@ -17,7 +17,7 @@ namespace FlowersAndFloofs.Controllers
         public IEnumerable<PaymentType> GetPaymentTypes()
         {
             var repo = new PaymentTypeRepository();
-            var paymentTypes = repo.GetAll();
+            var paymentTypes = repo.GetAllPaymentTypes();
             return paymentTypes;
         }
 
@@ -25,7 +25,7 @@ namespace FlowersAndFloofs.Controllers
         public PaymentType GetProduct(int paymentTypeId)
         {
             var repo = new PaymentTypeRepository();
-            var paymentType = repo.Get(paymentTypeId);
+            var paymentType = repo.GetPaymentType(paymentTypeId);
             return paymentType;
         }
     }

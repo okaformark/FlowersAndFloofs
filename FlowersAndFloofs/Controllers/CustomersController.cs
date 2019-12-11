@@ -22,7 +22,7 @@ namespace FlowersAndFloofs.Commands
             };
 
             var repo = new CustomerRepository();
-            var customerThatGotCreated = repo.Add(newCustomer);
+            var customerThatGotCreated = repo.AddNewCustomer(newCustomerDTO);
 
             return Created($"api/customers/{customerThatGotCreated.Id}", customerThatGotCreated);
         }

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using FlowersAndFloofs.DTOs;
 using FlowersAndFloofs.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace FlowersAndFloofs.DataAccess
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
-        public Order Add(Order newOrder)
+        public Order AddNewOrder(AddOrderDTO newOrder)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -35,7 +36,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public Order Get(int orderId)
+        public Order GetOrder(int orderId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -51,7 +52,7 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public IEnumerable<Order> GetAll()
+        public IEnumerable<Order> GetAllOrders()
         {
             using (var db = new SqlConnection(_connectionString))
             {
