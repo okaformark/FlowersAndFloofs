@@ -3,9 +3,8 @@ import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import SearchBarIcon from './Icons/SearchBarIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
-import singleBundle from '../SingleBundle/SingleBundle';
 import './NavBar.scss';
-// import Logo from '../Logo/logo.png';<img src={Logo} alt="Logo"
+
 
 const style = {
 display:'flex'
@@ -37,7 +36,7 @@ const NavBar = () => {
                     </ul>
                     <button className = "btn btn-success btn-sm ml-3" style={style}>
                         <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
-                        <span class="badge badge-pill badge-danger">0</span>
+                        <span className="badge badge-pill badge-danger">0</span>
                     </button>
                     <form className="form-inline my-2 my-lg-0" >
                         <input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" />

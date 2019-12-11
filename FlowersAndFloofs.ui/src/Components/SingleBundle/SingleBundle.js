@@ -3,6 +3,7 @@ import React from 'react';
 import './SingleBundle.scss';
 
 import productRequest from '../../DataRequests/productRequest';
+import CartLength from '../../DataRequests/CartLength';
 
 import {
   Card,
@@ -11,7 +12,7 @@ import {
   CardImg,
   Button,
 } from 'reactstrap';
-import NavBar from '../NavBar/NavBar';
+
 
 const cart = [];
 class SingleBundle extends React.Component {
@@ -47,7 +48,8 @@ class SingleBundle extends React.Component {
 
   getCartLength = ()=> {
     const cartLen = this.state.myCart.length;
-    console.log(cartLen);
+    //console.error(cartLen);
+    return cartLen;
   }
 
 
@@ -71,7 +73,7 @@ class SingleBundle extends React.Component {
 
       this.setState({ myCart: [...uniqueObjects]}, () =>{
       this.getCartLength()
-      console.log(this.state.myCart)
+      //console.log(this.state.myCart)
       })
     }
   };  
@@ -81,7 +83,7 @@ class SingleBundle extends React.Component {
   render() {
     const {
       flower,
-      puppy
+      puppy, myCart
     } = this.state;
 
     return (
@@ -118,6 +120,7 @@ class SingleBundle extends React.Component {
           <option value="19">19</option>
           <option value="20">20</option>
         </select>
+        <CartLength data={myCart.length}/>
       </div>
     )
   }
