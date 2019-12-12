@@ -14,23 +14,23 @@ import {
 } from 'reactstrap';
 
 
-const cart = [];
+// const cart = [];
 class SingleBundle extends React.Component {
   state = {
     flower: [],
     puppy:[],
-    myCart:[]
+    // myCart:[]
   }
 
-  componentDidMount() {
-    productRequest.getSingleProduct(this.props.flowerId).then(data => {
-      this.setState({flower: data})
-    })
-    productRequest.getSingleProduct(this.props.puppyId).then(data => {
-      this.setState({puppy: data})
-    })
+  // componentDidMount() {
+  //   productRequest.getSingleProduct(this.props.flowerId).then(data => {
+  //     this.setState({flower: data})
+  //   })
+  //   productRequest.getSingleProduct(this.props.puppyId).then(data => {
+  //     this.setState({puppy: data})
+  //   })
 
-  }
+  // }
 
   calcBundlePrice = () => {
     const {flower, puppy} = this.state;
@@ -42,56 +42,50 @@ class SingleBundle extends React.Component {
 
   }
 
-  getCartLength = ()=> {
-    const cartLen = this.state.myCart.length;
-    //console.error(cartLen);
-    return cartLen;
-  }
+  // getCartLength = ()=> {
+  //   const cartLen = this.state.myCart.length;
+  //   //console.error(cartLen);
+  //   return cartLen;
+  // }
 
   getQuantity=(e)=>{
     e.preventDefault();
     console.error("quantity", e.target.value);
   }
 
-  handleAddToCart= (e) => {
-    e.preventDefault();
-    const { bundleId, quantity } = this.props;
-    const newCart = Object.assign({quantity:0}, this.props);
-    cart.push(newCart);
-    // returns product already in the cart that matches the one the users clicks on 
-    const existingCart = cart.filter(product => product.bundleId === bundleId);
-    console.error("existing", existingCart);
+  // handleAddToCart= (e) => {
+  //   e.preventDefault();
+  //   const { bundleId, quantity } = this.props;
+  //   const newCart = Object.assign({quantity:0}, this.props);
+  //   cart.push(newCart);
+  //   // returns product already in the cart that matches the one the users clicks on 
+  //   const existingCart = cart.filter(product => product.bundleId === bundleId);
+  //   console.error("existing", existingCart);
 
     
-    // returns products already in the cart different from the one the user adds to cart
-    const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
-    console.error("cart", uniqueObjects);
+  //   // returns products already in the cart different from the one the user adds to cart
+  //   const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
+  //   console.error("cart", uniqueObjects);
 
-    //if there are  matching products that exists
-    if(existingCart.length > 0 && uniqueObjects.length > 0){
+  //   //if there are  matching products that exists
+  //   if(existingCart.length > 0 && uniqueObjects.length > 0){
 
-      this.setState({ myCart: [...uniqueObjects]}, () =>{
-      this.getCartLength()
+  //     this.setState({ myCart: [...uniqueObjects]}, () =>{
+  //     this.getCartLength()
 
-      })
-    }
-  };  
+  //     })
+  //   }
+  // };  
    
 
   render() {
     const {
       flower,
-      puppy, myCart
+      puppy
     } = this.state;
 
-    // const cartQuantity = () => { 
-    //   console.error("len",this.state.myCart.length);
-    //   const cartSize = this.state.myCart.length;
-    //   return <CartLength cartQuant={cartSize}/>;
-    // }
-
-    
-    
+    // const { id } = this.props.bundle;
+    const { bundle} = this.props;
     return (
       <div className="col-4">
         <Card body className="text-center">
@@ -100,7 +94,7 @@ class SingleBundle extends React.Component {
           <CardText className="">{this.props.description}</CardText>
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
-        <Button type="button" className="btn btn-danger btn-sm " onClick={this.handleAddToCart}>Add to Cart
+        <Button type="button" className="btn btn-danger btn-sm " onClick={this.props.handleAddToCart.bind(this, bundle)}>Add to Cart
         </Button>
         <select className="custom-select custom-select-sm" onChange={this.getQuantity}>
           <option defaultValue={'Quantity'}>Quantity</option>

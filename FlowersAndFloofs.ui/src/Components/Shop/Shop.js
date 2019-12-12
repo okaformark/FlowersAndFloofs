@@ -64,6 +64,8 @@ class Shop extends React.Component {
       description={bundle.description}
       image={bundle.productImageUrl}
       bundleId={bundle.id}
+      bundle={bundle}
+      handleAddToCart={this.props.handleAddToCart}
       />
     ));
     const images = this.state.bundles.map(bundle => (

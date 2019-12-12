@@ -38,7 +38,7 @@ class NavBar extends React.Component {
                     </ul>
                     <button className = "btn btn-success btn-sm ml-3" style={style}>
                         <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
-                        <span className="badge badge-pill badge-danger"><CartLength /></span>
+                        <span className="badge badge-pill badge-danger">{this.props.cartSize}</span>
                     </button>
                     <form className="form-inline my-2 my-lg-0" >
                         <input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" />
