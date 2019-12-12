@@ -48,13 +48,16 @@ class SingleBundle extends React.Component {
     return cartLen;
   }
 
+  getQuantity=(e)=>{
+    e.preventDefault();
+    console.error("quantity", e.target.value);
+  }
 
   handleAddToCart= (e) => {
     e.preventDefault();
     const { bundleId, quantity } = this.props;
     const newCart = Object.assign({quantity:0}, this.props);
     cart.push(newCart);
-    console.error("fiiiii",cart)
     // returns product already in the cart that matches the one the users clicks on 
     const existingCart = cart.filter(product => product.bundleId === bundleId);
     console.error("existing", existingCart);
@@ -62,19 +65,18 @@ class SingleBundle extends React.Component {
     
     // returns products already in the cart different from the one the user adds to cart
     const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
-    console.error("notexisting", uniqueObjects);
+    console.error("cart", uniqueObjects);
 
     //if there are  matching products that exists
     if(existingCart.length > 0 && uniqueObjects.length > 0){
 
       this.setState({ myCart: [...uniqueObjects]}, () =>{
       this.getCartLength()
-      //console.log(this.state.myCart)
+
       })
     }
   };  
-
-
+   
 
   render() {
     const {
@@ -82,6 +84,14 @@ class SingleBundle extends React.Component {
       puppy, myCart
     } = this.state;
 
+    // const cartQuantity = () => { 
+    //   console.error("len",this.state.myCart.length);
+    //   const cartSize = this.state.myCart.length;
+    //   return <CartLength cartQuant={cartSize}/>;
+    // }
+
+    
+    
     return (
       <div className="col-4">
         <Card body className="text-center">
@@ -92,7 +102,7 @@ class SingleBundle extends React.Component {
         </Card>
         <Button type="button" className="btn btn-danger btn-sm " onClick={this.handleAddToCart}>Add to Cart
         </Button>
-        <select className="custom-select custom-select-sm">
+        <select className="custom-select custom-select-sm" onChange={this.getQuantity}>
           <option defaultValue={'Quantity'}>Quantity</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -115,7 +125,6 @@ class SingleBundle extends React.Component {
           <option value="19">19</option>
           <option value="20">20</option>
         </select>
-        <CartLength data={myCart.length}/>
       </div>
     )
   }

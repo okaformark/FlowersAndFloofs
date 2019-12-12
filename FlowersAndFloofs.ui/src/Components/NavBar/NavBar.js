@@ -3,6 +3,7 @@ import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import SearchBarIcon from './Icons/SearchBarIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
+import CartLength from '../../DataRequests/CartLength';
 import './NavBar.scss';
 
 
@@ -11,7 +12,8 @@ display:'flex'
 };
 
 // remember to replace hrefs with react link
-const NavBar = () => {
+class NavBar extends React.Component {
+    render(){
     return (
         <div className="NavBar">
             <nav className="navbar navbar-expand-lg navbar-dark bg-fuchsia">
@@ -36,7 +38,7 @@ const NavBar = () => {
                     </ul>
                     <button className = "btn btn-success btn-sm ml-3" style={style}>
                         <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
-                        <span className="badge badge-pill badge-danger">0</span>
+                        <span className="badge badge-pill badge-danger"><CartLength /></span>
                     </button>
                     <form className="form-inline my-2 my-lg-0" >
                         <input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" />
@@ -52,5 +54,7 @@ const NavBar = () => {
         </div>
     )
 }
+}
+
 
 export default NavBar;
