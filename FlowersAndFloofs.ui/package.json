@@ -18,7 +18,7 @@
     "react-icons": "^2.2.7",
     "react-scripts": "3.2.0",
     "reactstrap": "^8.2.0",
-    "regex": "^0.1.1"
+    "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.7.4",
+    "babel-plugin-react-html-attrs": "^2.1.0",
     "colors.css": "^3.0.0",
     "node-sass": "^4.13.0"
   }
