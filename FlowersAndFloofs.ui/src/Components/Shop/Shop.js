@@ -7,7 +7,9 @@ import SingleBundle from '../SingleBundle/SingleBundle';
 import SearchBarIcon from '../NavBar/Icons/SearchBarIcon';
 import occasionRequest from '../../DataRequests/occasionRequest';
 
-
+const style = {
+  display:'flex'
+  };
 class Shop extends React.Component {
   state = {
     bundles: [],
@@ -129,7 +131,7 @@ class Shop extends React.Component {
       <form className="form-inline my-2 my-lg-0" >
       {/* <Search /> */}
         <Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
-      <Button className="btn btn-outline-primary my-2 my-sm-0" type="submit">
+      <Button className="btn btn-outline-primary my-2 my-sm-0" type="submit" style={style}>
           <SearchBarIcon /> Search
       </Button>
       </form>
