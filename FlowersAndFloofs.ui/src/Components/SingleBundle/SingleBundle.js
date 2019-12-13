@@ -22,15 +22,15 @@ class SingleBundle extends React.Component {
     // myCart:[]
   }
 
-  // componentDidMount() {
-  //   productRequest.getSingleProduct(this.props.flowerId).then(data => {
-  //     this.setState({flower: data})
-  //   })
-  //   productRequest.getSingleProduct(this.props.puppyId).then(data => {
-  //     this.setState({puppy: data})
-  //   })
+  componentDidMount() {
+    productRequest.getSingleProduct(this.props.flowerId).then(data => {
+      this.setState({flower: data})
+    })
+    productRequest.getSingleProduct(this.props.puppyId).then(data => {
+      this.setState({puppy: data})
+    })
 
-  // }
+  }
 
   calcBundlePrice = () => {
     const {flower, puppy} = this.state;
