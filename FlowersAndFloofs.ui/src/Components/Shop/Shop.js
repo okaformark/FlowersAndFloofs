@@ -60,6 +60,7 @@ class Shop extends React.Component {
           bundleId={bundle.id}
           bundle={bundle}
           handleAddToCart={this.props.handleAddToCart}
+          addQuantityToCart={this.props.addQuantityToCart}
           />
         ));
       } 
@@ -94,42 +95,9 @@ class Shop extends React.Component {
       </Button>
     ))
 
-    // const makeBundles = this.state.bundles.map(bundle => (
-    //   <SingleBundle 
-    //   key={bundle.id}
-    //   flowerId={bundle.flowerId}
-    //   puppyId={bundle.puppyId}
-    //   occasionId={bundle.occasionId}
-    //   description={bundle.description}
-    //   image={bundle.productImageUrl}
-    //   bundleId={bundle.id}
-    //   bundle={bundle}
-    //   handleAddToCart={this.props.handleAddToCart}
-    //   />
-    // ));
-    // const images = this.state.bundles.map(bundle => (
-    //   console.error("bundle", bundle)
-    // ));
-    // const makeBundles = this.state.filteredBundles.map(bundle => (
-    //   <Col>
-    //     <SingleBundle 
-    //             key={bundle.id}
-    //             flowerId={bundle.flowerId}
-    //             puppyId={bundle.puppyId}
-    //             occasionId={bundle.occasionId}
-    //             description={bundle.description}
-    //             image={bundle.productImageUrl}
-    //             bundleId={bundle.id}
-    //             bundle={bundle}
-    //             handleAddToCart={this.props.handleAddToCart}
-    //     />
-    //   </Col>
-    //       ));
-
     return (
       <Container>
       <form className="form-inline my-2 my-lg-0" >
-      {/* <Search /> */}
         <Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
       <Button className="btn btn-outline-primary my-2 my-sm-0" type="submit" style={style}>
           <SearchBarIcon /> Search

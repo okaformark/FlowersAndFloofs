@@ -13,12 +13,10 @@ import {
 } from 'reactstrap';
 
 
-// const cart = [];
 class SingleBundle extends React.Component {
   state = {
     flower: [],
     puppy:[],
-    // myCart:[]
   }
 
   componentDidMount() {
@@ -41,50 +39,20 @@ class SingleBundle extends React.Component {
 
   }
 
-  // getCartLength = ()=> {
-  //   const cartLen = this.state.myCart.length;
-  //   //console.error(cartLen);
-  //   return cartLen;
-  // }
-
   getQuantity=(e)=>{
+    const { bundle } = this.props;
     e.preventDefault();
-    console.error("quantity", e.target.value);
+    const newCart = Object.assign({quantity:0}, bundle)
+    newCart.quantity = e.target.value;
+    this.props.addQuantityToCart(newCart);
   }
-
-  // handleAddToCart= (e) => {
-  //   e.preventDefault();
-  //   const { bundleId, quantity } = this.props;
-  //   const newCart = Object.assign({quantity:0}, this.props);
-  //   cart.push(newCart);
-  //   // returns product already in the cart that matches the one the users clicks on 
-  //   const existingCart = cart.filter(product => product.bundleId === bundleId);
-  //   console.error("existing", existingCart);
-
-    
-  //   // returns products already in the cart different from the one the user adds to cart
-  //   const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
-  //   console.error("cart", uniqueObjects);
-
-  //   //if there are  matching products that exists
-  //   if(existingCart.length > 0 && uniqueObjects.length > 0){
-
-  //     this.setState({ myCart: [...uniqueObjects]}, () =>{
-  //     this.getCartLength()
-
-  //     })
-  //   }
-  // };  
-   
-
   render() {
     const {
       flower,
       puppy
     } = this.state;
+    const { bundle } = this.props;
 
-    // const { id } = this.props.bundle;
-    const { bundle} = this.props;
     return (
       <div className="col-4">
         <Card body className="text-center">
