@@ -1,10 +1,10 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
 import Shop from '../Shop/Shop';
-import productRequest from '../../DataRequests/productRequest'
 
 const cart = [];
 const cartForQuantity = [];
+const tempCart= [];
 class Home extends React.Component {
 
 state = {
@@ -40,17 +40,14 @@ state = {
 
        addQuantityToCart = (cartWithQuantity) => { 
            cartForQuantity.push(cartWithQuantity);
-           if (this.state.myCart.length > 0)
-           {
-            this.setState({myCart: [...cartForQuantity]}, () =>{
-             this.getCartLength()
-            });   
-           }
-           else{
-               alert("Add the item to your Cart First");
-               cartWithQuantity.quantity=0;
-           }
-          
+           const { myCart } = this.state;
+           let i = 0;
+           cartForQuantity.forEach((product) => {
+             this.setState({myCart: [...cartForQuantity]}, () =>{
+                 console.error("yay", this.state.myCart)
+              this.getCartLength()
+             });   
+           })
         }
 
 

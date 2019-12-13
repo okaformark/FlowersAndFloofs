@@ -35,15 +35,14 @@ class SingleBundle extends React.Component {
     return totalPrice.toFixed(2);
   }
 
-  getProductImage = () => {
-
-  }
 
   getQuantity=(e)=>{
     const { bundle } = this.props;
     e.preventDefault();
     const newCart = Object.assign({quantity:0}, bundle)
     newCart.quantity = e.target.value;
+    const price = this.calcBundlePrice() * e.target.value;
+    console.error("sfdgfdfdf", price.toFixed(2));
     this.props.addQuantityToCart(newCart);
   }
   render() {
