@@ -3,7 +3,6 @@ import React from 'react';
 import './SingleBundle.scss';
 
 import productRequest from '../../DataRequests/productRequest';
-import CartLength from '../../DataRequests/CartLength';
 
 import {
   Card,

@@ -10,16 +10,16 @@ import {
   CardText,
   CardHeader,
   CardImg,
-  // Button,
+  Button,
 } from 'reactstrap';
 
 
-const cart = [];
+// const cart = [];
 class SingleBundle extends React.Component {
   state = {
     flower: [],
     puppy:[],
-    myCart:[]
+    // myCart:[]
   }
 
   componentDidMount() {
@@ -38,63 +38,71 @@ class SingleBundle extends React.Component {
     return totalPrice.toFixed(2);
   }
 
+<<<<<<< HEAD
   getProductImage = () => {
 
   }
 
-  getCartLength = ()=> {
-    const cartLen = this.state.myCart.length;
-    //console.error(cartLen);
-    return cartLen;
+  // getCartLength = ()=> {
+  //   const cartLen = this.state.myCart.length;
+  //   //console.error(cartLen);
+  //   return cartLen;
+  // }
+
+  getQuantity=(e)=>{
+    e.preventDefault();
+    console.error("quantity", e.target.value);
   }
 
-
-  handleAddToCart= (e) => {
-    e.preventDefault();
-    const { bundleId, quantity } = this.props;
-    const newCart = Object.assign({quantity:0}, this.props);
-    cart.push(newCart);
-
-    // returns product already in the cart that matches the one the users clicks on 
-    const existingCart = cart.filter(product => product.bundleId === bundleId);
-    console.error("existing", existingCart);
+  // handleAddToCart= (e) => {
+  //   e.preventDefault();
+  //   const { bundleId, quantity } = this.props;
+  //   const newCart = Object.assign({quantity:0}, this.props);
+  //   cart.push(newCart);
+  //   // returns product already in the cart that matches the one the users clicks on 
+  //   const existingCart = cart.filter(product => product.bundleId === bundleId);
+  //   console.error("existing", existingCart);
 
     
-    // returns products already in the cart different from the one the user adds to cart
-    const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
-    console.error("notexisting", uniqueObjects);
+  //   // returns products already in the cart different from the one the user adds to cart
+  //   const uniqueObjects = [...new Map(cart.map(item => [item.bundleId, item])).values()]
+  //   console.error("cart", uniqueObjects);
 
-    //if there are  matching products that exists
-    if(existingCart.length > 0 && uniqueObjects.length > 0){
+  //   //if there are  matching products that exists
+  //   if(existingCart.length > 0 && uniqueObjects.length > 0){
 
-      this.setState({ myCart: [...uniqueObjects]}, () =>{
-      this.getCartLength()
-      //console.log(this.state.myCart)
-      })
-    }
-  };  
+  //     this.setState({ myCart: [...uniqueObjects]}, () =>{
+  //     this.getCartLength()
 
+  //     })
+  //   }
+  // };  
+   
 
-
+=======
+>>>>>>> master
   render() {
     const {
       flower,
-      puppy, myCart
+      puppy
     } = this.state;
+<<<<<<< HEAD
 
+    // const { id } = this.props.bundle;
+    const { bundle} = this.props;
+=======
+>>>>>>> master
     return (
-      
       <div className="col-4">
-      {/* <div className="col"> */}
         <Card body className="text-center">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
           <CardImg top width="100%" src={this.props.image} alt="Card image cap" />
           <CardText className="">{this.props.description}</CardText>
             <CardText>Price: {this.calcBundlePrice()}</CardText>
         </Card>
-        <Button type="button" className="btn btn-danger btn-sm " onClick={this.handleAddToCart}>Add to Cart
+        <Button type="button" className="btn btn-danger btn-sm " onClick={this.props.handleAddToCart.bind(this, bundle)}>Add to Cart
         </Button>
-        <select className="custom-select custom-select-sm">
+        <select className="custom-select custom-select-sm" onChange={this.getQuantity}>
           <option defaultValue={'Quantity'}>Quantity</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -117,7 +125,6 @@ class SingleBundle extends React.Component {
           <option value="19">19</option>
           <option value="20">20</option>
         </select>
-        <CartLength data={myCart.length}/>
       </div>
     )
   }

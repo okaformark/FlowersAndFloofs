@@ -11,4 +11,13 @@ const getSingleProduct= productId => new Promise((resolve, reject) => {
     });
 });
 
-export default {getSingleProduct};
+const getAllProducts= () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}`).then((result) => {
+    resolve(result.data);
+  })
+    .catch((error) => {
+      reject(error);
+    });
+});
+
+export default {getSingleProduct, getAllProducts};
