@@ -6,7 +6,7 @@ export class Cart extends Component {
         return (
         <div>
             {this.props.cart.map(product => (
-            <SingleCartProduct product={product} />
+            <SingleCartProduct product={product} key={product.id}/>
         ))}
         </div>
         )

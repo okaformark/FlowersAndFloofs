@@ -4,9 +4,9 @@ export class SingleCartProduct extends Component {
     render() {
         const { product } = this.props;
         return (
-            <div classNameName="SingleCartProduct">
-                <div class="row">
-                    <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+            <div className="SingleCartProduct">
+                <div className="row">
+                    <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
 
                  <div className="table-responsive">
             <table className="table">

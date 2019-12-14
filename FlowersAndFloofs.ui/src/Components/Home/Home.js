@@ -19,17 +19,25 @@ state = {
 
       addQuantityToCart = (cartWithQuantity) => { 
              tempCart = cartWithQuantity;
+             console.error(tempCart,"ooooooo")
             return tempCart;
         }
     
     handleAddToCart= () => {
+        //const newCart = Object.assign({quantity:0}, bundle);
         const newCart = this.addQuantityToCart(tempCart);
-        if(Object.keys(newCart).length ==0){
-            alert("enter quantity")
+        console.error(newCart,"iiiii");
+        if(Object.entries(newCart).length === 0){
+            console.error("ppppp");
+            alert("Enter Quantity");
         }
         else{
             cart.push(newCart);
-            
+
+        // returns product already in the cart that matches the one the users clicks on 
+        //const existingCart = cart.filter(product => product.id === bundle.id);
+    
+        
         // returns products already in the cart different from the one the user adds to cart
         const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
 
