@@ -35,7 +35,7 @@ class NavBar extends React.Component {
                                 <a className="nav-link ml-3" href="#">My Orders</a>
                             </li>
                         </ul>
-                        <button className = "btn btn-success btn-sm ml-3" style={style}>
+                        <button className = "btn btn-success btn-sm ml-3" style={style} onClick={this.loadCartComponent}>
                             <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
                         <span className="badge badge-pill badge-danger">{this.props.cartSize}</span>
                     </button>
