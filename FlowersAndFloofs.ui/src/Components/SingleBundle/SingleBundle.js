@@ -12,7 +12,9 @@ import {
   Button,
 } from 'reactstrap';
 
-
+const style={
+  display: 'flex'
+}
 class SingleBundle extends React.Component {
   state = {
     flower: [],
@@ -83,7 +85,7 @@ class SingleBundle extends React.Component {
             <option value="20">20</option>
           </select>
         </Card>
-        <Button type="button" className="btn btn-danger btn-sm " onClick={this.props.handleAddToCart.bind(this, bundle)}>Add to Cart
+        <Button type="button" className="btn btn-danger btn-sm " onClick={this.props.handleAddToCart.bind(this, bundle)} >Add to Cart
         </Button>
        
       </div>

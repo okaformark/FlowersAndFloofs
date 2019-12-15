@@ -22,13 +22,13 @@ state = {
              console.error(tempCart,"ooooooo")
             return tempCart;
         }
-    
+
     handleAddToCart= () => {
         //const newCart = Object.assign({quantity:0}, bundle);
         const newCart = this.addQuantityToCart(tempCart);
         console.error(newCart,"iiiii");
         if(Object.entries(newCart).length === 0){
-            console.error("ppppp");
+            // console.error("ppppp");
             alert("Enter Quantity");
         }
         else{
