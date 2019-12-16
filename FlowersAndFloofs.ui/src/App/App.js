@@ -8,7 +8,9 @@ const cart = [];
 let tempCart = {};
 export class App extends React.Component{
   state = {
-    myCart:[]
+    myCart:[],
+    price:'',
+    unitPrice: ''
   }
 
 
@@ -16,6 +18,8 @@ export class App extends React.Component{
         const cartLen = this.state.myCart.length;
         return cartLen;
       }
+
+      getPrice = (price,unitPrice) => this.setState({price:price, unitPrice:unitPrice}, ()=>{console.error(this.state.unitPrice,"kkkkkk")})
 
       addQuantityToCart = (cartWithQuantity) => { 
              tempCart = cartWithQuantity;
@@ -43,10 +47,12 @@ export class App extends React.Component{
     };
   render(){
     const len = this.state.myCart.length;
+    const myPrice = this.state.price;
+    const myUnitPrice = this.state.unitPrice;
     return (
       <div className="App">
-        <NavBar cart={len}  myCart={this.state.myCart}/>
-        <Home handleAddToCart = {this.handleAddToCart} addQuantityToCart={this.addQuantityToCart} myCart={this.state.myCart} />
+        <NavBar cart={len}  myCart={this.state.myCart} price={myPrice} unitPrice={myUnitPrice}/>
+        <Home handleAddToCart = {this.handleAddToCart} addQuantityToCart={this.addQuantityToCart} myCart={this.state.myCart} getPrice={this.getPrice} />
       </div>
     );
   }

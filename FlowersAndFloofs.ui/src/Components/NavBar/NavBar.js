@@ -38,7 +38,7 @@ class NavBar extends React.Component {
                                         <div className="p-2 px-3 text-uppercase">Product</div>
                                         </th>
                                         <th scope="col" className="border-0 bg-light">
-                                            <div className="py-2 text-uppercase">Price</div>
+                                            <div className="py-2 text-uppercase">Total Price</div>
                                         </th>
                                         <th scope="col" className="border-0 bg-light">
                                             <div className="py-2 text-uppercase">Quantity</div>
@@ -57,8 +57,10 @@ class NavBar extends React.Component {
     }
     render() {
         const { cart } = this.props;
+        const { price } = this.props;
+        const { unitPrice } = this.props;
         const makeCart = this.props.myCart.map(product =>(
-            <SingleCartProduct product={product} key={product.id} />
+            <SingleCartProduct product={product} key={product.id} price={price} unitPrice={unitPrice}/>
         ))
         const makeModalTable=()=>{
             return(
@@ -73,10 +75,13 @@ class NavBar extends React.Component {
                                             <div className="p-2 px-3 text-uppercase">Product</div>
                                             </th>
                                             <th scope="col" className="border-0 bg-light">
-                                                <div className="py-2 text-uppercase">Price</div>
+                                                <div className="py-2 text-uppercase">Unit Price</div>
                                             </th>
                                             <th scope="col" className="border-0 bg-light">
                                                 <div className="py-2 text-uppercase">Quantity</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Total Price</div>
                                             </th>
                                             <th scope="col" className="border-0 bg-light">
                                                 <div className="py-2 text-uppercase">Remove</div>
@@ -130,7 +135,6 @@ class NavBar extends React.Component {
                         <ModalHeader toggle={this.toggle}>Your Cart</ModalHeader>
                         <ModalBody>
                             {makeModalTable()}
-                            {/* {makeCart} */}
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary" onClick={this.checkout}>Checkout</Button>

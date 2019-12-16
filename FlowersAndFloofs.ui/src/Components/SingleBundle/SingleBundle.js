@@ -12,9 +12,7 @@ import {
   Button,
 } from 'reactstrap';
 
-const style={
-  display: 'flex'
-}
+
 class SingleBundle extends React.Component {
   state = {
     flower: [],
@@ -39,13 +37,18 @@ class SingleBundle extends React.Component {
 
 
   getQuantity=(e)=>{
+    const flowerTitle = this.state.flower.title;
+    const puppyTitle = this.state.puppy.title;
     const { bundle } = this.props;
     e.preventDefault();
-    const newCart = Object.assign({quantity:0}, bundle)
+    const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
     newCart.quantity = e.target.value;
-    const price = this.calcBundlePrice() * e.target.value;
-    console.error("sfdgfdfdf", price.toFixed(2));
+    const unitPrice = this.calcBundlePrice();
+    const price = unitPrice* e.target.value;
+    const fixedPrice = price.toFixed(2);
+    console.error("sfdgfdfdf", fixedPrice);
     this.props.addQuantityToCart(newCart);
+    this.props.getPrice(fixedPrice,unitPrice)
   }
   render() {
     const {

@@ -61,6 +61,7 @@ class Shop extends React.Component {
           bundle={bundle}
           handleAddToCart={this.props.handleAddToCart}
           addQuantityToCart={this.props.addQuantityToCart}
+          getPrice={this.props.getPrice}
           />
         ));
       } 
