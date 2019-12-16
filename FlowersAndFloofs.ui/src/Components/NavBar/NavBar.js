@@ -2,8 +2,8 @@ import React from 'react';
 import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
-// import { Modal, }  from 'react-bootstrap';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button} from 'reactstrap';
+import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
 
 const style = {
 display:'flex'
@@ -16,6 +16,7 @@ class NavBar extends React.Component {
         modalShow: false,
     }
 
+
     toggle = () => {
         this.setState(prevState => ({
             modalShow: !prevState.modalShow
@@ -23,8 +24,73 @@ class NavBar extends React.Component {
             console.error(this.state.modalShow, this.props.cart);
         });
     }
+
+    makeModalTable=()=>{
+        return(
+            <div>
+                <div className="row">
+                    <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                        <div className="table-responsive">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" className="border-0 bg-light">
+                                        <div className="p-2 px-3 text-uppercase">Product</div>
+                                        </th>
+                                        <th scope="col" className="border-0 bg-light">
+                                            <div className="py-2 text-uppercase">Price</div>
+                                        </th>
+                                        <th scope="col" className="border-0 bg-light">
+                                            <div className="py-2 text-uppercase">Quantity</div>
+                                        </th>
+                                        <th scope="col" className="border-0 bg-light">
+                                            <div className="py-2 text-uppercase">Remove</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
     render() {
         const { cart } = this.props;
+        const makeCart = this.props.myCart.map(product =>(
+            <SingleCartProduct product={product} key={product.id} />
+        ))
+        const makeModalTable=()=>{
+            return(
+                <div>
+                    <div className="row">
+                        <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" className="border-0 bg-light">
+                                            <div className="p-2 px-3 text-uppercase">Product</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Price</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Quantity</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Remove</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    {makeCart}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
         return (
             <div className="NavBar">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-fuchsia">
@@ -56,13 +122,18 @@ class NavBar extends React.Component {
                         </button>
                     </div>
                 </nav>
-                     <Modal isOpen={this.state.modalShow} toggle={this.toggle} className={this.props.className}>
-                        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                     <Modal isOpen={this.state.modalShow}
+                            toggle={this.toggle} 
+                            className={this.props.className} 
+                            modalTransition={{ timeout: 700 }} 
+                            backdropTransition={{ timeout: 1300 }}>
+                        <ModalHeader toggle={this.toggle}>Your Cart</ModalHeader>
                         <ModalBody>
-                            <p>Enjoy your food!!!</p>
+                            {makeModalTable()}
+                            {/* {makeCart} */}
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.addClaim}>Claim</Button>
+                            <Button color="primary" onClick={this.checkout}>Checkout</Button>
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>

@@ -7,22 +7,6 @@ import './App.scss';
 const cart = [];
 let tempCart = {};
 export class App extends React.Component{
-
-  // state = {
-  //   cartLength: ''
-  // }
-
-  //  getLength = (size) => {
-  //   const cartSize  = size
-  //   console.log(cartSize)
-  // }
-
-  // sendLength = () =>{
-  //   const data = this.getLength();
-  //   this.setState({cartLength:data},()=>{
-  //     console.error(this.state.cartLength,"88888")
-  //   })
-  // }
   state = {
     myCart:[]
   }
@@ -39,7 +23,6 @@ export class App extends React.Component{
         }
 
     handleAddToCart= () => {
-        //const newCart = Object.assign({quantity:0}, bundle);
         const newCart = this.addQuantityToCart(tempCart);
         if(Object.entries(newCart).length === 0){
             alert("Enter Quantity");
@@ -62,8 +45,7 @@ export class App extends React.Component{
     const len = this.state.myCart.length;
     return (
       <div className="App">
-        <NavBar cart={len} />
-        {/* <Home getCartLen = {this.getLength} /> */}
+        <NavBar cart={len}  myCart={this.state.myCart}/>
         <Home handleAddToCart = {this.handleAddToCart} addQuantityToCart={this.addQuantityToCart} myCart={this.state.myCart} />
       </div>
     );

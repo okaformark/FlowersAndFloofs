@@ -99,9 +99,6 @@ class Shop extends React.Component {
       <Container>
       <form className="form-inline my-2 my-lg-0" >
       <SearchBarIcon /><Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
-      {/* <Button className="btn btn-outline-primary my-2 my-sm-0" type="submit" style={style}>
-          <SearchBarIcon /> Search
-      </Button> */}
       </form>
       <Row>
           <Col xs="3" id="shopProductCategoriesContainer">

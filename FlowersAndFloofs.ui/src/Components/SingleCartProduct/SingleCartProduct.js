@@ -4,28 +4,6 @@ export class SingleCartProduct extends Component {
     render() {
         const { product } = this.props;
         return (
-            <div className="SingleCartProduct">
-                <div className="row">
-                    <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-
-                 <div className="table-responsive">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col" className="border-0 bg-light">
-                    <div className="p-2 px-3 text-uppercase">Product</div>
-                  </th>
-                  <th scope="col" className="border-0 bg-light">
-                    <div className="py-2 text-uppercase">Price</div>
-                  </th>
-                  <th scope="col" className="border-0 bg-light">
-                    <div className="py-2 text-uppercase">Quantity</div>
-                  </th>
-                  <th scope="col" className="border-0 bg-light">
-                    <div className="py-2 text-uppercase">Remove</div>
-                  </th>
-                </tr>
-              </thead>
               <tbody>
                 <tr>
                   <th scope="row" className="border-0">
@@ -41,11 +19,6 @@ export class SingleCartProduct extends Component {
                   <td className="border-0 align-middle"><a href="#" className="text-dark"><i className="material-icons">delete</i></a></td>
                 </tr>
               </tbody>
-            </table>
-          </div>
-            </div>
-            </div>
-            </div>
         )
     }
 }
