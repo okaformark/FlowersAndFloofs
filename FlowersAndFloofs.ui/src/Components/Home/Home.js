@@ -13,22 +13,19 @@ state = {
 
 
     getCartLength = ()=> {
-        const cartLen = this.state.myCart[0].length;
+        const cartLen = this.state.myCart.length;
         return cartLen;
       }
 
       addQuantityToCart = (cartWithQuantity) => { 
              tempCart = cartWithQuantity;
-             console.error(tempCart,"ooooooo")
             return tempCart;
         }
 
     handleAddToCart= () => {
         //const newCart = Object.assign({quantity:0}, bundle);
         const newCart = this.addQuantityToCart(tempCart);
-        console.error(newCart,"iiiii");
         if(Object.entries(newCart).length === 0){
-            // console.error("ppppp");
             alert("Enter Quantity");
         }
         else{
@@ -45,18 +42,22 @@ state = {
          if(cart.length > 0 && uniqueObjects.length > 0){
            this.setState({ myCart: [...uniqueObjects]}, () =>{
                console.error(this.state.myCart);
-           this.getCartLength()
-    
+           this.getCartLength();
            })
         }
     }
     };
 
+    sendCartLength = () => {
+        const yee =this.props.getCartLen(this.getCartLength());
+        return yee
+    }
+
     render (){
-        const { length } = this.state.myCart;
         return (
             <div className="Home">
-                <NavBar cartSize ={length}/>
+                {/* <NavBar cartSize ={length}/> */}
+                {this.sendCartLength()}
                 <header className="App-header">
                     <Shop handleAddToCart = {this.handleAddToCart} addQuantityToCart={this.addQuantityToCart}/>
                 </header>

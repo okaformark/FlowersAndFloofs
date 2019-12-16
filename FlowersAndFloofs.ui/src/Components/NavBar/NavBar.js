@@ -2,9 +2,8 @@ import React from 'react';
 import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
-
-
-import { Search, Grid, Header, Segment } from 'semantic-ui-react'
+// import { Modal, }  from 'react-bootstrap';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Button} from 'reactstrap';
 
 const style = {
 display:'flex'
@@ -13,7 +12,19 @@ display:'flex'
 // remember to replace hrefs with react link
 class NavBar extends React.Component {
 
+    state = {
+        modalShow: false,
+    }
+
+    toggle = () => {
+        this.setState(prevState => ({
+            modalShow: !prevState.modalShow
+        }), () => {
+            console.error(this.state.modalShow);
+        });
+    }
     render() {
+        const { cart } = this.props;
         return (
             <div className="NavBar">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-fuchsia">
@@ -35,23 +46,52 @@ class NavBar extends React.Component {
                                 <a className="nav-link ml-3" href="#">My Orders</a>
                             </li>
                         </ul>
-                        <button className = "btn btn-success btn-sm ml-3" style={style} onClick={this.loadCartComponent}>
+                        <button className = "btn btn-success btn-sm ml-3" style={style} onClick={this.toggle}>
                             <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
-                        <span className="badge badge-pill badge-danger">{this.props.cartSize}</span>
+                        <span className="badge badge-pill badge-danger">{cart}</span>
                     </button>
-                        {/* <form className="form-inline my-2 my-lg-0" >
-                        {/* <Search /> */}
-                            {/* <Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
-                            <button className="btn btn-outline-primary my-2 my-sm-0" type="submit" style={style}>
-                                <SearchBarIcon /> Search
-                            </button>
-                        </form> */} 
                         
                         <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style}>
                             <LockIcon />Log Out
                         </button>
                     </div>
                 </nav>
+                {/* <Modal
+                    {...props}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    isOpen={this.state.modalShow}
+                    toggle={this.state.toggle}
+                    className={this.props.className}
+                    >
+                    <Modal.Header closeButton toggle={this.state.toggle}>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                        Modal heading
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h4>Centered Modal</h4>
+                        <p>
+                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+                        consectetur ac, vestibulum at eros.
+                        </p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.state.toggle}>Close</Button>
+                    </Modal.Footer>
+                    </Modal> */}
+                     <Modal isOpen={this.state.modalShow} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                        <ModalBody>
+                            <p>Enjoy your food!!!</p>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.addClaim}>Claim</Button>
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
             </div>
         )
     }
