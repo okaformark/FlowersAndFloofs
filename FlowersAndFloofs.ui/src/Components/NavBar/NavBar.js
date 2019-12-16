@@ -20,7 +20,7 @@ class NavBar extends React.Component {
         this.setState(prevState => ({
             modalShow: !prevState.modalShow
         }), () => {
-            console.error(this.state.modalShow);
+            console.error(this.state.modalShow, this.props.cart);
         });
     }
     render() {
@@ -56,32 +56,6 @@ class NavBar extends React.Component {
                         </button>
                     </div>
                 </nav>
-                {/* <Modal
-                    {...props}
-                    size="lg"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    centered
-                    isOpen={this.state.modalShow}
-                    toggle={this.state.toggle}
-                    className={this.props.className}
-                    >
-                    <Modal.Header closeButton toggle={this.state.toggle}>
-                        <Modal.Title id="contained-modal-title-vcenter">
-                        Modal heading
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h4>Centered Modal</h4>
-                        <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
-                        </p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.state.toggle}>Close</Button>
-                    </Modal.Footer>
-                    </Modal> */}
                      <Modal isOpen={this.state.modalShow} toggle={this.toggle} className={this.props.className}>
                         <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
                         <ModalBody>
