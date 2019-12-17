@@ -21,7 +21,7 @@ class NavBar extends React.Component {
         this.setState(prevState => ({
             modalShow: !prevState.modalShow
         }), () => {
-            console.error(this.state.modalShow, this.props.cart);
+            console.error(this.state.modalShow, this.props, "aaaaaaaaaa");
         });
     }
 
@@ -29,8 +29,8 @@ class NavBar extends React.Component {
         const { cart } = this.props;
         const { price } = this.props;
         const { unitPrice } = this.props;
-        const makeCart = this.props.myCart.map(product =>(
-            <SingleCartProduct product={product} key={product.id} price={price} unitPrice={unitPrice}/>
+        const makeCart = this.props.myCart.map((product, index) =>(
+            <SingleCartProduct product={product} key={product.id} price={price[index]} unitPrice={unitPrice[index]}/>
         ))
         const makeModalTable=()=>{
             return(

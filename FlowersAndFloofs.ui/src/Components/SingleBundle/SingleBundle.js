@@ -46,7 +46,7 @@ class SingleBundle extends React.Component {
     const unitPrice = this.calcBundlePrice();
     const price = unitPrice* e.target.value;
     const fixedPrice = price.toFixed(2);
-    console.error("sfdgfdfdf", fixedPrice);
+    console.error("sfdgfdfdf", fixedPrice, unitPrice);
     this.props.addQuantityToCart(newCart);
     this.props.getPrice(fixedPrice,unitPrice)
   }

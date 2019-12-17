@@ -6,11 +6,13 @@ import './App.scss';
 // import Shop from '../Components/Shop/Shop';
 const cart = [];
 let tempCart = {};
+const tempUnitPrice = [];
+const tempPrice = [];
 export class App extends React.Component{
   state = {
     myCart:[],
-    price:'',
-    unitPrice: ''
+    price:[],
+    unitPrice: []
   }
 
 
@@ -19,7 +21,12 @@ export class App extends React.Component{
         return cartLen;
       }
 
-      getPrice = (price,unitPrice) => this.setState({price:price, unitPrice:unitPrice}, ()=>{console.error(this.state.unitPrice,"kkkkkk")})
+      getPrice = (price,unitPrice) =>{
+        tempPrice.push(price);
+        tempUnitPrice.push(unitPrice);
+        this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
+        ()=>{console.error(this.state.unitPrice, this.state.price,"kkkkkk")})
+      } 
 
       addQuantityToCart = (cartWithQuantity) => { 
              tempCart = cartWithQuantity;
@@ -51,8 +58,14 @@ export class App extends React.Component{
     const myUnitPrice = this.state.unitPrice;
     return (
       <div className="App">
-        <NavBar cart={len}  myCart={this.state.myCart} price={myPrice} unitPrice={myUnitPrice}/>
-        <Home handleAddToCart = {this.handleAddToCart} addQuantityToCart={this.addQuantityToCart} myCart={this.state.myCart} getPrice={this.getPrice} />
+        <NavBar cart={len}  
+                myCart={this.state.myCart} 
+                price={myPrice} 
+                unitPrice={myUnitPrice}/>
+        <Home handleAddToCart = {this.handleAddToCart} 
+              addQuantityToCart={this.addQuantityToCart} 
+              myCart={this.state.myCart} 
+              getPrice={this.getPrice} />
       </div>
     );
   }
