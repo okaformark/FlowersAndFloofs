@@ -12,7 +12,7 @@ export class SingleCartProduct extends Component {
                     <div className="p-2">
                       {/* <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" className="img-fluid rounded shadow-sm" /> */}
                       <div className="ml-3 d-inline-block align-middle">
-                          <h5 className="mb-0"> <a href="#" className="text-dark d-inline-block align-middle">{product.flowerTitle}{"&"}{product.puppyTitle}</a></h5><span className="text-muted font-weight-normal font-italic d-block">Category: Watches</span>
+        <h5 className="mb-0"> <a href="#" className="text-dark d-inline-block align-middle">{product.flowerTitle}{"&"}{product.puppyTitle}</a></h5><span className="text-muted font-weight-normal font-italic d-block">{product.description}</span>
                       </div>
                     </div>
                   </th>
