@@ -19,7 +19,7 @@ export class SingleCartProduct extends Component {
                   <td className="border-0 align-middle"><strong>{unitPrice}</strong></td>
                     <td className="border-0 align-middle"><strong>{product.quantity}</strong></td>
                     <td className="border-0 align-middle"><strong>{price}</strong></td>
-                  <td className="border-0 align-middle"><a href="#" className="text-dark"><i className="material-icons">delete</i></a></td>
+                  <td className="border-0 align-middle" onClick={this.props.deleteItem.bind(this, product.id)}><a href="#" className="text-dark"><i className="material-icons">delete</i></a></td>
                 </tr>
               </tbody>
         )
