@@ -43,7 +43,7 @@ export class App extends React.Component{
             alert("Enter Quantity");
         }
         else{
-            cart.push(newCart);
+            cart.push(tempCart);
         // returns products already in the cart different from the one the user adds to cart
         const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
 
