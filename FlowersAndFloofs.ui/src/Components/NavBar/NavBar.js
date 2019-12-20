@@ -30,7 +30,12 @@ class NavBar extends React.Component {
         const { price } = this.props;
         const { unitPrice } = this.props;
         const makeCart = this.props.myCart.map((product, index) =>(
-            <SingleCartProduct product={product} key={product.id} price={price[index]} unitPrice={unitPrice[index]}/>
+            <SingleCartProduct product={product} 
+                                key={product.id} 
+                                price={price[index]} 
+                                unitPrice={unitPrice[index]}
+                                deleteItem={this.props.deleteItem}
+                                />
         ))
         const makeModalTable=()=>{
             return(

@@ -16,6 +16,10 @@ export class App extends React.Component{
   }
 
 
+    deleteItem = (id) =>{
+      this.setState({myCart: this.state.myCart.filter(item => item.id !== id)})
+    }
+
     getCartLength = ()=> {
         const cartLen = this.state.myCart.length;
         return cartLen;
@@ -61,7 +65,9 @@ export class App extends React.Component{
         <NavBar cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
-                unitPrice={myUnitPrice}/>
+                unitPrice={myUnitPrice}
+                deleteItem={this.deleteItem}
+                />
         <Home handleAddToCart = {this.handleAddToCart} 
               addQuantityToCart={this.addQuantityToCart} 
               myCart={this.state.myCart} 
