@@ -7,9 +7,10 @@ import SingleBundle from '../SingleBundle/SingleBundle';
 import SearchBarIcon from '../NavBar/Icons/SearchBarIcon';
 import occasionRequest from '../../DataRequests/occasionRequest';
 
-const style = {
-  display:'flex'
-  };
+// const style = {
+//   display:'flex'
+//   };
+
 class Shop extends React.Component {
   state = {
     bundles: [],
