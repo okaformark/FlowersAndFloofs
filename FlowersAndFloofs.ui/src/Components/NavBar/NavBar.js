@@ -16,7 +16,6 @@ class NavBar extends React.Component {
         modalShow: false,
     }
 
-
     toggle = () => {
         this.setState(prevState => ({
             modalShow: !prevState.modalShow
@@ -26,6 +25,7 @@ class NavBar extends React.Component {
     }
 
     render() {
+        const { clearCart } = this.props;
         const { cart } = this.props;
         const { price } = this.props;
         const { unitPrice } = this.props;
@@ -40,6 +40,7 @@ class NavBar extends React.Component {
         const makeModalTable=()=>{
             return(
                 <div>
+                    <a className="clear" href="#" onClick={clearCart}><i className="material-icons">clear_all</i></a>
                     <div className="row">
                         <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
                             <div className="table-responsive">
@@ -92,7 +93,7 @@ class NavBar extends React.Component {
                                 <a className="nav-link ml-3" href="#">My Orders</a>
                             </li>
                         </ul>
-                        <button className = "btn btn-success btn-sm ml-3" style={style} onClick={this.toggle}>
+                        <button className = "btn btn-outline-success btn-sm ml-3" style={style} onClick={this.toggle}>
                             <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
                         <span className="badge badge-pill badge-danger">{cart}</span>
                     </button>
@@ -112,7 +113,7 @@ class NavBar extends React.Component {
                             {makeModalTable()}
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.checkout}>Checkout</Button>
+                            <Button color="primary" onClick={this.checkout}>Proceed to Checkout</Button>
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>

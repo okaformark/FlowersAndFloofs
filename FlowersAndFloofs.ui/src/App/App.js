@@ -16,6 +16,10 @@ export class App extends React.Component{
   }
 
 
+  clearCart = () => {
+    this.setState({myCart: []})
+  }
+
     deleteItem = (id) =>{
       this.setState({myCart: this.state.myCart.filter(item => item.id !== id)})
     }
@@ -43,7 +47,7 @@ export class App extends React.Component{
             alert("Enter Quantity");
         }
         else{
-            cart.push(tempCart);
+            cart.push(newCart);
         // returns products already in the cart different from the one the user adds to cart
         const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
 
@@ -67,6 +71,7 @@ export class App extends React.Component{
                 price={myPrice} 
                 unitPrice={myUnitPrice}
                 deleteItem={this.deleteItem}
+                clearCart={this.clearCart}
                 />
         <Home handleAddToCart = {this.handleAddToCart} 
               addQuantityToCart={this.addQuantityToCart} 
