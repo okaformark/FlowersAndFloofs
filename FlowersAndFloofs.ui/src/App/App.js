@@ -12,12 +12,16 @@ export class App extends React.Component{
   state = {
     myCart:[],
     price:[],
-    unitPrice: []
+    unitPrice: [],
+    isClicked:false
   }
 
 
   clearCart = () => {
-    this.setState({myCart: []})
+    this.setState({myCart: []}, ()=> {
+      this.setState({isClicked:!this.state.isClicked})
+    })
+    return this.state.isClicked;
   }
 
     deleteItem = (id) =>{
