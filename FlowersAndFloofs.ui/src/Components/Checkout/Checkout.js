@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
+import SingleAddress from '../SingleAddress/SingleAddress';
 
 class Checkout extends React.Component {
     state = {
@@ -23,9 +24,14 @@ class Checkout extends React.Component {
 
     makeAddresses = (results) => {
         return results.map(address => (
-            <SingleAddress>
-                
-            </SingleAddress>
+            <SingleAddress 
+                key={address.id}
+                streetAddress={address.streetAddress}
+                aptOrHouseNum={address.aptOrHouseNum}
+                city={address.city}
+                state={address.state}
+                zipCode={address.zipCode}
+            />
         ));
     }
 

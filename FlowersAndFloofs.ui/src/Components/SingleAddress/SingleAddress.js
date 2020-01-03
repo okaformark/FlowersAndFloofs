@@ -8,10 +8,11 @@ class SingleAddress extends React.Component {
         const { city } = this.props;
         const { state } = this.props;
         const { zipCode } = this.props;
+        const { id } = this.props;
 
         return (
             <Card>
-            <CardBody>
+            <CardBody id={id}>
               <CardText>Street Address: {streetAddress}</CardText>
               <CardText>Apt. or House Number: {aptOrHouseNum}</CardText>
               <CardText>City: {city}</CardText>
