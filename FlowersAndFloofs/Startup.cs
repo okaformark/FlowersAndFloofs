@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using FlowersAndFloofs.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FlowersAndFloofs
 {
@@ -26,8 +29,12 @@ namespace FlowersAndFloofs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var authSettings = Configuration.GetSection("AuthenticationSettings");
+            var connectionString = Configuration.GetValue<string>("ConnectionString");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.AddControllers();
+            services.AddTransient<SqlConnection>(provider => new SqlConnection(connectionString));
             services.AddScoped<IAddressRepository, BillingAddressRepository>();
             services.AddScoped<IAddressRepository, ShippingAddressRepository>();
             services.AddScoped<IBundleRepository, BundleRepository>();
@@ -56,6 +63,7 @@ namespace FlowersAndFloofs
                 app.UseHsts();
             }
             app.UseCors("MyPolicy");
+            app.UseAuthentication();
             app.UseHttpsRedirection();
            app.UseMvc();
           

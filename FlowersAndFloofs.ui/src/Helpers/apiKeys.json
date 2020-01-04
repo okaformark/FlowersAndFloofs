@@ -1,0 +1,12 @@
+{
+  "firebaseKeys": {
+    "apiKey": "AIzaSyAZ2-qfzr4y2KR2hNEUj2FeYUVNhxh4YHE",
+    "authDomain": "flowersandfloofs.firebaseapp.com",
+    "databaseURL": "https://flowersandfloofs.firebaseio.com",
+    "projectId": "flowersandfloofs",
+    "storageBucket": "flowersandfloofs.appspot.com",
+    "messagingSenderId": "323493447837",
+    "appId": "1:323493447837:web:e65af1fc8a989f65276c74",
+    "measurementId": "G-MR4J5V1RQJ"
+  }
+}
