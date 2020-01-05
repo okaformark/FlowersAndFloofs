@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Router,
   BrowserRouter,
   Route,
   Redirect,
@@ -8,35 +9,34 @@ import {
   from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import fbConnection from '../DataRequests/fbConnection';
 
+import Auth from '../Components/Auth/Auth';
+import Home from '../Components/Home/Home';
 import LandingPage from '../Components/LandingPage/LandingPage';
 import NewCustomer from '../Components/NewCustomer/NewCustomer';
 import MyAccount from '../Components/MyAccount/MyAccount';
 import NavBar from '../Components/NavBar/NavBar';
 import Shop from '../Components/Shop/Shop';
 import Checkout from '../Components/Checkout/Checkout';
+import MyOrders from '../Components/MyOrders/MyOrders';
 
-import customersData from '../helpers/data/customersData';
+// import customersData from '../helpers/data/customersData';
 
 import './App.scss';
 
-import firebaseConnect from '../helpers/data/firebaseConnect';
-
-firebaseConnect();
+fbConnection();
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = props => (authed === false
-    ? (<Component {...props} />)
-    : (<Redirect to={{ pathname: '/home', state: { from: props.location } } }/>)
-  );
+    ? (<Component authed={authed} {...props} {...rest} />)
+    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
-
 const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = props => (authed === true
-    ? (<Component {...props} />)
-    : (<Redirect to={{ pathname: '/auth', state: { from: props.location } } }/>)
-  );
+    ? (<Component authed={authed} {...props} {...rest} />)
+    : (<Redirect to={{ pathname: '/auth', state: { from: props.location } }} />));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
@@ -62,22 +62,22 @@ class App extends React.Component {
     this.removeListener();
   }
 
-  getCustomer = () => {
-    if (this.state.authed) {
-      const firebaseId = firebase.auth().currentUser.uid;
-      customersData.getCustomerInfoByCustomerId(firebaseId)
-        .then(customerObj => this.setState({ customerObj }))
-        .catch(err => console.error('trouble fetching user data', err));
-    }
-  }
+  // getCustomer = () => {
+  //   if (this.state.authed) {
+  //     const firebaseId = firebase.auth().currentUser.uid;
+  //     customersData.getCustomerInfoByCustomerId(firebaseId)
+  //       .then(customerObj => this.setState({ customerObj }))
+  //       .catch(err => console.error('trouble fetching user data', err));
+  //   }
+  // }
 
-  createUser = (saveMe) => {
-    customersData.addCustomerToDatabase(saveMe)
-      .then(() => {
-        this.getCustomer();
-      })
-      .catch();
-  }
+  // createUser = (saveMe) => {
+  //   customersData.addCustomerToDatabase(saveMe)
+  //     .then(() => {
+  //       this.getCustomer();
+  //     })
+  //     .catch();
+  // }
 
   render() {
     const { authed } = this.state;
@@ -90,8 +90,9 @@ class App extends React.Component {
             <div className="container">
               <Switch>
                 <PublicRoute path='/auth' component={Auth} authed={authed} />
-                <Route path='/new-customer' component={NewCustomer} authed={authed} createCustomer={ this.createCustomer }/>
+                {/* <Route path='/new-customer' component={NewCustomer} authed={authed} createCustomer={ this.createCustomer }/> */}
                 <Route path='/landing-page' component={LandingPage} authed={authed} />
+                <PrivateRoute path="/home" component={Home} authed={authed} />
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
                 <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
