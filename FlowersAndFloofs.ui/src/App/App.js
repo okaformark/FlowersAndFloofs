@@ -40,12 +40,20 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
+const cart = [];
+let tempCart = {};
+const tempUnitPrice = [];
+const tempPrice = [];
+
 class App extends React.Component {
   state = {
     authed: false,
     customerObj: {
       name: '',
     },
+    myCart:[],
+    price:[],
+    unitPrice: []
   }
 
   componentDidMount() {
@@ -79,12 +87,60 @@ class App extends React.Component {
   //     .catch();
   // }
 
+  
+  deleteItem = (id) =>{
+    this.setState({myCart: this.state.myCart.filter(item => item.id !== id)})
+  }
+
+  getCartLength = ()=> {
+      const cartLen = this.state.myCart.length;
+      return cartLen;
+    }
+
+    getPrice = (price,unitPrice) =>{
+      tempPrice.push(price);
+      tempUnitPrice.push(unitPrice);
+      this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
+      ()=>{console.error(this.state.unitPrice, this.state.price,"kkkkkk")})
+    } 
+
+    addQuantityToCart = (cartWithQuantity) => { 
+           tempCart = cartWithQuantity;
+          return tempCart;
+      }
+
+  handleAddToCart= () => {
+      const newCart = this.addQuantityToCart(tempCart);
+      if(Object.entries(newCart).length === 0){
+          alert("Enter Quantity");
+      }
+      else{
+          cart.push(newCart);
+      // returns products already in the cart different from the one the user adds to cart
+      const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
+
+      //if there are  matching products that exists
+       if(cart.length > 0 && uniqueObjects.length > 0){
+         this.setState({ myCart: [...uniqueObjects]}, () =>{
+             console.error(this.state.myCart);
+         this.getCartLength();
+         })
+      }
+  }
+  };
+
   render() {
     const { authed } = this.state;
-
+    const len = this.state.myCart.length;
+    const myPrice = this.state.price;
+    const myUnitPrice = this.state.unitPrice;
     return (
       <div className="App">
-        <NavBar authed={authed} />
+        <NavBar authed={authed} cart={len}  
+                myCart={this.state.myCart} 
+                price={myPrice} 
+                unitPrice={myUnitPrice}
+                deleteItem={this.deleteItem}/>
         <BrowserRouter>
           <React.Fragment>
             <div className="container">
@@ -92,7 +148,12 @@ class App extends React.Component {
                 <PublicRoute path='/auth' component={Auth} authed={authed} />
                 {/* <Route path='/new-customer' component={NewCustomer} authed={authed} createCustomer={ this.createCustomer }/> */}
                 <Route path='/landing-page' component={LandingPage} authed={authed} />
-                <PrivateRoute path="/home" component={Home} authed={authed} />
+                <PrivateRoute path="/home" component={Home}
+                authed={authed}
+                handleAddToCart = {this.handleAddToCart} 
+                addQuantityToCart={this.addQuantityToCart} 
+                myCart={this.state.myCart} 
+                getPrice={this.getPrice} />
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
                 <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
