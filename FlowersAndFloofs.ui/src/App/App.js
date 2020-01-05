@@ -25,7 +25,12 @@ export class App extends React.Component{
   }
 
     deleteItem = (id) =>{
-      this.setState({myCart: this.state.myCart.filter(item => item.id !== id)})
+      const deleteCart = [...this.state.myCart]
+      const filterCart = deleteCart.filter(item => item.id !== id)
+      console.log(filterCart,"lol");
+      this.setState({myCart: filterCart}, ()=> {
+        console.error(this.state.myCart,"yeye")
+      })
     }
 
     getCartLength = ()=> {
@@ -46,17 +51,19 @@ export class App extends React.Component{
         }
 
     handleAddToCart= () => {
-        const newCart = this.addQuantityToCart(tempCart);
+        //const newCart = this.addQuantityToCart(tempCart);
+        const newCart = tempCart;
         if(Object.entries(newCart).length === 0){
             alert("Enter Quantity");
         }
         else{
             cart.push(newCart);
+            console.log(cart,"cart")
         // returns products already in the cart different from the one the user adds to cart
         const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
-
+          console.log(uniqueObjects,"unique")
         //if there are  matching products that exists
-         if(cart.length > 0 && uniqueObjects.length > 0){
+         if(uniqueObjects.length > 0){
            this.setState({ myCart: [...uniqueObjects]}, () =>{
                console.error(this.state.myCart);
            this.getCartLength();

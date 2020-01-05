@@ -12,7 +12,6 @@ import {
   Button,
 } from 'reactstrap';
 
-
 class SingleBundle extends React.Component {
   state = {
     flower: [],
@@ -42,22 +41,25 @@ class SingleBundle extends React.Component {
   }
 
 
-  getQuantity=(e)=>{
-    const flowerTitle = this.state.flower.title;
-    const puppyTitle = this.state.puppy.title;
-    const { bundle } = this.props;
-    const { bundleId } = this.props;
-    e.preventDefault();
-    const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
-    newCart.quantity = e.target.value;
-    const unitPrice = this.calcBundlePrice();
-    const price = unitPrice* e.target.value;
-    const fixedPrice = price.toFixed(2);
-    console.error("sfdgfdfdf",newCart,bundleId);
-    this.props.addQuantityToCart(newCart,bundleId);
-    this.props.getPrice(fixedPrice,unitPrice)
-  }
+ 
   render() {
+
+    const getQuantity=(e)=>{
+      const flowerTitle = this.state.flower.title;
+      const puppyTitle = this.state.puppy.title;
+      const { bundle } = this.props;
+      const { bundleId } = this.props;
+      e.preventDefault();
+      const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
+      newCart.quantity = e.target.value;
+      const unitPrice = this.calcBundlePrice();
+      const price = unitPrice* e.target.value;
+      const fixedPrice = price.toFixed(2);
+      console.error("sfdgfdfdf",newCart,bundleId);
+      this.props.addQuantityToCart(newCart,bundleId);
+      this.props.getPrice(fixedPrice,unitPrice)
+    }
+
     const {
       flower,
       puppy
@@ -78,7 +80,7 @@ class SingleBundle extends React.Component {
           ) :
           (
             <select className="custom-select custom-select-sm" 
-            onChange={this.getQuantity} 
+            onChange={getQuantity} 
             id = {key} 
             >
                 <option defaultValue={'Quantity'}>Quantity</option>
@@ -110,7 +112,7 @@ class SingleBundle extends React.Component {
           <div> </div>
         ) : 
         (
-          <Button type="button" className="btn btn-danger btn-sm " onClick={this.props.handleAddToCart.bind(this, bundleId)} >Add to Cart
+          <Button type="button" className="btn btn-danger btn-sm " onClick={this.props.handleAddToCart.bind(this,bundleId)} >Add to Cart
           </Button>
         )}
        
