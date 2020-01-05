@@ -84,9 +84,9 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <NavBar authed={authed} />
         <BrowserRouter>
           <React.Fragment>
-            <NavBar authed={authed} />
             <div className="container">
               <Switch>
                 <PublicRoute path='/auth' component={Auth} authed={authed} />
