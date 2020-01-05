@@ -50,25 +50,31 @@ export class App extends React.Component{
             return tempCart;
         }
 
-    handleAddToCart= () => {
+    handleAddToCart= (id) => {
         //const newCart = this.addQuantityToCart(tempCart);
         const newCart = tempCart;
-        if(Object.entries(newCart).length === 0){
-            alert("Enter Quantity");
-        }
-        else{
-            cart.push(newCart);
-            console.log(cart,"cart")
-        // returns products already in the cart different from the one the user adds to cart
-        const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
-          console.log(uniqueObjects,"unique")
-        //if there are  matching products that exists
-         if(uniqueObjects.length > 0){
-           this.setState({ myCart: [...uniqueObjects]}, () =>{
-               console.error(this.state.myCart);
-           this.getCartLength();
-           })
-        }
+        if (newCart.id ===id){
+          
+          if(Object.entries(newCart).length === 0){
+              alert("Enter Quantity");
+          }
+          else {
+              cart.push(newCart);
+              console.log(cart,"cart")
+          // returns products already in the cart different from the one the user adds to cart
+          const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
+            console.log(uniqueObjects,"unique")
+          //if there are  matching products that exists
+          if(uniqueObjects.length > 0){
+            this.setState({ myCart: [...uniqueObjects]}, () =>{
+                console.error(this.state.myCart);
+            this.getCartLength();
+            })
+          }
+      }
+    }
+    else{
+      return null;
     }
     };
   render(){
