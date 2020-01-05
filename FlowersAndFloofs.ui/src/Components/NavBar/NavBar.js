@@ -80,26 +80,31 @@ class NavBar extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                         <a className="navbar-brand" href="#">LOGO</a>
                         <ul className="navbar-nav ml-auto mt-2 mt-lg-0" >
-                            <li className="nav-item active">
+                        {this.props.authed ?                             <li className="nav-item active">
                                 <a className="nav-link ml-3" href="#" style={style}>
                                     <HomeIcon />Home
                                 </a>
-                            </li>
+                            </li> : null }
+
                             <li className="nav-item">
                                 <a className="nav-link ml-3" href="#">About <span className="sr-only">(current)</span></a>
                             </li>
-                            <li className="nav-item">
+                            {this.props.authed ?                             <li className="nav-item">
                                 <a className="nav-link ml-3" href="#">My Orders</a>
-                            </li>
+                            </li> : null
+                            }
+
                         </ul>
-                        <button className = "btn btn-success btn-sm ml-3" style={style} onClick={this.toggle}>
+                        {this.props.authed ? <button className = "btn btn-success btn-sm ml-3" style={style} onClick={this.toggle}>
                             <ShoppingCartIcon className="shoppingcarticon"/> Cart&nbsp;&nbsp;
                         <span className="badge badge-pill badge-danger">{cart}</span>
-                    </button>
-                        
-                        <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style}>
+                    </button>: null}
+
+                        {this.props.authed ? <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style}>
                             <LockIcon />Log Out
-                        </button>
+                        </button> : null
+                        }
+
                     </div>
                 </nav>
                      <Modal isOpen={this.state.modalShow}
