@@ -42,8 +42,8 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
 
 // let cart = [];
 let tempCart = {};
-const tempUnitPrice = [];
-const tempPrice = [];
+let tempUnitPrice = [];
+let tempPrice = [];
 
 class App extends React.Component {
   state = {
@@ -111,8 +111,8 @@ class App extends React.Component {
       // let tempPrice = [];
       // let tempUnitPrice = [];
       // let {tempUnitPrice, tempPrice} = this.state;
-      tempPrice.push(price);
-      tempUnitPrice.push(unitPrice);
+      tempPrice= price;
+      tempUnitPrice = unitPrice;
       this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
       ()=>{console.error(this.state.unitPrice, this.state.price,"pricing in App")})
     } 

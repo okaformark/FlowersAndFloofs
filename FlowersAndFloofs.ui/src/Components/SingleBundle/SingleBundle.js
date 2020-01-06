@@ -40,7 +40,7 @@ class SingleBundle extends React.Component {
     const flowerTitle = this.state.flower.title;
     const puppyTitle = this.state.puppy.title;
     const { bundle } = this.props;
-    e.preventDefault();
+   // e.preventDefault();
     const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
     newCart.quantity = e.target.value;
     const unitPrice = this.calcBundlePrice();
@@ -65,8 +65,8 @@ class SingleBundle extends React.Component {
           <CardText className="">{this.props.description}</CardText>
           <CardText>Price: {this.calcBundlePrice()}</CardText>
             <select className="custom-select custom-select-sm" onChange={this.getQuantity}>
-            <option defaultValue={'Quantity'}>Quantity</option>
-            <option value="1">1</option>
+            {/* <option defaultValue={'Quantity'}>Quantity</option> */}
+            <option defaultValue="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
