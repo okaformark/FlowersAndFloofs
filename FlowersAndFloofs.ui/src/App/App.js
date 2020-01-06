@@ -28,6 +28,7 @@ export class App extends React.Component{
       const deleteCart = [...this.state.myCart]
       const filterCart = deleteCart.filter(item => item.id !== id)
       console.log(filterCart,"lol");
+      cart.push(filterCart);
       this.setState({myCart: filterCart}, ()=> {
         cart.length=0;
         tempPrice.length=0;
@@ -54,6 +55,7 @@ export class App extends React.Component{
 
     handleAddToCart= (id) => {
         //const newCart = this.addQuantityToCart(tempCart);
+        
         const newCart = tempCart;
           
           if(Object.entries(newCart).length === 0){
