@@ -29,7 +29,7 @@ export class App extends React.Component{
       const filterCart = deleteCart.filter(item => item.id !== id)
       console.log(filterCart,"lol");
       this.setState({myCart: filterCart}, ()=> {
-        console.error(this.state.myCart,"yeye")
+        cart.length=0;
       })
     }
 

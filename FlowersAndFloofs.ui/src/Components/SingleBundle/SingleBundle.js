@@ -40,31 +40,31 @@ class SingleBundle extends React.Component {
     return totalPrice.toFixed(2);
   }
 
+  getQuantity=(e)=>{
+    const flowerTitle = this.state.flower.title;
+    const puppyTitle = this.state.puppy.title;
+    const { bundle } = this.props;
+    const { bundleId } = this.props;
+    e.preventDefault();
+    const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
+    newCart.quantity = e.target.value;
+    const unitPrice = this.calcBundlePrice();
+    const price = unitPrice* e.target.value;
+    const fixedPrice = price.toFixed(2);
+    console.error("sfdgfdfdf",newCart);
+    this.props.addQuantityToCart(newCart,bundleId);
+    this.props.getPrice(fixedPrice,unitPrice)
+    return newCart;
+  }
+
 
  
   render() {
-
-    const getQuantity=(e)=>{
-      const flowerTitle = this.state.flower.title;
-      const puppyTitle = this.state.puppy.title;
-      const { bundle } = this.props;
-      const { bundleId } = this.props;
-      e.preventDefault();
-      const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
-      newCart.quantity = e.target.value;
-      const unitPrice = this.calcBundlePrice();
-      const price = unitPrice* e.target.value;
-      const fixedPrice = price.toFixed(2);
-      console.error("sfdgfdfdf",newCart,bundleId);
-      this.props.addQuantityToCart(newCart,bundleId);
-      this.props.getPrice(fixedPrice,unitPrice)
-    }
-
     const {
       flower,
       puppy
     } = this.state;
-    const { bundleId, key } = this.props;
+    const { key, bundleId } = this.props;
     return (
       <div className="col-4" 
             onMouseEnter={this.showAddToCartButtonAndQuantity}
@@ -80,7 +80,7 @@ class SingleBundle extends React.Component {
           ) :
           (
             <select className="custom-select custom-select-sm" 
-            onChange={getQuantity} 
+            onChange={this.getQuantity} 
             id = {key} 
             >
                 <option defaultValue={'Quantity'}>Quantity</option>
