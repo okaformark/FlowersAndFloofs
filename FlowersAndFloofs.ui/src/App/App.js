@@ -40,20 +40,24 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
-const cart = [];
+// let cart = [];
 let tempCart = {};
 const tempUnitPrice = [];
 const tempPrice = [];
 
 class App extends React.Component {
   state = {
+    cart: [],
     authed: false,
     customerObj: {
       name: '',
     },
     myCart:[],
     price:[],
-    unitPrice: []
+    unitPrice: [],
+    // tempCart: {},
+    // tempUnitPrice: [],
+    // tempPrice: []
   }
 
   componentDidMount() {
@@ -89,9 +93,12 @@ class App extends React.Component {
 
   
   deleteItem = (id, e) =>{
+   // e.preventDefault();
+    // let {tempCart} = this.state;
     tempCart = this.state.myCart.filter(item => item.id !== id);
-    // console.error('tempcart', tempCart);
-    this.setState({myCart: tempCart});
+    // cart = tempCart;
+
+    this.setState({myCart: tempCart, cart: tempCart});
   }
 
   getCartLength = ()=> {
@@ -101,6 +108,9 @@ class App extends React.Component {
     }
 
     getPrice = (price,unitPrice) =>{
+      // let tempPrice = [];
+      // let tempUnitPrice = [];
+      // let {tempUnitPrice, tempPrice} = this.state;
       tempPrice.push(price);
       tempUnitPrice.push(unitPrice);
       this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
@@ -108,7 +118,7 @@ class App extends React.Component {
     } 
 
     addQuantityToCart = (cartWithQuantity) => { 
-           tempCart = cartWithQuantity;
+          tempCart = cartWithQuantity;
           return tempCart;
       }
 
@@ -118,12 +128,12 @@ class App extends React.Component {
           alert("Enter Quantity");
       }
       else{
-          cart.push(newCart);
+          this.state.cart.push(newCart);
       // returns products already in the cart different from the one the user adds to cart
-      const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
-
+      const uniqueObjects = [...new Map(this.state.cart.map(item => [item.id, item])).values()]
+      console.error('uniqueObjects', uniqueObjects);
       //if there are  matching products that exists
-       if(cart.length > 0 && uniqueObjects.length > 0){
+       if(this.state.cart.length > 0 && uniqueObjects.length > 0){
          this.setState({ myCart: [...uniqueObjects]}, () =>{
              console.error('myCart in handleAddToCart', this.state.myCart);
          this.getCartLength();
