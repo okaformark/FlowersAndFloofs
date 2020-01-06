@@ -20,6 +20,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "reactstrap": "^8.2.0",
+    "regex": "^0.1.1",
     "semantic-ui-react": "^0.88.2"
   },
   "scripts": {

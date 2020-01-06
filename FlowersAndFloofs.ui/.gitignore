@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 src/helpers/apiKeys.json
 
+
 # dependencies
 /node_modules
 /.pnp
@@ -13,6 +14,7 @@ src/helpers/apiKeys.json
 /build
 
 # misc
+src/helpers/apiKeys.json
 .DS_Store
 .env.local
 .env.development.local
