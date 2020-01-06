@@ -30,6 +30,8 @@ export class App extends React.Component{
       console.log(filterCart,"lol");
       this.setState({myCart: filterCart}, ()=> {
         cart.length=0;
+        tempPrice.length=0;
+        tempUnitPrice.length=0;
       })
     }
 
@@ -38,11 +40,11 @@ export class App extends React.Component{
         return cartLen;
       }
 
-      getPrice = (price,unitPrice) =>{
+      getPrice = (price,unitPrice, id) =>{
         tempPrice.push(price);
         tempUnitPrice.push(unitPrice);
         this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
-        ()=>{console.error(this.state.unitPrice, this.state.price,"kkkkkk")})
+        ()=>{console.error(this.state.unitPrice, this.state.price, id,"kkkkkk")})
       } 
 
       addQuantityToCart = (cartWithQuantity) => { 
