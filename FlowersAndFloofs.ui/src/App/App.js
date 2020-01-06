@@ -88,12 +88,15 @@ class App extends React.Component {
   // }
 
   
-  deleteItem = (id) =>{
-    this.setState({myCart: this.state.myCart.filter(item => item.id !== id)})
+  deleteItem = (id, e) =>{
+    tempCart = this.state.myCart.filter(item => item.id !== id);
+    // console.error('tempcart', tempCart);
+    this.setState({myCart: tempCart});
   }
 
   getCartLength = ()=> {
       const cartLen = this.state.myCart.length;
+      console.error('cart length', cartLen);
       return cartLen;
     }
 
@@ -101,7 +104,7 @@ class App extends React.Component {
       tempPrice.push(price);
       tempUnitPrice.push(unitPrice);
       this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
-      ()=>{console.error(this.state.unitPrice, this.state.price,"kkkkkk")})
+      ()=>{console.error(this.state.unitPrice, this.state.price,"pricing in App")})
     } 
 
     addQuantityToCart = (cartWithQuantity) => { 
@@ -122,7 +125,7 @@ class App extends React.Component {
       //if there are  matching products that exists
        if(cart.length > 0 && uniqueObjects.length > 0){
          this.setState({ myCart: [...uniqueObjects]}, () =>{
-             console.error(this.state.myCart);
+             console.error('myCart in handleAddToCart', this.state.myCart);
          this.getCartLength();
          })
       }
