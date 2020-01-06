@@ -55,7 +55,6 @@ export class App extends React.Component{
     handleAddToCart= (id) => {
         //const newCart = this.addQuantityToCart(tempCart);
         const newCart = tempCart;
-        if (newCart.id ===id){
           
           if(Object.entries(newCart).length === 0){
               alert("Enter Quantity");
@@ -74,11 +73,8 @@ export class App extends React.Component{
             })
           }
       }
-    }
-    else{
-      return null;
-    }
     };
+  
   render(){
     const len = this.state.myCart.length;
     const myPrice = this.state.price;
