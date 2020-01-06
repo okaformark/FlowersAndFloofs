@@ -11,7 +11,7 @@ class SingleAddress extends React.Component {
         const { id } = this.props;
 
         return (
-            <Card>
+          <Card>
             <CardBody id={id}>
               <CardText>Street Address: {streetAddress}</CardText>
               <CardText>Apt. or House Number: {aptOrHouseNum}</CardText>

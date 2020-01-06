@@ -39,7 +39,8 @@ class Checkout extends React.Component {
 
         return (
             <ReactFragment>
-                <div>"Hello!"</div>
+                <div>"This is for billing addresses"</div>
+                <div>"This is for shipping addresses"</div>
             </ReactFragment>
         )
     }
