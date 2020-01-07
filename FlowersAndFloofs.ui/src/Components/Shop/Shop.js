@@ -10,6 +10,7 @@ import occasionRequest from '../../DataRequests/occasionRequest';
 const style = {
   display:'flex'
   };
+
 class Shop extends React.Component {
   state = {
     bundles: [],
