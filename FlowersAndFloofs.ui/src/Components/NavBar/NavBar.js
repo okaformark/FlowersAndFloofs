@@ -35,11 +35,11 @@ class NavBar extends React.Component {
         const { cart } = this.props;
         const { price } = this.props;
         const { unitPrice } = this.props;
-        const makeCart = this.props.myCart.map((product, key) =>(
+        const makeCart = this.props.myCart.map((product, index) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
-                                price={price[key]} 
-                                unitPrice={unitPrice[key]}
+                                price={product.price} 
+                                unitPrice={product.unitPrice}
                                 deleteItem={this.props.deleteItem}
                                 />
         ))

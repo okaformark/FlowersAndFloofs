@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class SingleCartProduct extends Component {
+class SingleCartProduct extends Component {
 
   state = {
     isClicked: false

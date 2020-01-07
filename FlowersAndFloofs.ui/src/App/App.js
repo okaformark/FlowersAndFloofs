@@ -107,24 +107,26 @@ class App extends React.Component {
   //     .catch();
   // }
 
-  // deleteItem = (id) =>{
-  //   const deleteCart = [...this.state.myCart]
-  //   const filterCart = deleteCart.filter(item => item.id !== id)
-  //   console.log(filterCart,"lol");
-  //   cart.push(filterCart);
-  //   this.setState({myCart: filterCart}, ()=> {
-  //     cart.length=0;
-  //     tempPrice.length=0;
-  //     tempUnitPrice.length=0;
-  //   })
-  deleteItem = (id, e) =>{
-   // e.preventDefault();
-    // let {tempCart} = this.state;
-    tempCart = this.state.myCart.filter(item => item.id !== id);
-    // cart = tempCart;
-
-    this.setState({myCart: tempCart, cart: tempCart});
+  deleteItem = (id,index) =>{
+    const deleteCart = [...this.state.myCart]
+    const filterCart = deleteCart.filter(item => item.id !== id)
+    // const filterUnitPrice = this.state.unitPrice.filter(price => price[index] !== id-1)
+    console.log(filterCart,"lol");
+    // cart.push(filterCart);
+    this.setState({myCart: filterCart}, ()=> {
+      cart.length=0;
+      //tempPrice.length=0;
+      //tempUnitPrice.length=0;
+    })
   }
+  // deleteItem = (id, e) =>{
+  //  // e.preventDefault();
+  //   // let {tempCart} = this.state;
+  //   tempCart = this.state.myCart.filter(item => item.id !== id);
+  //   // cart = tempCart;
+
+  //   this.setState({myCart: tempCart, cart: tempCart});
+  // }
 
   getCartLength = ()=> {
       const cartLen = this.state.myCart.length;
@@ -135,12 +137,15 @@ class App extends React.Component {
       getPrice = (price,unitPrice, id) =>{
         tempPrice.push(price);
         tempUnitPrice.push(unitPrice);
-        this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
-        ()=>{console.error(this.state.unitPrice, this.state.price, id,"kkkkkk")})
+        // this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
+        // ()=>{console.error(this.state.unitPrice, this.state.price, id,"kkkkkk")})
+        tempCart.unitPrice = unitPrice;
+        tempCart.price = price;
       } 
 
     addQuantityToCart = (cartWithQuantity) => { 
           tempCart = cartWithQuantity;
+          console.log(tempCart,"pop")
           return tempCart;
       }
 
@@ -169,17 +174,23 @@ class App extends React.Component {
     };
   
   render(){
+    const { authed } = this.state;
     const len = this.state.myCart.length;
-    const myPrice = this.state.price;
-    const myUnitPrice = this.state.unitPrice;
+    // const myPrice = this.state.price;
+    // const myUnitPrice = this.state.unitPrice;
+
+    const myPrice = this.state.myCart.price;
+    const myUnitPrice = this.state.myCart.unitPrice;
     return (
       <div className="App">
-        <NavBar authed={authed} cart={len}  
+        <NavBar authed={authed} 
+                cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
                 unitPrice={myUnitPrice}
-                deleteItem={this.deleteItem} />
+                deleteItem={this.deleteItem}
                 clearCart={this.clearCart}
+                />
         <BrowserRouter>
           <React.Fragment>
             <div className="container">

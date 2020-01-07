@@ -43,8 +43,7 @@ class SingleBundle extends React.Component {
   getQuantity=(e)=>{
     const flowerTitle = this.state.flower.title;
     const puppyTitle = this.state.puppy.title;
-    const { bundle } = this.props;
-   // e.preventDefault();
+    const { bundle, bundleId } = this.props;
     const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
     newCart.quantity = e.target.value;
     const unitPrice = this.calcBundlePrice();
@@ -52,7 +51,7 @@ class SingleBundle extends React.Component {
     const fixedPrice = price.toFixed(2);
     console.error("sfdgfdfdf",newCart);
     this.props.addQuantityToCart(newCart);
-    this.props.getPrice(fixedPrice,unitPrice)
+    this.props.getPrice(fixedPrice,unitPrice, bundleId)
     return newCart;
   }
   render() {
@@ -60,7 +59,7 @@ class SingleBundle extends React.Component {
       flower,
       puppy
     } = this.state;
-    const { key, bundleId } = this.props;
+    const { bundleId } = this.props;
     return (
       <div className="col-4" 
             onMouseEnter={this.showAddToCartButtonAndQuantity}
@@ -77,7 +76,7 @@ class SingleBundle extends React.Component {
           (
             <select className="custom-select custom-select-sm" 
             onChange={this.getQuantity} 
-            id = {key} 
+            id = {bundleId} 
             >
                 <option defaultValue={'Quantity'}>Quantity</option>
                 <option value="1">1</option>
