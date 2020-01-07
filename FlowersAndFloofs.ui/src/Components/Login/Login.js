@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import authRequests from '../../Requests/auth';
+import authRequests from '../Auth/Auth';
 
 class Login extends React.Component {
   state = {

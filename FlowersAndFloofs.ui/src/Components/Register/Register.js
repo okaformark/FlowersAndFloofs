@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import authRequests from '../../Requests/auth';
+import authRequests from '../Auth/Auth';
 
 
 class Register extends React.Component {
@@ -18,7 +18,7 @@ class Register extends React.Component {
     authRequests
       .registerUser(user)
       .then(() => {
-        this.props.history.push('/trainers');
+        this.props.history.push('/home');
       })
       .catch(error => {
         console.error('there was an error in registering', error);

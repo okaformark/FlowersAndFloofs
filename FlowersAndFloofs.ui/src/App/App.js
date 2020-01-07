@@ -11,7 +11,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import fbConnection from '../DataRequests/fbConnection';
 
-import Auth from '../Components/Auth/Auth';
 import Home from '../Components/Home/Home';
 import LandingPage from '../Components/LandingPage/LandingPage';
 import NewCustomer from '../Components/NewCustomer/NewCustomer';
@@ -20,6 +19,8 @@ import NavBar from '../Components/NavBar/NavBar';
 import Shop from '../Components/Shop/Shop';
 import Checkout from '../Components/Checkout/Checkout';
 import MyOrders from '../Components/MyOrders/MyOrders';
+import Login from '../Components/Login/Login';
+import Register from '../Components/Register/Register';
 
 // import customersData from '../helpers/data/customersData';
 
@@ -142,6 +143,10 @@ class App extends React.Component {
   }
   };
 
+  logout = () => {
+    this.setState({authenticated: false});
+  }
+
   render() {
     const { authed } = this.state;
     const len = this.state.myCart.length;
@@ -149,18 +154,30 @@ class App extends React.Component {
     const myUnitPrice = this.state.unitPrice;
     return (
       <div className="App">
-        <NavBar authed={authed} cart={len}  
+      <BrowserRouter>
+        <NavBar authed={authed} 
+                logout={this.logout}
+                cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
                 unitPrice={myUnitPrice}
                 deleteItem={this.deleteItem}/>
-        <BrowserRouter>
+
           <React.Fragment>
             <div className="container">
               <Switch>
-                <PublicRoute path='/auth' component={Auth} authed={authed} />
                 {/* <Route path='/new-customer' component={NewCustomer} authed={authed} createCustomer={ this.createCustomer }/> */}
-                <Route path='/landing-page' component={LandingPage} authed={authed} />
+                <PublicRoute path='/landing-page' component={LandingPage} authed={authed} />
+                <PublicRoute
+                  path="/login"
+                  authed={authed}
+                  component={Login}
+                />
+                  <PublicRoute
+                  path="/register"
+                  authed={this.state.authed}
+                  component={Register}
+                />
                 <PrivateRoute path="/home" component={Home}
                 authed={authed}
                 handleAddToCart = {this.handleAddToCart} 
@@ -170,7 +187,7 @@ class App extends React.Component {
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
                 <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
-                <Redirect from="*" to="/auth" />
+                <Redirect from="*" to="/landing-page" />
               </Switch>
             </div>
           </React.Fragment>
