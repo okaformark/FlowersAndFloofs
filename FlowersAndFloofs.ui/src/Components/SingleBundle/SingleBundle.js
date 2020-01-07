@@ -44,21 +44,17 @@ class SingleBundle extends React.Component {
     const flowerTitle = this.state.flower.title;
     const puppyTitle = this.state.puppy.title;
     const { bundle } = this.props;
-    const { bundleId } = this.props;
-    e.preventDefault();
+   // e.preventDefault();
     const newCart = Object.assign({quantity:0}, bundle, {flowerTitle},{ puppyTitle})
     newCart.quantity = e.target.value;
     const unitPrice = this.calcBundlePrice();
     const price = unitPrice* e.target.value;
     const fixedPrice = price.toFixed(2);
     console.error("sfdgfdfdf",newCart);
-    this.props.addQuantityToCart(newCart,bundleId);
-    this.props.getPrice(fixedPrice,unitPrice, bundleId)
+    this.props.addQuantityToCart(newCart);
+    this.props.getPrice(fixedPrice,unitPrice)
     return newCart;
   }
-
-
- 
   render() {
     const {
       flower,

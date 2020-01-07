@@ -1,21 +1,76 @@
 import React from 'react';
+import {
+  Router,
+  BrowserRouter,
+  Route,
+  Redirect,
+  Switch,
+}
+  from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import fbConnection from '../DataRequests/fbConnection';
+
+import Auth from '../Components/Auth/Auth';
 import Home from '../Components/Home/Home';
-import NavBar from '../Components/NavBar/NavBar'
+import LandingPage from '../Components/LandingPage/LandingPage';
+import NewCustomer from '../Components/NewCustomer/NewCustomer';
+import MyAccount from '../Components/MyAccount/MyAccount';
+import NavBar from '../Components/NavBar/NavBar';
+import Shop from '../Components/Shop/Shop';
+import Checkout from '../Components/Checkout/Checkout';
+import MyOrders from '../Components/MyOrders/MyOrders';
+
+// import customersData from '../helpers/data/customersData';
+
 import './App.scss';
 
-// import Shop from '../Components/Shop/Shop';
+fbConnection();
+
+const PublicRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = props => (authed === false
+    ? (<Component authed={authed} {...props} {...rest} />)
+    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
+  return <Route {...rest} render={props => routeChecker(props)} />;
+};
+const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = props => (authed === true
+    ? (<Component authed={authed} {...props} {...rest} />)
+    : (<Redirect to={{ pathname: '/auth', state: { from: props.location } }} />));
+  return <Route {...rest} render={props => routeChecker(props)} />;
+};
+
+
 const cart = [];
 let tempCart = {};
-const tempUnitPrice = [];
-const tempPrice = [];
-export class App extends React.Component{
+let tempUnitPrice = [];
+let tempPrice = [];
+
+class App extends React.Component {
   state = {
+    cart: [],
+    authed: false,
+    customerObj: {
+      name: ''
+    },
     myCart:[],
     price:[],
-    unitPrice: [],
-    isClicked:false
+    unitPrice: []
   }
 
+  componentDidMount() {
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ authed: true });
+      } else {
+        this.setState({ authed: false });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.removeListener();
+  }
 
   clearCart = () => {
     this.setState({myCart: []}, ()=> {
@@ -35,11 +90,47 @@ export class App extends React.Component{
         tempUnitPrice.length=0;
       })
     }
+  // getCustomer = () => {
+  //   if (this.state.authed) {
+  //     const firebaseId = firebase.auth().currentUser.uid;
+  //     customersData.getCustomerInfoByCustomerId(firebaseId)
+  //       .then(customerObj => this.setState({ customerObj }))
+  //       .catch(err => console.error('trouble fetching user data', err));
+  //   }
+  // }
 
-    getCartLength = ()=> {
-        const cartLen = this.state.myCart.length;
-        return cartLen;
-      }
+  // createUser = (saveMe) => {
+  //   customersData.addCustomerToDatabase(saveMe)
+  //     .then(() => {
+  //       this.getCustomer();
+  //     })
+  //     .catch();
+  // }
+
+  // deleteItem = (id) =>{
+  //   const deleteCart = [...this.state.myCart]
+  //   const filterCart = deleteCart.filter(item => item.id !== id)
+  //   console.log(filterCart,"lol");
+  //   cart.push(filterCart);
+  //   this.setState({myCart: filterCart}, ()=> {
+  //     cart.length=0;
+  //     tempPrice.length=0;
+  //     tempUnitPrice.length=0;
+  //   })
+  deleteItem = (id, e) =>{
+   // e.preventDefault();
+    // let {tempCart} = this.state;
+    tempCart = this.state.myCart.filter(item => item.id !== id);
+    // cart = tempCart;
+
+    this.setState({myCart: tempCart, cart: tempCart});
+  }
+
+  getCartLength = ()=> {
+      const cartLen = this.state.myCart.length;
+      console.error('cart length', cartLen);
+      return cartLen;
+    }
 
       getPrice = (price,unitPrice, id) =>{
         tempPrice.push(price);
@@ -48,10 +139,10 @@ export class App extends React.Component{
         ()=>{console.error(this.state.unitPrice, this.state.price, id,"kkkkkk")})
       } 
 
-      addQuantityToCart = (cartWithQuantity) => { 
-             tempCart = cartWithQuantity;
-            return tempCart;
-        }
+    addQuantityToCart = (cartWithQuantity) => { 
+          tempCart = cartWithQuantity;
+          return tempCart;
+      }
 
     handleAddToCart= (id) => {
         //const newCart = this.addQuantityToCart(tempCart);
@@ -83,17 +174,33 @@ export class App extends React.Component{
     const myUnitPrice = this.state.unitPrice;
     return (
       <div className="App">
-        <NavBar cart={len}  
+        <NavBar authed={authed} cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
                 unitPrice={myUnitPrice}
-                deleteItem={this.deleteItem}
+                deleteItem={this.deleteItem} />
                 clearCart={this.clearCart}
-                />
-        <Home handleAddToCart = {this.handleAddToCart} 
-              addQuantityToCart={this.addQuantityToCart} 
-              myCart={this.state.myCart} 
-              getPrice={this.getPrice} />
+        <BrowserRouter>
+          <React.Fragment>
+            <div className="container">
+              <Switch>
+                <PublicRoute path='/auth' component={Auth} authed={authed} />
+                {/* <Route path='/new-customer' component={NewCustomer} authed={authed} createCustomer={ this.createCustomer }/> */}
+                <Route path='/landing-page' component={LandingPage} authed={authed} />
+                <PrivateRoute path="/home" component={Home}
+                authed={authed}
+                handleAddToCart = {this.handleAddToCart} 
+                addQuantityToCart={this.addQuantityToCart} 
+                myCart={this.state.myCart} 
+                getPrice={this.getPrice} />
+                <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
+                <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
+                <PrivateRoute path='/shop' component={Shop} authed={authed} />
+                <Redirect from="*" to="/auth" />
+              </Switch>
+            </div>
+          </React.Fragment>
+        </BrowserRouter>
       </div>
     );
   }

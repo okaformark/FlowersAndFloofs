@@ -22,7 +22,7 @@ export class SingleCartProduct extends Component {
         const { price } = this.props;
         const { unitPrice }= this.props;
         const { product } = this.props;
-        return (
+    return (
               <tbody>
                 <tr>
                   <th scope="row" className="border-0">
