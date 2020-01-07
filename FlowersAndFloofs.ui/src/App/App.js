@@ -40,7 +40,8 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
-// let cart = [];
+
+const cart = [];
 let tempCart = {};
 let tempUnitPrice = [];
 let tempPrice = [];
@@ -50,14 +51,11 @@ class App extends React.Component {
     cart: [],
     authed: false,
     customerObj: {
-      name: '',
+      name: ''
     },
     myCart:[],
     price:[],
-    unitPrice: [],
-    // tempCart: {},
-    // tempUnitPrice: [],
-    // tempPrice: []
+    unitPrice: []
   }
 
   componentDidMount() {
@@ -74,6 +72,24 @@ class App extends React.Component {
     this.removeListener();
   }
 
+  clearCart = () => {
+    this.setState({myCart: []}, ()=> {
+      this.setState({isClicked:!this.state.isClicked})
+    })
+    return this.state.isClicked;
+  }
+
+    deleteItem = (id) =>{
+      const deleteCart = [...this.state.myCart]
+      const filterCart = deleteCart.filter(item => item.id !== id)
+      console.log(filterCart,"lol");
+      cart.push(filterCart);
+      this.setState({myCart: filterCart}, ()=> {
+        cart.length=0;
+        tempPrice.length=0;
+        tempUnitPrice.length=0;
+      })
+    }
   // getCustomer = () => {
   //   if (this.state.authed) {
   //     const firebaseId = firebase.auth().currentUser.uid;
@@ -91,15 +107,26 @@ class App extends React.Component {
   //     .catch();
   // }
 
-  
-  deleteItem = (id, e) =>{
-   // e.preventDefault();
-    // let {tempCart} = this.state;
-    tempCart = this.state.myCart.filter(item => item.id !== id);
-    // cart = tempCart;
-
-    this.setState({myCart: tempCart, cart: tempCart});
+  deleteItem = (id,index) =>{
+    const deleteCart = [...this.state.myCart]
+    const filterCart = deleteCart.filter(item => item.id !== id)
+    // const filterUnitPrice = this.state.unitPrice.filter(price => price[index] !== id-1)
+    console.log(filterCart,"lol");
+    // cart.push(filterCart);
+    this.setState({myCart: filterCart}, ()=> {
+      cart.length=0;
+      //tempPrice.length=0;
+      //tempUnitPrice.length=0;
+    })
   }
+  // deleteItem = (id, e) =>{
+  //  // e.preventDefault();
+  //   // let {tempCart} = this.state;
+  //   tempCart = this.state.myCart.filter(item => item.id !== id);
+  //   // cart = tempCart;
+
+  //   this.setState({myCart: tempCart, cart: tempCart});
+  // }
 
   getCartLength = ()=> {
       const cartLen = this.state.myCart.length;
@@ -107,54 +134,64 @@ class App extends React.Component {
       return cartLen;
     }
 
-    getPrice = (price,unitPrice) =>{
-      // let tempPrice = [];
-      // let tempUnitPrice = [];
-      // let {tempUnitPrice, tempPrice} = this.state;
-      tempPrice= price;
-      tempUnitPrice = unitPrice;
-      this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
-      ()=>{console.error(this.state.unitPrice, this.state.price,"pricing in App")})
-    } 
+      getPrice = (price,unitPrice, id) =>{
+        tempPrice.push(price);
+        tempUnitPrice.push(unitPrice);
+        // this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
+        // ()=>{console.error(this.state.unitPrice, this.state.price, id,"kkkkkk")})
+        tempCart.unitPrice = unitPrice;
+        tempCart.price = price;
+      } 
 
     addQuantityToCart = (cartWithQuantity) => { 
           tempCart = cartWithQuantity;
+          console.log(tempCart,"pop")
           return tempCart;
       }
 
-  handleAddToCart= () => {
-      const newCart = this.addQuantityToCart(tempCart);
-      if(Object.entries(newCart).length === 0){
-          alert("Enter Quantity");
+    handleAddToCart= (id) => {
+        //const newCart = this.addQuantityToCart(tempCart);
+        
+        const newCart = tempCart;
+          
+          if(Object.entries(newCart).length === 0){
+              alert("Enter Quantity");
+          }
+          else {
+              cart.push(newCart);
+              console.log(cart,"cart")
+          // returns products already in the cart different from the one the user adds to cart
+          const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
+            console.log(uniqueObjects,"unique")
+          //if there are  matching products that exists
+          if(uniqueObjects.length > 0){
+            this.setState({ myCart: [...uniqueObjects]}, () =>{
+                console.error(this.state.myCart);
+            this.getCartLength();
+            })
+          }
       }
-      else{
-          this.state.cart.push(newCart);
-      // returns products already in the cart different from the one the user adds to cart
-      const uniqueObjects = [...new Map(this.state.cart.map(item => [item.id, item])).values()]
-      console.error('uniqueObjects', uniqueObjects);
-      //if there are  matching products that exists
-       if(this.state.cart.length > 0 && uniqueObjects.length > 0){
-         this.setState({ myCart: [...uniqueObjects]}, () =>{
-             console.error('myCart in handleAddToCart', this.state.myCart);
-         this.getCartLength();
-         })
-      }
-  }
-  };
-
-  render() {
+    };
+  
+  render(){
     const { authed } = this.state;
     const len = this.state.myCart.length;
-    const myPrice = this.state.price;
-    const myUnitPrice = this.state.unitPrice;
+    // const myPrice = this.state.price;
+    // const myUnitPrice = this.state.unitPrice;
+
+    const myPrice = this.state.myCart.price;
+    const myUnitPrice = this.state.myCart.unitPrice;
     return (
       <div className="App">
         <BrowserRouter>
-        <NavBar authed={authed} cart={len}  
+        <NavBar authed={authed} 
+                cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
                 unitPrice={myUnitPrice}
-                deleteItem={this.deleteItem}/>
+                deleteItem={this.deleteItem}
+                clearCart={this.clearCart}
+                />
           <React.Fragment>
             <div className="container">
               <Switch>

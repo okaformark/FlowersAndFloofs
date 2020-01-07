@@ -8,12 +8,11 @@
 
 # testing
 /coverage
-
 # production
 /build
 
 # misc
-src/helpers/apiKeys.json
+src/Helpers/apiKeys.json
 .DS_Store
 .env.local
 .env.development.local
