@@ -19,7 +19,6 @@ class NavBar extends React.Component {
         currentCart: []
     }
 
-
     toggle = () => {
         this.setState(prevState => ({
             modalShow: !prevState.modalShow
@@ -34,14 +33,15 @@ class NavBar extends React.Component {
     }
 
     render() {
+        const { clearCart } = this.props;
         const { cart } = this.props;
         const { price } = this.props;
         const { unitPrice } = this.props;
         const makeCart = this.props.myCart.map((product, index) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
-                                price={price} 
-                                unitPrice={unitPrice}
+                                price={product.price} 
+                                unitPrice={product.unitPrice}
                                 deleteItem={this.props.deleteItem}
                                 />
         ))
@@ -53,6 +53,14 @@ class NavBar extends React.Component {
         const makeModalTable=()=>{
             return(
                 <div>
+                    {cart > 0 ?
+                    (
+                        <a className="clear" href="#" onClick={clearCart}><i className="material-icons">clear_all</i></a>
+                    ) : 
+                    (
+                        <div></div>
+                    )}
+                   
                     <div className="row">
                         <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
                             <div className="table-responsive">
@@ -130,7 +138,13 @@ class NavBar extends React.Component {
                             {makeModalTable()}
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.checkout}>Checkout</Button>
+                            {cart >0?
+                            (
+                                <Button color="primary" onClick={this.checkout}>Proceed to Checkout</Button>
+                            ) :
+                            (
+                                <div></div>
+                            )}
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
