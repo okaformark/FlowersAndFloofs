@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText, Row } from 'reactstrap';
 
 import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
@@ -22,7 +22,20 @@ class Checkout extends React.Component {
         });
     }
 
-    makeAddresses = (results) => {
+    makeShippingAddresses = (results) => {
+        return results.map(address => (
+            <SingleAddress 
+                key={address.id}
+                streetAddress={address.streetAddress}
+                aptOrHouseNum={address.aptOrHouseNum}
+                city={address.city}
+                state={address.state}
+                zipCode={address.zipCode}
+            />
+        ));
+    }
+
+    makeBillingAddresses = (results) => {
         return results.map(address => (
             <SingleAddress 
                 key={address.id}
@@ -36,12 +49,19 @@ class Checkout extends React.Component {
     }
 
     render(){
+        const makeShippingAddressCards = (this.state.shippingAddresses.length > 0 ? this.makeshippingAddresses(this.state.shippingAddresses) :
+            this.makeShippingAddresses(this.state.shippingAddresses));
 
         return (
             <React.Fragment>
+                <Row>
+                    <h3>Shipping Addresses:</h3>
+                    {makeShippingAddressCards}
+                </Row>
                 <div>"This is for billing addresses"</div>
-                <div>"This is for shipping addresses"</div>
             </React.Fragment>
         )
     }
 }
+
+export default Checkout;

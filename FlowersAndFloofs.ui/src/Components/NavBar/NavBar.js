@@ -2,7 +2,8 @@ import React from 'react';
 import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
-import { Modal, ModalBody, ModalFooter, ModalHeader, Button} from 'reactstrap';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'reactstrap';
+import {Link} from 'react-router-dom';
 import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
 
 const style = {
@@ -27,7 +28,7 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-        console.error('myCart props', this.props.myCart);
+        // console.error('myCart props', this.props.myCart);
         this.setState({currentCart: this.props.myCart});
     }
 
@@ -123,7 +124,8 @@ class NavBar extends React.Component {
                             {makeModalTable()}
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.checkout}>Checkout</Button>
+                            {/* <Button color="primary" onClick={this.goToCheckout}>Checkout</Button> */}
+                            <Link class="btn btn-primary" to="/checkout" onClick={this.toggle}>Checkout</Link>
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>

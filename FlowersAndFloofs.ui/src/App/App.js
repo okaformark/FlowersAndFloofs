@@ -149,12 +149,12 @@ class App extends React.Component {
     const myUnitPrice = this.state.unitPrice;
     return (
       <div className="App">
+        <BrowserRouter>
         <NavBar authed={authed} cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
                 unitPrice={myUnitPrice}
                 deleteItem={this.deleteItem}/>
-        <BrowserRouter>
           <React.Fragment>
             <div className="container">
               <Switch>
@@ -170,6 +170,7 @@ class App extends React.Component {
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
                 <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
+                <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
                 <Redirect from="*" to="/auth" />
               </Switch>
             </div>

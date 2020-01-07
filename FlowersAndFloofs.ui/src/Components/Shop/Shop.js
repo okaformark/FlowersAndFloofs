@@ -7,6 +7,9 @@ import SingleBundle from '../SingleBundle/SingleBundle';
 import SearchBarIcon from '../NavBar/Icons/SearchBarIcon';
 import occasionRequest from '../../DataRequests/occasionRequest';
 
+import './Shop.scss';
+
+
 // const style = {
 //   display:'flex'
 //   };
@@ -18,26 +21,26 @@ class Shop extends React.Component {
     occasions: [],
   }
 
-  componentDidMount(){
+  componentDidMount() {
     bundleRequest.getAllBundles().then(data => {
       let allBundles = [...data];
-      this.setState({bundles: allBundles});
+      this.setState({ bundles: allBundles });
     });
     productRequest.getAllProducts().then(data => {
-      this.setState({allProducts: data})
-      console.error("all products: ",this.state.allProducts);
+      this.setState({ allProducts: data })
+      // console.error("all products: ", this.state.allProducts);
     })
     this.getBundles();
     occasionRequest.getAllOccasions().then(data => {
       let allOccasions = [...data];
-      this.setState({occasions: allOccasions});
+      this.setState({ occasions: allOccasions });
     });
   }
 
   getBundles = () => {
     bundleRequest.getAllBundles()
-    .then(bundles => this.setState({ bundles, filteredBundles: bundles }))
-    .catch(err => console.error('no bundles for you', err))
+      .then(bundles => this.setState({ bundles, filteredBundles: bundles }))
+      .catch(err => console.error('no bundles for you', err))
   }
 
   filterBundlesByCategory = (e) => {
@@ -48,43 +51,43 @@ class Shop extends React.Component {
     const filteredResults = this.state.bundles.filter(bundle => bundle.occasionId == buttonCategory);
     this.setState({ filteredBundles: filteredResults });
   }
-  
+
   makeBundles = (results) => {
-        return results.map(bundle => (
-          <SingleBundle 
-          key={bundle.id}
-          flowerId={bundle.flowerId}
-          puppyId={bundle.puppyId}
-          occasionId={bundle.occasionId}
-          description={bundle.description}
-          image={bundle.productImageUrl}
-          bundleId={bundle.id}
-          bundle={bundle}
-          handleAddToCart={this.props.handleAddToCart}
-          addQuantityToCart={this.props.addQuantityToCart}
-          getPrice={this.props.getPrice}
-          />
-        ));
-      } 
+    return results.map(bundle => (
+      <SingleBundle
+        key={bundle.id}
+        flowerId={bundle.flowerId}
+        puppyId={bundle.puppyId}
+        occasionId={bundle.occasionId}
+        description={bundle.description}
+        image={bundle.productImageUrl}
+        bundleId={bundle.id}
+        bundle={bundle}
+        handleAddToCart={this.props.handleAddToCart}
+        addQuantityToCart={this.props.addQuantityToCart}
+        getPrice={this.props.getPrice}
+      />
+    ));
+  }
 
   searchInput = (e) => {
-        e.preventDefault();
-        let resultBundles = [];
-        const bundles = this.state.bundles;
-        const searchTerm = e.target.value.toLowerCase();
-        bundles.forEach(product => {
-            const desc = product.description.toLowerCase();
-            if (desc.includes(searchTerm) && searchTerm !== "") {
-               resultBundles.push(product);
-            }
-            this.setState({filteredBundles: resultBundles});
-            this.makeBundles(this.state.filteredBundles);
-          });
-        }
+    e.preventDefault();
+    let resultBundles = [];
+    const bundles = this.state.bundles;
+    const searchTerm = e.target.value.toLowerCase();
+    bundles.forEach(product => {
+      const desc = product.description.toLowerCase();
+      if (desc.includes(searchTerm) && searchTerm !== "") {
+        resultBundles.push(product);
+      }
+      this.setState({ filteredBundles: resultBundles });
+      this.makeBundles(this.state.filteredBundles);
+    });
+  }
 
   render() {
     const makeCards = (this.state.filteredBundles.length > 0 ? this.makeBundles(this.state.filteredBundles) :
-    this.makeBundles(this.state.bundles));
+      this.makeBundles(this.state.bundles));
 
     const makeOccasions = this.state.occasions.map(occasion => (
       <Button
@@ -99,24 +102,30 @@ class Shop extends React.Component {
 
     return (
       <Container>
-      <form className="form-inline my-2 my-lg-0" >
-      <SearchBarIcon /><Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
-      </form>
-      <Row>
-          <Col xs="3" id="shopProductCategoriesContainer">
-          <ButtonGroup vertical>
-            {makeOccasions}
-            <Button id="showAllBtn" onClick={this.getBundles}>Show All</Button>
-          </ButtonGroup>
+        <Row>
+          <Col xs="12" s="12" m="3" lg="3" align="center" id="searchAndCategoryContainer">
+            <form className="form-inline my-2 my-lg-0" id="searchIconAndInput">
+              <SearchBarIcon /><Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
+            </form>
+            <Row>
+              <Col xs="3" id="shopProductCategoriesContainer">
+                <ButtonGroup vertical id="categoryBtnContainer">
+                  {makeOccasions}
+                  <Button id="showAllBtn" onClick={this.getBundles}>Show All</Button>
+                </ButtonGroup>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs="12" sm="12" m="9" lg="9">
+            <h1>Shop</h1>
+            <Row>
+              {makeCards}
+            </Row>
           </Col>
         </Row>
-        <h1>Shop</h1>
-        <Row>
-          {makeCards}
-        </Row>
       </Container>
-      )
-    }
+    )
+  }
 }
 
 export default Shop;
