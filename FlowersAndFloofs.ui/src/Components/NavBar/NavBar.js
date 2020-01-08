@@ -1,9 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button} from 'reactstrap';
 import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
+import Auth from '../Auth/Auth';
 
 const style = {
 display:'flex'
@@ -43,6 +45,11 @@ class NavBar extends React.Component {
                                 deleteItem={this.props.deleteItem}
                                 />
         ))
+        const {authed, logout} = this.props;
+        const logoutClickEvent = () => {
+          Auth.logoutUser();
+          logout();
+        };
         const makeModalTable=()=>{
             return(
                 <div>
@@ -98,7 +105,7 @@ class NavBar extends React.Component {
                             <a className="nav-link ml-3" href="#" style={style}>
                                 <HomeIcon />Home
                             </a>
-                        </li> : null }
+                        </li> : <button className="btn-success"><Link to="/login">Login</Link></button> }
 
                         <li className="nav-item">
                             <a className="nav-link ml-3" href="#">About <span className="sr-only">(current)</span></a>
@@ -114,7 +121,7 @@ class NavBar extends React.Component {
                     <span className="badge badge-pill badge-danger">{cart}</span>
                 </button>: null}
 
-                    {this.props.authed ? <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style}>
+                    {this.props.authed ? <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style} onClick={logoutClickEvent}>
                         <LockIcon />Log Out
                     </button> : null
                     }
