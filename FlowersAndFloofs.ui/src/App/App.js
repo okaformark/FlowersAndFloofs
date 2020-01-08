@@ -11,7 +11,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import fbConnection from '../DataRequests/fbConnection';
 
-import Auth from '../Components/Auth/Auth';
 import Home from '../Components/Home/Home';
 import LandingPage from '../Components/LandingPage/LandingPage';
 import NewCustomer from '../Components/NewCustomer/NewCustomer';
@@ -20,6 +19,8 @@ import NavBar from '../Components/NavBar/NavBar';
 import Shop from '../Components/Shop/Shop';
 import Checkout from '../Components/Checkout/Checkout';
 import MyOrders from '../Components/MyOrders/MyOrders';
+import Login from '../Components/Login/Login';
+import Register from '../Components/Register/Register';
 
 // import customersData from '../helpers/data/customersData';
 
@@ -79,66 +80,22 @@ class App extends React.Component {
     return this.state.isClicked;
   }
 
-    deleteItem = (id) =>{
-      const deleteCart = [...this.state.myCart]
-      const filterCart = deleteCart.filter(item => item.id !== id)
-      console.log(filterCart,"lol");
-      cart.push(filterCart);
-      this.setState({myCart: filterCart}, ()=> {
-        cart.length=0;
-        tempPrice.length=0;
-        tempUnitPrice.length=0;
-      })
-    }
-  // getCustomer = () => {
-  //   if (this.state.authed) {
-  //     const firebaseId = firebase.auth().currentUser.uid;
-  //     customersData.getCustomerInfoByCustomerId(firebaseId)
-  //       .then(customerObj => this.setState({ customerObj }))
-  //       .catch(err => console.error('trouble fetching user data', err));
-  //   }
-  // }
-
-  // createUser = (saveMe) => {
-  //   customersData.addCustomerToDatabase(saveMe)
-  //     .then(() => {
-  //       this.getCustomer();
-  //     })
-  //     .catch();
-  // }
-
-  deleteItem = (id,index) =>{
+  deleteItem = (id) =>{
     const deleteCart = [...this.state.myCart]
     const filterCart = deleteCart.filter(item => item.id !== id)
-    // const filterUnitPrice = this.state.unitPrice.filter(price => price[index] !== id-1)
-    console.log(filterCart,"lol");
-    // cart.push(filterCart);
     this.setState({myCart: filterCart}, ()=> {
       cart.length=0;
-      //tempPrice.length=0;
-      //tempUnitPrice.length=0;
     })
   }
-  // deleteItem = (id, e) =>{
-  //  // e.preventDefault();
-  //   // let {tempCart} = this.state;
-  //   tempCart = this.state.myCart.filter(item => item.id !== id);
-  //   // cart = tempCart;
-
-  //   this.setState({myCart: tempCart, cart: tempCart});
-  // }
 
   getCartLength = ()=> {
       const cartLen = this.state.myCart.length;
-      console.error('cart length', cartLen);
       return cartLen;
     }
 
-      getPrice = (price,unitPrice, id) =>{
+      getPrice = (price,unitPrice) =>{
         tempPrice.push(price);
         tempUnitPrice.push(unitPrice);
-        // this.setState({price:tempPrice, unitPrice:tempUnitPrice}, 
-        // ()=>{console.error(this.state.unitPrice, this.state.price, id,"kkkkkk")})
         tempCart.unitPrice = unitPrice;
         tempCart.price = price;
       } 
@@ -149,11 +106,8 @@ class App extends React.Component {
           return tempCart;
       }
 
-    handleAddToCart= (id) => {
-        //const newCart = this.addQuantityToCart(tempCart);
-        
+    handleAddToCart= () => {
         const newCart = tempCart;
-          
           if(Object.entries(newCart).length === 0){
               alert("Enter Quantity");
           }
@@ -171,20 +125,23 @@ class App extends React.Component {
             })
           }
       }
-    };
+  }
   
-  render(){
+
+  logout = () => {
+    this.setState({authenticated: false});
+  }
+
+  render() {
     const { authed } = this.state;
     const len = this.state.myCart.length;
-    // const myPrice = this.state.price;
-    // const myUnitPrice = this.state.unitPrice;
-
     const myPrice = this.state.myCart.price;
     const myUnitPrice = this.state.myCart.unitPrice;
     return (
       <div className="App">
-        <BrowserRouter>
+      <BrowserRouter>
         <NavBar authed={authed} 
+                logout={this.logout}
                 cart={len}  
                 myCart={this.state.myCart} 
                 price={myPrice} 
@@ -195,9 +152,18 @@ class App extends React.Component {
           <React.Fragment>
             <div className="container">
               <Switch>
-                <PublicRoute path='/auth' component={Auth} authed={authed} />
                 {/* <Route path='/new-customer' component={NewCustomer} authed={authed} createCustomer={ this.createCustomer }/> */}
-                <Route path='/landing-page' component={LandingPage} authed={authed} />
+                <PublicRoute path='/landing-page' component={LandingPage} authed={authed} />
+                <PublicRoute
+                  path="/login"
+                  authed={authed}
+                  component={Login}
+                />
+                  <PublicRoute
+                  path="/register"
+                  authed={this.state.authed}
+                  component={Register}
+                />
                 <PrivateRoute path="/home" component={Home}
                 authed={authed}
                 handleAddToCart = {this.handleAddToCart} 
@@ -208,7 +174,7 @@ class App extends React.Component {
                 <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
                 <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
-                <Redirect from="*" to="/auth" />
+                <Redirect from="*" to="/landing-page" />
               </Switch>
             </div>
           </React.Fragment>
