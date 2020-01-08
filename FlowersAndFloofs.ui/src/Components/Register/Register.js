@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import moment from 'moment';
+
 import authRequests from '../Auth/Auth';
+import customerData from '../../DataRequests/customersData';
 
 
 class Register extends React.Component {
@@ -14,9 +17,18 @@ class Register extends React.Component {
 
   registerClickEvent = e => {
     const { user } = this.state;
+    const currentTime = moment();
+    const customerObj = {
+      dateCreated: currentTime,
+      firebaseKey: 'firebaseKey'
+    }
+    
     e.preventDefault();
     authRequests
       .registerUser(user)
+      .then(() => {
+        customerData.addCustomerToDatabase(customerObj).then(resp => console.log(resp.data));
+      })
       .then(() => {
         this.props.history.push('/home');
       })
