@@ -50,7 +50,7 @@ class Checkout extends React.Component {
 
     render(){
         const makeShippingAddressCards = (this.state.shippingAddresses.length > 0 ? this.makeshippingAddresses(this.state.shippingAddresses) :
-            this.makeShippingAddresses(this.state.shippingAddresses));
+            console.error('no shipping addresses found'));
 
         return (
             <React.Fragment>
