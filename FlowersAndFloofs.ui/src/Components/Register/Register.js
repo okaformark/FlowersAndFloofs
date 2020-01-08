@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import authRequests from '../Auth/Auth';
 import customerData from '../../DataRequests/customersData';
+import { auth } from 'firebase';
 
 
 class Register extends React.Component {
@@ -17,10 +18,11 @@ class Register extends React.Component {
 
   registerClickEvent = e => {
     const { user } = this.state;
+   // const firebaseKey = authRequests.getUid();
     const currentTime = moment();
     const customerObj = {
       dateCreated: currentTime,
-      firebaseKey: user.firebaseKey
+      firebaseKey: ''
     }
     
     e.preventDefault();
