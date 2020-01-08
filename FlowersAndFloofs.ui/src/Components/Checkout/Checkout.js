@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText, Row } from 'reactstrap';
+import { Row, 
+    // Form, 
+    // FormGroup, 
+    // Label, 
+    // Input, 
+    // FormText, 
+    // Button,
+    } from 'reactstrap';
 
 import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
@@ -12,13 +19,13 @@ class Checkout extends React.Component {
     }
 
     componentDidMount(){
-        billingAddressRequest.getAllBillingAddresses().then(data => {
-            this.setState({allBillingAddresses: data})
-            console.error("all billing addresses: ", this.state.allBillingAddresses);
+        billingAddressRequest.getUserBillingAddresses().then(data => {
+            this.setState({billingAddresses: data})
+            console.error("all billing addresses: ", this.state.billingAddresses);
         });
-        shippingAddressRequest.getAllShippingAddresses().then(data => {
-            this.setState({allShippingAddresses: data})
-            console.error("all shipping addresses: ", this.state.allShippingAddresses);
+        shippingAddressRequest.getUserShippingAddresses().then(data => {
+            this.setState({shippingAddresses: data})
+            console.error("all shipping addresses: ", this.state.shippingAddresses);
         });
     }
 
@@ -49,8 +56,11 @@ class Checkout extends React.Component {
     }
 
     render(){
-        const makeShippingAddressCards = (this.state.shippingAddresses.length > 0 ? this.makeshippingAddresses(this.state.shippingAddresses) :
+        const makeShippingAddressCards = (this.state.shippingAddresses.length > 0 ? this.makeShippingAddresses(this.state.shippingAddresses) :
             console.error('no shipping addresses found'));
+
+        const makeBillingAddressCards = (this.state.billingAddresses.length > 0 ? this.makeBillingAddresses(this.state.billingAddresses) :
+            console.error('no billing addresses found'));
 
         return (
             <React.Fragment>
@@ -58,7 +68,10 @@ class Checkout extends React.Component {
                     <h3>Shipping Addresses:</h3>
                     {makeShippingAddressCards}
                 </Row>
-                <div>"This is for billing addresses"</div>
+                <Row>
+                    <h3>Billing Addresses:</h3>
+                    {makeBillingAddressCards}
+                </Row>
             </React.Fragment>
         )
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Router,
+  // Router,
   BrowserRouter,
   Route,
   Redirect,
@@ -13,7 +13,7 @@ import fbConnection from '../DataRequests/fbConnection';
 
 import Home from '../Components/Home/Home';
 import LandingPage from '../Components/LandingPage/LandingPage';
-import NewCustomer from '../Components/NewCustomer/NewCustomer';
+// import NewCustomer from '../Components/NewCustomer/NewCustomer';
 import MyAccount from '../Components/MyAccount/MyAccount';
 import NavBar from '../Components/NavBar/NavBar';
 import Shop from '../Components/Shop/Shop';

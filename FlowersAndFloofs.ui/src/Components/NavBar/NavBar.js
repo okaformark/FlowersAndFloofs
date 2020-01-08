@@ -4,7 +4,6 @@ import  ShoppingCartIcon from './Icons/ShoppingCartIcon';
 import HomeIcon from './Icons/HomeIcon';
 import LockIcon from './Icons/LogOutIcon';
 import { Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'reactstrap';
-import {Link} from 'react-router-dom';
 import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
 import Auth from '../Auth/Auth';
 
@@ -139,10 +138,8 @@ class NavBar extends React.Component {
                             {makeModalTable()}
                         </ModalBody>
                         <ModalFooter>
-<<<<<<< HEAD
                             {/* <Button color="primary" onClick={this.goToCheckout}>Checkout</Button> */}
-                            <Link class="btn btn-primary" to="/checkout" onClick={this.toggle}>Checkout</Link>
-=======
+                            <Link className="btn btn-primary" to="/checkout" onClick={this.toggle}>Checkout</Link>
                             {cart >0?
                             (
                                 <Button color="primary" onClick={this.checkout}>Proceed to Checkout</Button>
@@ -150,7 +147,6 @@ class NavBar extends React.Component {
                             (
                                 <div></div>
                             )}
->>>>>>> master
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </Modal>
