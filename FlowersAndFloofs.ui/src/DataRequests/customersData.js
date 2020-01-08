@@ -2,7 +2,7 @@ import axios from 'axios';
 import apiKeys from '../Helpers/apiKeys.json';
 
 const firebaseUrl = apiKeys.firebaseKeys.databaseURL;
-const databaseUrl = 'http://localhost:50662/api/customers';
+const databaseUrl = 'http://localhost:50662/api';
 
 const getCustomers = () => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/customers.json`)
@@ -31,7 +31,8 @@ const getCustomers = () => new Promise((resolve, reject) => {
 //     .catch(err => reject(err));
 // });
 
-const addCustomerToDatabase = (customerObj) => axios.post(`${databaseUrl}`, customerObj);
+const addCustomerToDatabase = (customerObj) => axios.post(`${databaseUrl}/customers`, customerObj);
+const addCustomerPersonalToDatabase = (customerPersonalObj) => axios.post(`${databaseUrl}/customerPersonal`, customerPersonalObj);
 
 const deleteCustomerFromDatabase = customerId => axios.delete(`${firebaseUrl}/${customerId}.json`);
 
@@ -43,4 +44,5 @@ export default {
   // getCustomerInfoByCustomerId,
   deleteCustomerFromDatabase,
   editCustomersInfo,
+  addCustomerPersonalToDatabase
 };
