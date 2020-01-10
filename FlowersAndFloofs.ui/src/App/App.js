@@ -173,7 +173,13 @@ class App extends React.Component {
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
                 <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
-                <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
+                <PrivateRoute path='/checkout' component={Checkout} 
+                authed={authed}
+                myCart={this.state.myCart} 
+                price={myPrice} 
+                unitPrice={myUnitPrice}
+                deleteItem={this.deleteItem}
+                />
                 <Redirect from="*" to="/landing-page" />
               </Switch>
             </div>

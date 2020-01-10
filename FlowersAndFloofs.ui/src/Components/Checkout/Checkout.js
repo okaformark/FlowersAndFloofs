@@ -12,7 +12,7 @@ import {
 import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
 import SingleAddress from '../SingleAddress/SingleAddress';
-
+import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
 // import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -133,17 +133,25 @@ class Checkout extends React.Component {
 
     render() {
         const { newBillingAddress, newShippingAddress } = this.state;
-
         const makeShippingAddressCards = (this.state.shippingAddresses.length > 0 ? this.makeShippingAddresses(this.state.shippingAddresses) :
             console.error('no shipping addresses found'));
 
         const makeBillingAddressCards = (this.state.billingAddresses.length > 0 ? this.makeBillingAddresses(this.state.billingAddresses) :
             console.error('no billing addresses found'));
 
+        const makeCart = this.props.myCart.map((product, index) =>(
+            <SingleCartProduct product={product} 
+                                key={product.id} 
+                                price={product.price} 
+                                unitPrice={product.unitPrice}
+                                deleteItem={this.props.deleteItem}
+                                />
+        ))
+        
         return (
             <div className="billingAndShippingAddressSelection">
-                <div className="row">
-                <div className="col">
+                <div className="row d-flex justify-content-between">
+                <div className="col-6">
                 <div className="addBillingAddress">
                     <div id="billingAddressForm">
                         <h2 className="text-center">Payment and Shipping Information</h2>
@@ -239,7 +247,7 @@ class Checkout extends React.Component {
                                             className="btn btn-default col-xs-12 addNewAddressButton"
                                             onClick={this.addBillingAddressClickEvent}
                                             >
-                                            Add Billing Address
+                                            Save
                                         </Button>
                                     </div>
                                 </div>
@@ -338,7 +346,7 @@ class Checkout extends React.Component {
                                             className="btn btn-default col-xs-12 addNewAddressButton"
                                             onClick={this.addShippingAddressClickEvent}
                                             >
-                                            Add Shipping Address
+                                            Save
                                         </Button>
                                     </div>
                                 </div>
@@ -347,8 +355,41 @@ class Checkout extends React.Component {
                     </div>
                 </div>
                 </div>
-                <div className="col">
+                <div className="col-6">
                     <h1>Your summary</h1>
+                    <div className="row">
+                        <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" className="border-0 bg-light">
+                                            <div className="p-2 px-3 text-uppercase">Product</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Unit Price</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Quantity</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Total Price</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Remove</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    {makeCart}
+                                </table>
+                            </div>
+                            <button 
+                                type="submit" 
+                                className="checkout">
+                                    Checkout
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
