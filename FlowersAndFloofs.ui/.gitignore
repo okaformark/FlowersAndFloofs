@@ -13,7 +13,7 @@ src/helpers/apiKeys.json
 /build
 
 # misc
-src/Helpers/apiKeys.json
+src/helpers/apiKeys.json
 .DS_Store
 .env.local
 .env.development.local

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import authRequests from '../Auth/Auth';
 import customerData from '../../DataRequests/customersData';
-import { auth } from 'firebase';
+// import { auth } from 'firebase';
 
 
 class Register extends React.Component {
