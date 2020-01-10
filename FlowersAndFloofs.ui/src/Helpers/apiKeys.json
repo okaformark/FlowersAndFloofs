@@ -1,12 +1,13 @@
 {
-  "firebaseKeys": {
-    "apiKey": "AIzaSyDQ910DiqHiyb0m8mCFvx-6A0sI-FyFotY",
-    "authDomain": "flowersandfloofs-da8d3.firebaseapp.com",
-    "databaseURL": "https://flowersandfloofs-da8d3.firebaseio.com",
-    "projectId": "flowersandfloofs-da8d3",
-    "storageBucket": "flowersandfloofs-da8d3.appspot.com",
-    "messagingSenderId": "95201853302",
-    "appId": "1:95201853302:web:6adc680c677dd629744457",
-    "measurementId": "G-B7M2MX8TYV"
+    "firebaseKeys": {
+      "apiKey": "AIzaSyDQ910DiqHiyb0m8mCFvx-6A0sI-FyFotY",
+      "authDomain": "flowersandfloofs-da8d3.firebaseapp.com",
+      "databaseURL": "https://flowersandfloofs-da8d3.firebaseio.com",
+      "projectId": "flowersandfloofs-da8d3",
+      "storageBucket": "flowersandfloofs-da8d3.appspot.com",
+      "messagingSenderId": "95201853302",
+      "appId": "1:95201853302:web:6adc680c677dd629744457",
+      "measurementId": "G-B7M2MX8TYV"
+    }
   }
-}
+  

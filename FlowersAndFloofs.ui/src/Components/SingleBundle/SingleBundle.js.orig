@@ -10,6 +10,8 @@ import {
   CardHeader,
   CardImg,
   Button,
+  CardBody,
+  CardDeck,
 } from 'reactstrap';
 
 class SingleBundle extends React.Component {
@@ -49,6 +51,7 @@ class SingleBundle extends React.Component {
     const unitPrice = this.calcBundlePrice();
     const price = unitPrice* e.target.value;
     const fixedPrice = price.toFixed(2);
+    // console.error("sfdgfdfdf",newCart);
     this.props.addQuantityToCart(newCart);
     this.props.getPrice(fixedPrice,unitPrice, bundleId)
     return newCart;
@@ -65,6 +68,45 @@ class SingleBundle extends React.Component {
             onMouseLeave={this.showAddToCartButtonAndQuantity}>
         <Card body className="text-center bundleCard">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
+<<<<<<< HEAD
+          <CardImg top width="100%" src={this.props.image} alt="Card image cap"/>
+          <CardBody>
+            <CardText className="">{this.props.description}</CardText>
+            <CardText>Price: {this.calcBundlePrice()}</CardText>
+            {this.state.onHover ?
+            (
+              <div> </div>
+            ) :
+            (
+              <select className="custom-select custom-select-sm" 
+              onChange={this.getQuantity} 
+              id = {bundleId} 
+              >
+                  <option defaultValue={'Quantity'}>Quantity</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+              </select>
+            )}
+            </CardBody>
+=======
           <CardImg top width="100%" src={this.props.image} alt="Card image cap" />
           <CardText className="bundleDescription">{this.props.description}</CardText>
           <CardText className="bundlePrice">Price: ${this.calcBundlePrice()}</CardText>
@@ -100,6 +142,7 @@ class SingleBundle extends React.Component {
                 <option value="20">20</option>
             </select>
           )}
+>>>>>>> master
         </Card>
         {this.state.onHover ?
         (
