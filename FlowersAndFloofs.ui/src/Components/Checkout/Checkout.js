@@ -142,6 +142,8 @@ class Checkout extends React.Component {
 
         return (
             <div className="billingAndShippingAddressSelection">
+                <div className="row">
+                <div className="col">
                 <div className="addBillingAddress">
                     <div id="billingAddressForm">
                         <h2 className="text-center">Payment and Shipping Information</h2>
@@ -344,7 +346,12 @@ class Checkout extends React.Component {
                         </form>
                     </div>
                 </div>
+                </div>
+                <div className="col">
+                    <h1>Your summary</h1>
+                </div>
             </div>
+        </div>
         )
     }
 }
