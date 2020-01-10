@@ -33,9 +33,9 @@ class SingleCartProduct extends Component {
                       </div>
                     </div>
                   </th>
-                  <td className="border-0 align-middle"><strong>{unitPrice}</strong></td>
+                  <td className="border-0 align-middle"><strong>${unitPrice}</strong></td>
                     <td className="border-0 align-middle"><strong>{product.quantity}</strong></td>
-                    <td className="border-0 align-middle"><strong>{price}</strong></td>
+                    <td className="border-0 align-middle"><strong>${price}</strong></td>
                   <td className="border-0 align-middle" onClick={this.props.deleteItem.bind(this, product.id)}><a href="/#" className="text-dark"><i className="material-icons">delete</i></a></td>
                   {this.state.isClicked ?(
                     <td className="border-0 align-middle" onClick={this.isClickedEditButton}><a href="/#" className="text-dark"><i className="material-icons">trending_flat</i></a></td>

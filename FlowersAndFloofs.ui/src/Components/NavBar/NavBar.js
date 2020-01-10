@@ -133,6 +133,7 @@ class NavBar extends React.Component {
                      <Modal isOpen={this.state.modalShow}
                             toggle={this.toggle} 
                             className="modal-dialog modal-lg"
+                            id="shoppingCartModal"
                             modalTransition={{ timeout: 700 }} 
                             backdropTransition={{ timeout: 1300 }}>
                         <ModalHeader toggle={this.toggle}>Your Cart</ModalHeader>

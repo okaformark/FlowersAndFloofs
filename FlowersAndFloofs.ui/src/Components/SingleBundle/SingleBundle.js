@@ -64,11 +64,11 @@ class SingleBundle extends React.Component {
       <div className="col-4" 
             onMouseEnter={this.showAddToCartButtonAndQuantity}
             onMouseLeave={this.showAddToCartButtonAndQuantity}>
-        <Card body className="text-center">
+        <Card body className="text-center bundleCard">
           <CardHeader>{flower.title} {"&"} {puppy.title}</CardHeader>
           <CardImg top width="100%" src={this.props.image} alt="Card image cap" />
-          <CardText className="">{this.props.description}</CardText>
-          <CardText>Price: {this.calcBundlePrice()}</CardText>
+          <CardText className="bundleDescription">{this.props.description}</CardText>
+          <CardText className="bundlePrice">Price: ${this.calcBundlePrice()}</CardText>
           {this.state.onHover ?
           (
             <div> </div>

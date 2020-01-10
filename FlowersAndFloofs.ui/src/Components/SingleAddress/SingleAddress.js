@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardText, CardBody, Button } from 'reactstrap';
 
+import './SingleAddress.scss';
+
 class SingleAddress extends React.Component {
     render(){
         const { streetAddress } = this.props;
@@ -13,12 +15,10 @@ class SingleAddress extends React.Component {
         return (
           <Card>
             <CardBody id={id}>
-              <CardText>Street Address: {streetAddress}</CardText>
-              <CardText>Apt. or House Number: {aptOrHouseNum}</CardText>
-              <CardText>City: {city}</CardText>
-              <CardText>State: {state}</CardText>
-              <CardText>ZIP code: {zipCode}</CardText>
-              <Button>Select Address</Button>
+              <CardText>{streetAddress}</CardText>
+              <CardText>{aptOrHouseNum}</CardText>
+              <CardText>{city}, {state} {zipCode}</CardText>
+              <Button className="selectAddressButton">Select Address</Button>
             </CardBody>
           </Card>
         );
