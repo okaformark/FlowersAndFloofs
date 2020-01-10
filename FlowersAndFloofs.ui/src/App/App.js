@@ -102,7 +102,7 @@ class App extends React.Component {
 
     addQuantityToCart = (cartWithQuantity) => { 
           tempCart = cartWithQuantity;
-          console.log(tempCart,"pop")
+          // console.log(tempCart,"pop")
           return tempCart;
       }
 
@@ -113,14 +113,14 @@ class App extends React.Component {
           }
           else {
               cart.push(newCart);
-              console.log(cart,"cart")
+              // console.log(cart,"cart")
           // returns products already in the cart different from the one the user adds to cart
           const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
-            console.log(uniqueObjects,"unique")
+            // console.log(uniqueObjects,"unique")
           //if there are  matching products that exists
           if(uniqueObjects.length > 0){
             this.setState({ myCart: [...uniqueObjects]}, () =>{
-                console.error(this.state.myCart);
+                // console.error(this.state.myCart);
             this.getCartLength();
             })
           }

@@ -105,7 +105,7 @@ class Shop extends React.Component {
         <Row>
           <Col xs="12" s="12" m="3" lg="3" align="center" id="searchAndCategoryContainer">
             <form className="form-inline my-2 my-lg-0" id="searchIconAndInput">
-              <SearchBarIcon /><Input className="form-control mr-sm-2 ml-3" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
+              <SearchBarIcon /><Input id="shopSearchInput" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={this.searchInput} />
             </form>
             <Row>
               <Col xs="3" id="shopProductCategoriesContainer">

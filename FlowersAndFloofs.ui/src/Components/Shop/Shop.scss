@@ -3,12 +3,18 @@
 }
 
 #searchAndCategoryContainer {
+  padding-top: 55px;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
+  align-items: flex-start;
 }
 
 #searchIconAndInput {
   display: flex;
   flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#shopSearchInput {
+  margin-left: 0px;
 }

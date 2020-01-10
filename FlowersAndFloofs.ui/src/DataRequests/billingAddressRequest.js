@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const baseUrl = 'https://localhost:44381/api/billingAddress';
 
-const getUserBillingAddresses= customerId => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/billingAddresses.json?orderBy="customerId"&equalTo="${customerId}"`).then((result) => {
+const getUserBillingAddresses = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/billingAddress.json?orderBy="customerId"&equalTo="1"`).then((result) => {
     resolve(result.data);
   })
     .catch((error) => {
@@ -11,4 +11,6 @@ const getUserBillingAddresses= customerId => new Promise((resolve, reject) => {
     });
 });
 
-export default {getUserBillingAddresses};
+const addNewUserBillingAddress = newUserBillingAddressObj => axios.post(`${baseUrl}/billingAddress.json`, newUserBillingAddressObj);
+
+export default {getUserBillingAddresses, addNewUserBillingAddress};

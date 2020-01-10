@@ -23,7 +23,7 @@ class NavBar extends React.Component {
         this.setState(prevState => ({
             modalShow: !prevState.modalShow
         }), () => {
-            console.error(this.state.modalShow, this.props, "aaaaaaaaaa");
+            // console.error(this.state.modalShow, this.props, "aaaaaaaaaa");
         });
     }
 
@@ -35,8 +35,8 @@ class NavBar extends React.Component {
     render() {
         const { clearCart } = this.props;
         const { cart } = this.props;
-        const { price } = this.props;
-        const { unitPrice } = this.props;
+        // const { price } = this.props;
+        // const { unitPrice } = this.props;
         const makeCart = this.props.myCart.map((product, index) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
@@ -45,7 +45,9 @@ class NavBar extends React.Component {
                                 deleteItem={this.props.deleteItem}
                                 />
         ))
-        const {authed, logout} = this.props;
+        const {
+            // authed, 
+            logout} = this.props;
         const logoutClickEvent = () => {
           Auth.logoutUser();
           logout();
@@ -55,7 +57,7 @@ class NavBar extends React.Component {
                 <div>
                     {cart > 0 ?
                     (
-                        <a className="clear" href="#" onClick={clearCart}><i className="material-icons">clear_all</i></a>
+                        <a className="clear" href="/#" onClick={clearCart}><i className="material-icons">clear_all</i></a>
                     ) : 
                     (
                         <div></div>
@@ -99,19 +101,19 @@ class NavBar extends React.Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                    <a className="navbar-brand" href="#">LOGO</a>
+                    <a className="navbar-brand" href="/#">Flowers and Floofs</a>
                     <ul className="navbar-nav ml-auto mt-2 mt-lg-0" >
                     {this.props.authed ?                             <li className="nav-item active">
-                            <a className="nav-link ml-3" href="#" style={style}>
+                            <a href="/#" className="nav-link ml-3" style={style}>
                                 <HomeIcon />Home
                             </a>
                         </li> : <button className="btn-success"><Link to="/login">Login</Link></button> }
 
                         <li className="nav-item">
-                            <a className="nav-link ml-3" href="#">About <span className="sr-only">(current)</span></a>
+                            <a href="/#" className="nav-link ml-3">About <span className="sr-only">(current)</span></a>
                         </li>
                         {this.props.authed ?                             <li className="nav-item">
-                            <a className="nav-link ml-3" href="#">My Orders</a>
+                            <a href="/#" className="nav-link ml-3">My Orders</a>
                         </li> : null
                         }
 
@@ -139,13 +141,12 @@ class NavBar extends React.Component {
                         </ModalBody>
                         <ModalFooter>
                             {/* <Button color="primary" onClick={this.goToCheckout}>Checkout</Button> */}
-                            <Link className="btn btn-primary" to="/checkout" onClick={this.toggle}>Checkout</Link>
                             {cart >0?
                             (
-                                <Button color="primary" onClick={this.checkout}>Proceed to Checkout</Button>
+                                <Link className="btn btn-primary" to="/checkout" onClick={this.toggle}>Checkout</Link>
                             ) :
                             (
-                                <div></div>
+                                <div><i>No items in cart</i></div>
                             )}
                             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
