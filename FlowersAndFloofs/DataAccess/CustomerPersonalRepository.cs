@@ -48,6 +48,22 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
+        public CustomerPersonalInfo GetCustomerPersonalInfoByEmail(string customerEmail)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"Select *
+                            from CustomerPersonalInfo
+                            where CustomerEmail = @customerEmail";
+                var parameters = new
+                {
+                    CustomerEmail = customerEmail
+                };
+                var customerPersonalInfo = db.QueryFirst<CustomerPersonalInfo>(sql, parameters);
+                return customerPersonalInfo;
+            }
+        }
+
         public CustomerPersonalInfo UpdateCustomerPersonalInfo(UpdateCustomerPersonalInfoDTO updatedCustomerPersonalInfo, int id)
         {
             using (var db = new SqlConnection(_connectionString))

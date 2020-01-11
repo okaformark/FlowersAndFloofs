@@ -7,7 +7,7 @@ const databaseUrl = 'http://localhost:50662/api';
 const getCustomers = () => new Promise((resolve, reject) => {
   axios.get(`${firebaseUrl}/customers.json`)
     .then((resp) => {
-      const customerResults = resp.data;
+      const customerResults = resp.data.PromiseValue;
       const customers = [];
       Object.keys(customerResults).forEach((uid) => {
         customers.push(customerResults[uid]);
@@ -17,16 +17,36 @@ const getCustomers = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-// const getCustomerInfoByCustomerId = uid => new Promise((resolve, reject) => {
-//   axios.get(`${firebaseUrl}/customers.json?orderBy="uid"&equalTo="${uid}"`)
+// const getCustomerInfoByEmail = customerEmail => axios.get(`${databaseUrl}/customerPersonal/email/${customerEmail}`);
+
+const getCustomerInfoByEmail = customerEmail => new Promise((resolve, reject) => {
+  axios.get(`${databaseUrl}/customerPersonal/email/${customerEmail}`)
+  .then((resp) => {
+    const customerPersonal = resp.data;
+    let customer = {};
+    customer = resp.data;
+    console.error('resp data', resp.data);
+    resolve(customer);
+  //   customer.push(customerPersonal);
+  //   resolve(customer);
+  })
+    .catch((error) => {
+      reject(error);
+    });
+});
+
+// const getCustomerInfoByEmail = customerEmail => new Promise((resolve, reject) => {
+//   axios.get(`${databaseUrl}/customerPersonal//email/${customerEmail}`)
 //     .then((resp) => {
 //       const customer = resp.data;
-//       if (Object.keys(customer).length > 0) {
+//       let cust = [];
+//       // resolve (customer);
+//       // if (Object.keys(customer).length > 0) {
 //         Object.keys(customer).forEach((customersId) => {
-//           user[customersId].id = customersId;
+//           cust[customersId].id = customersId;
 //           resolve(customer[customersId]);
 //         });
-//       }
+//       // }
 //     })
 //     .catch(err => reject(err));
 // });
@@ -41,7 +61,7 @@ const editCustomersInfo = (customerId, customerObj) => axios.put(`${firebaseUrl}
 export default {
   addCustomerToDatabase,
   getCustomers,
-  // getCustomerInfoByCustomerId,
+  getCustomerInfoByEmail,
   deleteCustomerFromDatabase,
   editCustomersInfo,
   addCustomerPersonalToDatabase

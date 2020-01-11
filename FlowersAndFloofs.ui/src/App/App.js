@@ -190,10 +190,14 @@ class App extends React.Component {
                 component={MyAccount}
                 authed={authed}
                 currentCustomer={this.state.currentCustomer}
-                getCurrentCustomer={this.state.currentCustomer}
-                getCustomerPersonalData={this.state.currentCustomerPersonal}
+                customerPersonalData={this.state.currentCustomerPersonal}
                 />
-                <PrivateRoute path='/shop' component={Shop} authed={authed} />
+                <PrivateRoute path='/shop'
+                component={Shop}
+                authed={authed}
+                currentCustomer={this.state.currentCustomer}
+                customerPersonalData={this.state.currentCustomerPersonal}
+                />
                 <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
                 <Redirect from="*" to="/landing-page" />
               </Switch>

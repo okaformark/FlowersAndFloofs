@@ -25,6 +25,14 @@ namespace FlowersAndFloofs.Controllers
             return product;
         }
 
+        [HttpGet("email/{customerEmail}")]
+        public CustomerPersonalInfo GetCustomerPersonalInfoByEmail(string customerEmail)
+        {
+            var repo = new CustomerPersonalInfoRepository();
+            var customer = repo.GetCustomerPersonalInfoByEmail(customerEmail);
+            return customer;
+        }
+
         [HttpPost]
         public IActionResult CreateCustomerPersonal(AddCustomerPersonalInfoDTO newCustomerPersonalInfoDTO)
         {

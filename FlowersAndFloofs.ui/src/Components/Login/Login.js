@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import authRequests from '../Auth/Auth';
+import customerData from '../../DataRequests/customersData';
 
 class Login extends React.Component {
   state = {
@@ -13,10 +14,12 @@ class Login extends React.Component {
 
   loginClickEvent = (e) => {
     const { user } = this.state;
+    console.error('login email', user.email);
     e.preventDefault();
     authRequests
       .loginUser(user)
       .then(() => {
+        console.error('login user', customerData.getCustomerInfoByEmail(user.email))
         this.props.history.push('/trainers');
       })
       .catch(error => {
@@ -36,10 +39,15 @@ class Login extends React.Component {
     this.setState({ user: tempUser });
   };
 
+  // getCustomerByEmail = (email) => {
+    
+  // }
+
   render () {
     const { user } = this.state;
     return (
       <div className="Login">
+        {/* {this.getCustomerByEmail(user.email)} */}
         <div id="login-form">
           <h1 className="text-center">Login</h1>
           <form className="form-horizontal col-sm-6 col-sm-offset-3">
