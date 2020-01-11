@@ -103,16 +103,7 @@ class NavBar extends React.Component {
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <a className="navbar-brand" href="/#">Flowers and Floofs</a>
                     <ul className="navbar-nav ml-auto mt-2 mt-lg-0" >
-                    {this.props.authed ?                             <li className="nav-item active">
-<<<<<<< HEAD
-                            <a className="nav-link ml-3" href="#" style={style}>
-                                <HomeIcon /><Link to="/shop">Home</Link>
-                            </a>
-                        </li> : <button className="btn-success"><Link to="/login">Login</Link></button> }
-
-                        {this.props.authed ?                             <li className="nav-item">
-                            <a className="nav-link ml-3" href="#"><Link to="/my-account">My Account</Link></a>
-=======
+                    {this.props.authed ? <li className="nav-item active">
                             <a href="/#" className="nav-link ml-3" style={style}>
                                 <HomeIcon />Home
                             </a>
@@ -121,9 +112,8 @@ class NavBar extends React.Component {
                         <li className="nav-item">
                             <a href="/#" className="nav-link ml-3">About <span className="sr-only">(current)</span></a>
                         </li>
-                        {this.props.authed ?                             <li className="nav-item">
-                            <a href="/#" className="nav-link ml-3">My Orders</a>
->>>>>>> master
+                        {this.props.authed ? <li className="nav-item">
+                            <Link to="/my-account">My Orders</Link>
                         </li> : null
                         }
 
