@@ -24,6 +24,13 @@ class MyAccount extends React.Component {
         });
     }
 
+    deleteProfile = () => {
+        const {user} = this.state;
+        customerData.deleteCustomerPersonalFromDatabase(user.id);
+        authRequests.logoutUser();
+        console.error(`user ${user.id} has been deleted`);
+    }
+
     
 
     render() {
@@ -50,6 +57,7 @@ class MyAccount extends React.Component {
                     </thead>
                     {makeOrders}
                 </table>
+                <button className="btn btn-danger" onClick={this.deleteProfile}>Delete My Account</button>
             </div>
         );
     }

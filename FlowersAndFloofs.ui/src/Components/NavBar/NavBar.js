@@ -28,15 +28,13 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-        // console.error('myCart props', this.props.myCart);
         this.setState({currentCart: this.props.myCart});
     }
 
     render() {
         const { clearCart } = this.props;
         const { cart } = this.props;
-        // const { price } = this.props;
-        // const { unitPrice } = this.props;
+
         const makeCart = this.props.myCart.map((product, index) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
