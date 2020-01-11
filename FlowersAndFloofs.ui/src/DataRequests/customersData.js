@@ -17,39 +17,18 @@ const getCustomers = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-// const getCustomerInfoByEmail = customerEmail => axios.get(`${databaseUrl}/customerPersonal/email/${customerEmail}`);
-
 const getCustomerInfoByEmail = customerEmail => new Promise((resolve, reject) => {
   axios.get(`${databaseUrl}/customerPersonal/email/${customerEmail}`)
   .then((resp) => {
-    const customerPersonal = resp.data;
     let customer = {};
     customer = resp.data;
     console.error('resp data', resp.data);
     resolve(customer);
-  //   customer.push(customerPersonal);
-  //   resolve(customer);
   })
     .catch((error) => {
       reject(error);
     });
 });
-
-// const getCustomerInfoByEmail = customerEmail => new Promise((resolve, reject) => {
-//   axios.get(`${databaseUrl}/customerPersonal//email/${customerEmail}`)
-//     .then((resp) => {
-//       const customer = resp.data;
-//       let cust = [];
-//       // resolve (customer);
-//       // if (Object.keys(customer).length > 0) {
-//         Object.keys(customer).forEach((customersId) => {
-//           cust[customersId].id = customersId;
-//           resolve(customer[customersId]);
-//         });
-//       // }
-//     })
-//     .catch(err => reject(err));
-// });
 
 const addCustomerToDatabase = (customerObj) => axios.post(`${databaseUrl}/customers`, customerObj);
 const addCustomerPersonalToDatabase = (customerPersonalObj) => axios.post(`${databaseUrl}/customerPersonal`, customerPersonalObj);

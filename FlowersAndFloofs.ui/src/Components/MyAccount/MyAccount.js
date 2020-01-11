@@ -14,16 +14,12 @@ class MyAccount extends React.Component {
         });
     }
     render() {
-        // const customer = this.props.currentCustomer;
-        // console.error('current customer from account', customer);
-        // const personal = this.props.customerPersonalData;
-        // console.error('personal from account', personal);
         
         return (
             <div>
                 <h1>Account/Profile Page!</h1>
-                {/* <h3>Welcome {personal.firstName}</h3> */}
-                {console.error('user email from account', this.state.user)}
+                <h3>Welcome {this.state.user.firstName}</h3>
+                {/* {console.error('user email from account', this.state.user)} */}
             </div>
         );
     }
