@@ -15,21 +15,21 @@ namespace FlowersAndFloofs.Commands
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<Order> GetOrders()
+        [HttpGet("{customerId}")]
+        public IEnumerable<Order> GetOrders(int customerId)
         {
             var repo = new OrderRepository();
-            var orders = repo.GetAllOrders();
+            var orders = repo.GetAllOrdersForCustomer(customerId);
             return orders;
         }
 
-        [HttpGet("{orderId}")]
-        public Order GetOrder(int orderId)
-        {
-            var repo = new OrderRepository();
-            var order = repo.GetOrder(orderId);
-            return order;
-        }
+        //[HttpGet("{orderId}")]
+        //public Order GetOrder(int orderId)
+        //{
+        //    var repo = new OrderRepository();
+        //    var order = repo.GetOrder(orderId);
+        //    return order;
+        //}
 
         [HttpPost]
         public IActionResult CreateOrder(AddOrderDTO newAddOrderDTO)

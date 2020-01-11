@@ -26,7 +26,6 @@ class Register extends React.Component {
       dateCreated: currentTime,
       firebaseKey: ''
     }
-    
     e.preventDefault();
     authRequests
       .registerUser(user)
@@ -39,8 +38,6 @@ class Register extends React.Component {
           lastName: user.lastName,
           customerEmail: user.email
         }
-        // console.log('id', resp.data.id);
-        // console.log('email', user.email);
         this.props.getCurrentCustomer(resp.data);
         customerData.addCustomerPersonalToDatabase(customerPersonalObj).then((resp) => {
           this.props.getCustomerPersonalData(resp.data);
