@@ -103,15 +103,12 @@ class NavBar extends React.Component {
                     <ul className="navbar-nav ml-auto mt-2 mt-lg-0" >
                     {this.props.authed ?                             <li className="nav-item active">
                             <a className="nav-link ml-3" href="#" style={style}>
-                                <HomeIcon />Home
+                                <HomeIcon /><Link to="/shop">Home</Link>
                             </a>
                         </li> : <button className="btn-success"><Link to="/login">Login</Link></button> }
 
-                        <li className="nav-item">
-                            <a className="nav-link ml-3" href="#">About <span className="sr-only">(current)</span></a>
-                        </li>
                         {this.props.authed ?                             <li className="nav-item">
-                            <a className="nav-link ml-3" href="#">My Orders</a>
+                            <a className="nav-link ml-3" href="#"><Link to="/my-account">My Account</Link></a>
                         </li> : null
                         }
 
@@ -121,7 +118,7 @@ class NavBar extends React.Component {
                     <span className="badge badge-pill badge-danger">{cart}</span>
                 </button>: null}
 
-                    {this.props.authed ? <button className="btn btn-outline-danger my-2 my-sm-0 ml-3" style={style} onClick={logoutClickEvent}>
+                    {this.props.authed ? <button className="btn btn-danger my-2 my-sm-0 ml-3" style={style} onClick={logoutClickEvent}>
                         <LockIcon />Log Out
                     </button> : null
                     }

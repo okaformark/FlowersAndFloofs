@@ -170,7 +170,6 @@ class App extends React.Component {
                 myCart={this.state.myCart} 
                 getPrice={this.getPrice} />
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
-                <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
                 <Redirect from="*" to="/landing-page" />
               </Switch>
