@@ -13,10 +13,11 @@ import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
 import SingleAddress from '../SingleAddress/SingleAddress';
 import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
-// import firebase from 'firebase/app';
+import Auth from '../Auth/Auth';
 import 'firebase/auth';
 
 import './Checkout.scss';
+import OrdersData from '../../DataRequests/OrdersData';
 
 const defaultBillingAddress = {
     customerId: 1,
@@ -129,6 +130,46 @@ class Checkout extends React.Component {
                 zipCode={address.zipCode}
             />
         ));
+    }
+
+    placeOrder = (e) => {
+        const customerId = Auth.getUid();
+        let totalPrice = this.props.myCart.map(product => parseFloat(product.price))
+                                            .reduce((total, amount) => total + amount,0);
+        console.error(totalPrice,"totalprice");
+
+        const billingAddress = this.state.newBillingAddress;
+        const shippingAddress = this.state.newShippingAddress;
+        e.preventDefault();
+        const orderObj = {
+            CustomerId: customerId,
+            IsComplete: true,
+            OrderTotal: totalPrice,
+            BillingAddressId: billingAddress,
+            ShippingAddressId: shippingAddress,
+            PaymentId: ''
+        }
+        console.error(orderObj,"order object")
+
+        OrdersData.addToOrdersDatabase(orderObj)
+            .then(() => {
+                OrdersData.getOrderById(customerId)
+                    .then((resp) => {
+                        console.error(resp, resp.data.id, "response")
+                        const orderBundleObj = {
+                            OrderId: resp.data.id,
+                            BundleId: this.props.myCart.BundleId,
+                            Quantity: this.props.myCart.Quantity,
+                            UnitCost: this.props.myCart.unitPrice,
+                        }
+                    OrdersData.addToOrderBundleDatabase(orderBundleObj)
+                        .then(() =>{
+                            this.props.history.push('/my-Account/orders')
+                        })
+                    })
+            })
+            .catch(err => console.error("could not place order", err));
+
     }
 
     render() {
@@ -385,7 +426,9 @@ class Checkout extends React.Component {
                             </div>
                             <button 
                                 type="submit" 
-                                className="checkout">
+                                className="checkout"
+                                onClick={this.placeOrder}
+                                >
                                     Checkout
                             </button>
                         </div>
