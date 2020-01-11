@@ -134,6 +134,7 @@ class Checkout extends React.Component {
 
     placeOrder = (e) => {
         const customerId = Auth.getUid();
+        console.error(customerId,"firebasekey")
         let totalPrice = this.props.myCart.map(product => parseFloat(product.price))
                                             .reduce((total, amount) => total + amount,0);
         console.error(totalPrice,"totalprice");
