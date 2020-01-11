@@ -13,6 +13,8 @@ class Register extends React.Component {
     user: {
       email: '',
       password: '',
+      firstName: '',
+      lastName: ''
     },
   };
 
@@ -37,9 +39,12 @@ class Register extends React.Component {
           lastName: user.lastName,
           customerEmail: user.email
         }
-        console.log('id', resp.data.id);
-        console.log('email', user.email);
-        customerData.addCustomerPersonalToDatabase(customerPersonalObj);
+        // console.log('id', resp.data.id);
+        // console.log('email', user.email);
+        this.props.getCurrentCustomer(resp.data);
+        customerData.addCustomerPersonalToDatabase(customerPersonalObj).then((resp) => {
+          this.props.getCustomerPersonalData(resp.data);
+        })
         })
       })
       .then(() => {

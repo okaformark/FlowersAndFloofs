@@ -99,6 +99,10 @@ class Shop extends React.Component {
         {occasion.name}
       </Button>
     ))
+    const customer = this.props.currentCustomer;
+    console.error('current customer from shop', customer);
+    const personal = this.props.customerPersonalData;
+    console.error('personal from shop', personal);
 
     return (
       <Container>
