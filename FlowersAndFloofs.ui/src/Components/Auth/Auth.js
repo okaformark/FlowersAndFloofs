@@ -50,11 +50,11 @@ const logoutUser = () => {
   return firebase.auth().signOut();
 };
 
-const getUid = () => {
-  return firebase.auth().currentUser.uid;
+const getEmail = () => {
+  return firebase.auth().currentUser.email;
 };
 
-export default {getUid, loginUser, logoutUser, registerUser};
+export default {getEmail, loginUser, logoutUser, registerUser};
 
 
 // class Auth extends React.Component {

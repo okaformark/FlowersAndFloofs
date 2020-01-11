@@ -56,7 +56,9 @@ class App extends React.Component {
     },
     myCart:[],
     price:[],
-    unitPrice: []
+    unitPrice: [],
+    currentCustomer: {},
+    currentCustomerPersonal: {}
   }
 
   componentDidMount() {
@@ -132,6 +134,18 @@ class App extends React.Component {
     this.setState({authenticated: false});
   }
 
+  getCurrentCustomer = (tempCurrentCustomer) => {
+    this.setState({ currentCustomer: tempCurrentCustomer });
+    return this.state.currentCustomer;
+  }
+
+  getCustomerPersonalData = (tempCurrentCustomerPersonal) => {
+    this.setState({ currentCustomerPersonal: tempCurrentCustomerPersonal});
+    return this.state.currentCustomerPersonal;
+  }
+
+
+
   render() {
     const { authed } = this.state;
     const len = this.state.myCart.length;
@@ -163,6 +177,8 @@ class App extends React.Component {
                   path="/register"
                   authed={this.state.authed}
                   component={Register}
+                  getCurrentCustomer={this.getCurrentCustomer}
+                  getCustomerPersonalData={this.getCustomerPersonalData}
                 />
                 <PrivateRoute path="/home" component={Home}
                 authed={authed}
@@ -170,9 +186,18 @@ class App extends React.Component {
                 addQuantityToCart={this.addQuantityToCart} 
                 myCart={this.state.myCart} 
                 getPrice={this.getPrice} />
-                <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
-                <PrivateRoute path='/orders' component={MyOrders} authed={authed} />
-                <PrivateRoute path='/shop' component={Shop} authed={authed} />
+                <PrivateRoute path='/my-account'
+                component={MyAccount}
+                authed={authed}
+                currentCustomer={this.state.currentCustomer}
+                customerPersonalData={this.state.currentCustomerPersonal}
+                />
+                <PrivateRoute path='/shop'
+                component={Shop}
+                authed={authed}
+                currentCustomer={this.state.currentCustomer}
+                customerPersonalData={this.state.currentCustomerPersonal}
+                />
                 <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
                 <Redirect from="*" to="/landing-page" />
               </Switch>
