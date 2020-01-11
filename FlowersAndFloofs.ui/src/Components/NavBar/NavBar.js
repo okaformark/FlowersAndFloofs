@@ -28,7 +28,6 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-        // console.error('myCart props', this.props.myCart);
         this.setState({currentCart: this.props.myCart});
     }
 

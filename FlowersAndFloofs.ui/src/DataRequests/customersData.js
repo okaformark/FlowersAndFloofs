@@ -46,7 +46,7 @@ const getCustomerById = id => new Promise((resolve, reject) => {
 const addCustomerToDatabase = (customerObj) => axios.post(`${databaseUrl}/customers`, customerObj);
 const addCustomerPersonalToDatabase = (customerPersonalObj) => axios.post(`${databaseUrl}/customerPersonal`, customerPersonalObj);
 
-const deleteCustomerFromDatabase = customerId => axios.delete(`${firebaseUrl}/${customerId}.json`);
+const deleteCustomerPersonalFromDatabase = customerId => axios.delete(`${databaseUrl}/customerPersonal/${customerId}`);
 
 const editCustomersInfo = (customerId, customerObj) => axios.put(`${firebaseUrl}/customers/${customerId}.json`, customerObj);
 
@@ -54,7 +54,7 @@ export default {
   addCustomerToDatabase,
   getCustomers,
   getCustomerInfoByEmail,
-  deleteCustomerFromDatabase,
+  deleteCustomerPersonalFromDatabase,
   editCustomersInfo,
   addCustomerPersonalToDatabase,
   getCustomerById

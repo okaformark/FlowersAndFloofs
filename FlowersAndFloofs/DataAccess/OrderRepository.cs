@@ -52,13 +52,18 @@ namespace FlowersAndFloofs.DataAccess
             }
         }
 
-        public IEnumerable<Order> GetAllOrders()
+        public IEnumerable<Order> GetAllOrdersForCustomer(int customerId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 var sql = @"Select *
-                          from [Order]";
-                var orders = db.Query<Order>(sql);
+                          from [Order]
+                          where CustomerId = @CustomerId";
+                var parameters = new
+                {
+                    CustomerId = customerId
+                };
+                var orders = db.Query<Order>(sql,parameters);
                 return orders;
             }
         }
