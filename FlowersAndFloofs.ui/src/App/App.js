@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Router,
+  // Router,
   BrowserRouter,
   Route,
   Redirect,
@@ -13,7 +13,7 @@ import fbConnection from '../DataRequests/fbConnection';
 
 import Home from '../Components/Home/Home';
 import LandingPage from '../Components/LandingPage/LandingPage';
-import NewCustomer from '../Components/NewCustomer/NewCustomer';
+// import NewCustomer from '../Components/NewCustomer/NewCustomer';
 import MyAccount from '../Components/MyAccount/MyAccount';
 import NavBar from '../Components/NavBar/NavBar';
 import Shop from '../Components/Shop/Shop';
@@ -102,7 +102,7 @@ class App extends React.Component {
 
     addQuantityToCart = (cartWithQuantity) => { 
           tempCart = cartWithQuantity;
-          console.log(tempCart,"pop")
+          // console.log(tempCart,"pop")
           return tempCart;
       }
 
@@ -113,14 +113,14 @@ class App extends React.Component {
           }
           else {
               cart.push(newCart);
-              console.log(cart,"cart")
+              // console.log(cart,"cart")
           // returns products already in the cart different from the one the user adds to cart
           const uniqueObjects = [...new Map(cart.map(item => [item.id, item])).values()]
-            console.log(uniqueObjects,"unique")
+            // console.log(uniqueObjects,"unique")
           //if there are  matching products that exists
           if(uniqueObjects.length > 0){
             this.setState({ myCart: [...uniqueObjects]}, () =>{
-                console.error(this.state.myCart);
+                // console.error(this.state.myCart);
             this.getCartLength();
             })
           }
@@ -146,8 +146,9 @@ class App extends React.Component {
                 myCart={this.state.myCart} 
                 price={myPrice} 
                 unitPrice={myUnitPrice}
-                deleteItem={this.deleteItem}/>
-
+                deleteItem={this.deleteItem}
+                clearCart={this.clearCart}
+                />
           <React.Fragment>
             <div className="container">
               <Switch>
@@ -171,6 +172,7 @@ class App extends React.Component {
                 getPrice={this.getPrice} />
                 <PrivateRoute path='/my-account' component={MyAccount} authed={authed} />
                 <PrivateRoute path='/shop' component={Shop} authed={authed} />
+                <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
                 <Redirect from="*" to="/landing-page" />
               </Switch>
             </div>
