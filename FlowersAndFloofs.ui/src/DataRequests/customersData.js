@@ -22,7 +22,20 @@ const getCustomerInfoByEmail = customerEmail => new Promise((resolve, reject) =>
   .then((resp) => {
     let customer = {};
     customer = resp.data;
-    console.error('resp data', resp.data);
+    console.error('resp data1', resp.data);
+    resolve(customer);
+  })
+    .catch((error) => {
+      reject(error);
+    });
+});
+
+const getCustomerById = id => new Promise((resolve, reject) => {
+  axios.get(`${databaseUrl}/customerPersonal/${id}`)
+  .then((resp) => {
+    let customer = {};
+    customer = resp.data;
+    console.error('resp data2', resp.data);
     resolve(customer);
   })
     .catch((error) => {
@@ -43,5 +56,6 @@ export default {
   getCustomerInfoByEmail,
   deleteCustomerFromDatabase,
   editCustomersInfo,
-  addCustomerPersonalToDatabase
+  addCustomerPersonalToDatabase,
+  getCustomerById
 };

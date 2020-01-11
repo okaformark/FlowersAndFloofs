@@ -185,7 +185,10 @@ class App extends React.Component {
                 handleAddToCart = {this.handleAddToCart} 
                 addQuantityToCart={this.addQuantityToCart} 
                 myCart={this.state.myCart} 
-                getPrice={this.getPrice} />
+                getPrice={this.getPrice} 
+                currentCustomer={this.state.currentCustomer}
+                customerPersonalData={this.state.currentCustomerPersonal}
+                />
                 <PrivateRoute path='/my-account'
                 component={MyAccount}
                 authed={authed}
@@ -198,7 +201,16 @@ class App extends React.Component {
                 currentCustomer={this.state.currentCustomer}
                 customerPersonalData={this.state.currentCustomerPersonal}
                 />
-                <PrivateRoute path='/checkout' component={Checkout} authed={authed} />
+                <PrivateRoute path='/checkout' 
+                component={Checkout} 
+                authed={authed} 
+                myCart={this.state.myCart} 
+                price={myPrice} 
+                unitPrice={myUnitPrice}
+                deleteItem={this.deleteItem}
+                clearCart={this.clearCart}
+                currentCustomer={this.state.currentCustomer}
+                />
                 <Redirect from="*" to="/landing-page" />
               </Switch>
             </div>

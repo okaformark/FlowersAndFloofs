@@ -5,7 +5,8 @@ import moment from 'moment';
 
 import authRequests from '../Auth/Auth';
 import customerData from '../../DataRequests/customersData';
-// import { auth } from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth'
 
 
 class Register extends React.Component {
@@ -24,13 +25,14 @@ class Register extends React.Component {
     const currentTime = moment();
     const customerObj = {
       dateCreated: currentTime,
-      firebaseKey: ''
+      firebaseKey: firebase.auth().currentUser
     }
     
     e.preventDefault();
     authRequests
       .registerUser(user)
       .then(() => {
+        console.error(customerObj,"lol")
         customerData.addCustomerToDatabase(customerObj)
         .then((resp) => {
         const customerPersonalObj = {

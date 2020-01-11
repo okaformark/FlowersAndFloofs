@@ -13,11 +13,11 @@ import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
 import SingleAddress from '../SingleAddress/SingleAddress';
 import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
-import Auth from '../Auth/Auth';
+import authRequests from '../Auth/Auth';
 import 'firebase/auth';
-
 import './Checkout.scss';
 import OrdersData from '../../DataRequests/OrdersData';
+import customersData from '../../DataRequests/customersData';
 
 const defaultBillingAddress = {
     customerId: 1,
@@ -133,8 +133,7 @@ class Checkout extends React.Component {
     }
 
     placeOrder = (e) => {
-        const customerId = Auth.getUid();
-        console.error(customerId,"firebasekey")
+    
         let totalPrice = this.props.myCart.map(product => parseFloat(product.price))
                                             .reduce((total, amount) => total + amount,0);
         console.error(totalPrice,"totalprice");
@@ -143,7 +142,7 @@ class Checkout extends React.Component {
         const shippingAddress = this.state.newShippingAddress;
         e.preventDefault();
         const orderObj = {
-            CustomerId: customerId,
+            CustomerId: '',
             IsComplete: true,
             OrderTotal: totalPrice,
             BillingAddressId: billingAddress,
@@ -154,7 +153,7 @@ class Checkout extends React.Component {
 
         OrdersData.addToOrdersDatabase(orderObj)
             .then(() => {
-                OrdersData.getOrderById(customerId)
+                OrdersData.getOrderById(6)
                     .then((resp) => {
                         console.error(resp, resp.data.id, "response")
                         const orderBundleObj = {
@@ -181,7 +180,7 @@ class Checkout extends React.Component {
         const makeBillingAddressCards = (this.state.billingAddresses.length > 0 ? this.makeBillingAddresses(this.state.billingAddresses) :
             console.error('no billing addresses found'));
 
-        const makeCart = this.props.myCart.map((product, index) =>(
+        const makeCart = this.props.myCart.map((product) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
                                 price={product.price} 

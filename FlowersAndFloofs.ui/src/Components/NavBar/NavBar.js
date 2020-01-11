@@ -37,7 +37,7 @@ class NavBar extends React.Component {
         const { cart } = this.props;
         // const { price } = this.props;
         // const { unitPrice } = this.props;
-        const makeCart = this.props.myCart.map((product, index) =>(
+        const makeCart = this.props.myCart.map((product) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
                                 price={product.price} 
