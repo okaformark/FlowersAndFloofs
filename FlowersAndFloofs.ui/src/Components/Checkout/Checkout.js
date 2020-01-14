@@ -54,6 +54,10 @@ class Checkout extends React.Component {
             this.setState({ shippingAddresses: data })
             console.error("all shipping addresses: ", this.state.shippingAddresses);
         });
+        customersData.getCustomerInfoByEmail(authRequests.getEmail()).then((resp) => {
+            this.setState({personalObj: resp});
+            console.error('personal object from checkout', this.state.personalObj);
+        });
     }
 
     BAFormFieldStringState = (name, e) => {
@@ -142,11 +146,11 @@ class Checkout extends React.Component {
         const shippingAddress = this.state.newShippingAddress;
         e.preventDefault();
         const orderObj = {
-            CustomerId: '',
+            CustomerId: this.state.personalObj.id,
             IsComplete: true,
             OrderTotal: totalPrice,
-            BillingAddressId: billingAddress,
-            ShippingAddressId: shippingAddress,
+            BillingAddressId: billingAddress.id,
+            ShippingAddressId: shippingAddress.id,
             PaymentId: ''
         }
         console.error(orderObj,"order object")

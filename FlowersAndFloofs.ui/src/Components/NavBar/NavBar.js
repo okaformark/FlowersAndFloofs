@@ -111,7 +111,7 @@ class NavBar extends React.Component {
                             <a href="/#" className="nav-link ml-3">About <span className="sr-only">(current)</span></a>
                         </li>
                         {this.props.authed ? <li className="nav-item">
-                            <Link to="/my-account">My Orders</Link>
+                            <Link to="/my-account" className="nav-link ml-3">My Orders<span className="sr-only">(current)</span></Link>
                         </li> : null
                         }
 

@@ -30,18 +30,18 @@ const getCustomerInfoByEmail = customerEmail => new Promise((resolve, reject) =>
     });
 });
 
-const getCustomerById = id => new Promise((resolve, reject) => {
-  axios.get(`${databaseUrl}/customerPersonal/${id}`)
-  .then((resp) => {
-    let customer = {};
-    customer = resp.data;
-    console.error('resp data2', resp.data);
-    resolve(customer);
-  })
-    .catch((error) => {
-      reject(error);
-    });
-});
+// const getCustomerById = id => new Promise((resolve, reject) => {
+//   axios.get(`${databaseUrl}/customerPersonal/${id}`)
+//   .then((resp) => {
+//     let customer = {};
+//     customer = resp.data;
+//     console.error('resp data2', resp.data);
+//     resolve(customer);
+//   })
+//     .catch((error) => {
+//       reject(error);
+//     });
+// });
 
 const addCustomerToDatabase = (customerObj) => axios.post(`${databaseUrl}/customers`, customerObj);
 const addCustomerPersonalToDatabase = (customerPersonalObj) => axios.post(`${databaseUrl}/customerPersonal`, customerPersonalObj);
@@ -57,5 +57,5 @@ export default {
   deleteCustomerPersonalFromDatabase,
   editCustomersInfo,
   addCustomerPersonalToDatabase,
-  getCustomerById
+  // getCustomerById
 };
