@@ -58,7 +58,7 @@ class Shop extends React.Component {
     const buttonCategory = e.target.id;
     const { bundles } = this.state;
     this.setState({ filteredBundles: bundles });
-    const filteredResults = this.state.bundles.filter(bundle => bundle.occasionId === buttonCategory);
+    const filteredResults = this.state.bundles.filter(bundle => bundle.occasionId == buttonCategory);
     this.setState({ filteredBundles: filteredResults });
   }
 
