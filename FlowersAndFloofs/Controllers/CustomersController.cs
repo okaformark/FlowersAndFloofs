@@ -27,5 +27,12 @@ namespace FlowersAndFloofs.Commands
             return Created($"api/customers/{customerThatGotCreated.Id}", customerThatGotCreated);
         }
 
+        [HttpGet]
+        public IEnumerable<Customer> GetCustomer()
+        {
+            var repo = new CustomerRepository();
+            var customer = repo.GetAllCustomer();
+            return customer;
+        }
     }
 }

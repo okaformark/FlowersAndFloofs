@@ -10,7 +10,7 @@ using FlowersAndFloofs.Commands;
 
 namespace FlowersAndFloofs.DataAccess
 {
-    public class CustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
         string _connectionString = "Server=localhost;Database=FlowersAndFloofs;Trusted_Connection=True;";
 
@@ -28,5 +28,18 @@ namespace FlowersAndFloofs.DataAccess
                 return db.QueryFirst<Customer>(sql, newCustomer);
             }
         }
+
+        public IEnumerable<Customer> GetAllCustomer()
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql = @"Select *
+                            from OrderBundle";
+
+                var allCustomers = db.Query<Customer>(sql);
+                return allCustomers;
+            }
+        }
+
     }
 }

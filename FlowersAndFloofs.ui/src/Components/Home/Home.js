@@ -6,7 +6,13 @@ class Home extends React.Component {
         return (
             <div className="Home">
                 <header className="App-header">
-                    <Shop handleAddToCart = {this.props.handleAddToCart} addQuantityToCart={this.props.addQuantityToCart} getPrice={this.props.getPrice}/>
+                    <Shop 
+                        handleAddToCart = {this.props.handleAddToCart} 
+                        addQuantityToCart={this.props.addQuantityToCart} 
+                        getPrice={this.props.getPrice}
+                        currentCustomer={this.props.currentCustomer}
+                        customerPersonalData={this.props.currentCustomerPersonal}
+                        />
                 </header>
             </div>
         )

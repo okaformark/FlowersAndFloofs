@@ -1,22 +1,18 @@
 import React from 'react';
 import {
     Row,
-    // Form, 
-    // FormGroup, 
-    // Label, 
-    // Input, 
-    // FormText, 
     Button,
 } from 'reactstrap';
 
 import billingAddressRequest from '../../DataRequests/billingAddressRequest';
 import shippingAddressRequest from '../../DataRequests/shippingAddressRequest';
 import SingleAddress from '../SingleAddress/SingleAddress';
-
-// import firebase from 'firebase/app';
+import SingleCartProduct from '../SingleCartProduct/SingleCartProduct';
+import authRequests from '../Auth/Auth';
 import 'firebase/auth';
-
 import './Checkout.scss';
+import OrdersData from '../../DataRequests/OrdersData';
+import customersData from '../../DataRequests/customersData';
 
 const defaultBillingAddress = {
     customerId: 1,
@@ -52,6 +48,10 @@ class Checkout extends React.Component {
         shippingAddressRequest.getUserShippingAddresses().then(data => {
             this.setState({ shippingAddresses: data })
             console.error("all shipping addresses: ", this.state.shippingAddresses);
+        });
+        customersData.getCustomerInfoByEmail(authRequests.getEmail()).then((resp) => {
+            this.setState({personalObj: resp});
+            console.error('personal object from checkout', this.state.personalObj);
         });
     }
 
@@ -131,17 +131,72 @@ class Checkout extends React.Component {
         ));
     }
 
+    placeOrder = (e) => {
+    
+        let totalPrice = this.props.myCart.map(product => parseFloat(product.price))
+                                            .reduce((total, amount) => total + amount,0);
+        console.error(totalPrice,"totalprice");
+
+        const billingAddress = this.state.newBillingAddress.customerId;
+        const shippingAddress = this.state.newShippingAddress.customerId;
+        e.preventDefault();
+        const orderObj = {
+            CustomerId: this.state.personalObj.id,
+            IsComplete: true,
+            OrderTotal: totalPrice,
+            BillingAddressId: billingAddress,
+            ShippingAddressId: shippingAddress,
+            PaymentId: billingAddress
+        }
+        console.error(orderObj,"order object")
+
+        OrdersData.addToOrdersDatabase(orderObj)
+            .then((resp) => {
+                console.error(orderObj,"orderobj")
+                console.error(resp,"lol")
+                const { id } = resp.data;
+                console.error(id, "id");
+                OrdersData.getSingleOrderById(id)
+                    .then((result) => {
+                        console.error(result, "response")
+                        const { id } = result;
+                        const orderBundleObj = {
+                            OrderId: id,
+                            BundleId: this.props.myCart.BundleId,
+                            Quantity: this.props.myCart.Quantity,
+                            UnitCost: this.props.myCart.unitPrice,
+                        }
+                    OrdersData.addToOrderBundleDatabase(orderBundleObj)
+                        .then(() =>{
+                            this.props.history.push('/my-Account/orders')
+                        })
+                    })
+            })
+            .catch(err => console.error("could not place order", err));
+
+    }
+
     render() {
         const { newBillingAddress, newShippingAddress } = this.state;
-
         const makeShippingAddressCards = (this.state.shippingAddresses.length > 0 ? this.makeShippingAddresses(this.state.shippingAddresses) :
             console.error('no shipping addresses found'));
 
         const makeBillingAddressCards = (this.state.billingAddresses.length > 0 ? this.makeBillingAddresses(this.state.billingAddresses) :
             console.error('no billing addresses found'));
 
+        const makeCart = this.props.myCart.map((product) =>(
+            <SingleCartProduct product={product} 
+                                key={product.id} 
+                                price={product.price} 
+                                unitPrice={product.unitPrice}
+                                deleteItem={this.props.deleteItem}
+                                />
+        ))
+        
         return (
             <div className="billingAndShippingAddressSelection">
+                <div className="row d-flex justify-content-between">
+                <div className="col-6">
                 <div className="addBillingAddress">
                     <div id="billingAddressForm">
                         <h2 className="text-center">Payment and Shipping Information</h2>
@@ -237,7 +292,7 @@ class Checkout extends React.Component {
                                             className="btn btn-default col-xs-12 addNewAddressButton"
                                             onClick={this.addBillingAddressClickEvent}
                                             >
-                                            Add Billing Address
+                                            Save
                                         </Button>
                                     </div>
                                 </div>
@@ -336,7 +391,7 @@ class Checkout extends React.Component {
                                             className="btn btn-default col-xs-12 addNewAddressButton"
                                             onClick={this.addShippingAddressClickEvent}
                                             >
-                                            Add Shipping Address
+                                            Save
                                         </Button>
                                     </div>
                                 </div>
@@ -344,7 +399,47 @@ class Checkout extends React.Component {
                         </form>
                     </div>
                 </div>
+                </div>
+                <div className="col-6">
+                    <h1>Your summary</h1>
+                    <div className="row">
+                        <div className="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                            <div className="table-responsive">
+                                <table className="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" className="border-0 bg-light">
+                                            <div className="p-2 px-3 text-uppercase">Product</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Unit Price</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Quantity</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Total Price</div>
+                                            </th>
+                                            <th scope="col" className="border-0 bg-light">
+                                                <div className="py-2 text-uppercase">Remove</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    {makeCart}
+                                </table>
+                            </div>
+                            <button 
+                                type="submit" 
+                                className="checkout"
+                                onClick={this.placeOrder}
+                                >
+                                    Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
         )
     }
 }

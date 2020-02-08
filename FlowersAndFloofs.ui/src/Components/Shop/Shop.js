@@ -6,7 +6,8 @@ import bundleRequest from '../../DataRequests/bundleRequest';
 import SingleBundle from '../SingleBundle/SingleBundle';
 import SearchBarIcon from '../NavBar/Icons/SearchBarIcon';
 import occasionRequest from '../../DataRequests/occasionRequest';
-
+import customerData from '../../DataRequests/customersData';
+import authRequests from '../Auth/Auth';
 import './Shop.scss';
 
 
@@ -35,6 +36,15 @@ class Shop extends React.Component {
       let allOccasions = [...data];
       this.setState({ occasions: allOccasions });
     });
+    customerData.getCustomerInfoByEmail(authRequests.getEmail()).then((resp) => {
+      this.setState({personalObj: resp});
+    })
+    const customer = this.props.currentCustomer;
+    const personal = this.props.customerPersonalData;
+
+    console.error('customer obj in shop', customer);
+
+    console.error('personal obj in shop', personal);
   }
 
   getBundles = () => {
@@ -131,3 +141,4 @@ class Shop extends React.Component {
 }
 
 export default Shop;
+

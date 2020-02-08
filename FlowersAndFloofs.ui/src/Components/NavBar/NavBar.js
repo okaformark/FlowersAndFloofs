@@ -34,8 +34,8 @@ class NavBar extends React.Component {
     render() {
         const { clearCart } = this.props;
         const { cart } = this.props;
-
-        const makeCart = this.props.myCart.map((product, index) =>(
+        
+        const makeCart = this.props.myCart.map((product) =>(
             <SingleCartProduct product={product} 
                                 key={product.id} 
                                 price={product.price} 
@@ -111,7 +111,7 @@ class NavBar extends React.Component {
                             <a href="/#" className="nav-link ml-3">About <span className="sr-only">(current)</span></a>
                         </li>
                         {this.props.authed ? <li className="nav-item">
-                            <Link to="/my-account">My Orders</Link>
+                            <Link to="/my-account" className="nav-link ml-3">My Orders<span className="sr-only">(current)</span></Link>
                         </li> : null
                         }
 
@@ -142,7 +142,7 @@ class NavBar extends React.Component {
                             {/* <Button color="primary" onClick={this.goToCheckout}>Checkout</Button> */}
                             {cart >0?
                             (
-                                <Link className="btn btn-primary" to="/checkout" onClick={this.toggle}>Checkout</Link>
+                                <Link className="btn btn-primary" to="/checkout" onClick={this.toggle}>Proceed to Checkout</Link>
                             ) :
                             (
                                 <div><i>No items in cart</i></div>
