@@ -3,9 +3,12 @@ import axios from 'axios';
 
 const databaseURL = 'https://localhost:44381/api';
 
-const getOrderById= id => new Promise((resolve, reject) => {
-    axios.get(`${databaseURL}`).then((result) => {
-      resolve(result.data);
+const getSingleOrderById= id => new Promise((resolve, reject) => {
+    axios.get(`${databaseURL}/orders/singleOrder/${id}`)
+    .then((result) => {
+      let customer = {};
+      customer = result.data;
+      resolve(customer);
     })
       .catch((error) => {
         reject(error);
@@ -18,4 +21,4 @@ const addToOrdersDatabase = (orderObj) => axios.post(`${databaseURL}/orders`, or
 
 const addToOrderBundleDatabase = (orderBundleObj) => axios.post(`${databaseURL}/orderBundle`, orderBundleObj);
 
-export default { addToOrdersDatabase, addToOrderBundleDatabase, getOrderById };
+export default { addToOrdersDatabase, addToOrderBundleDatabase, getSingleOrderById };

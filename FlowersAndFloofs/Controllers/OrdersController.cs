@@ -23,13 +23,13 @@ namespace FlowersAndFloofs.Commands
             return orders;
         }
 
-        //[HttpGet("{orderId}")]
-        //public Order GetOrder(int orderId)
-        //{
-        //    var repo = new OrderRepository();
-        //    var order = repo.GetOrder(orderId);
-        //    return order;
-        //}
+        [HttpGet("singleOrder/{orderid}")]
+        public Order getorder(int orderid)
+        {
+            var repo = new OrderRepository();
+            var order = repo.GetOrder(orderid);
+            return order;
+        }
 
         [HttpPost]
         public IActionResult CreateOrder(AddOrderDTO newAddOrderDTO)

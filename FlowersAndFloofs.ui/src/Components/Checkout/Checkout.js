@@ -1,11 +1,6 @@
 import React from 'react';
 import {
     Row,
-    // Form, 
-    // FormGroup, 
-    // Label, 
-    // Input, 
-    // FormText, 
     Button,
 } from 'reactstrap';
 
@@ -142,26 +137,31 @@ class Checkout extends React.Component {
                                             .reduce((total, amount) => total + amount,0);
         console.error(totalPrice,"totalprice");
 
-        const billingAddress = this.state.newBillingAddress;
-        const shippingAddress = this.state.newShippingAddress;
+        const billingAddress = this.state.newBillingAddress.customerId;
+        const shippingAddress = this.state.newShippingAddress.customerId;
         e.preventDefault();
         const orderObj = {
             CustomerId: this.state.personalObj.id,
             IsComplete: true,
             OrderTotal: totalPrice,
-            BillingAddressId: billingAddress.id,
-            ShippingAddressId: shippingAddress.id,
-            PaymentId: ''
+            BillingAddressId: billingAddress,
+            ShippingAddressId: shippingAddress,
+            PaymentId: billingAddress
         }
         console.error(orderObj,"order object")
 
         OrdersData.addToOrdersDatabase(orderObj)
-            .then(() => {
-                OrdersData.getOrderById(6)
-                    .then((resp) => {
-                        console.error(resp, resp.data.id, "response")
+            .then((resp) => {
+                console.error(orderObj,"orderobj")
+                console.error(resp,"lol")
+                const { id } = resp.data;
+                console.error(id, "id");
+                OrdersData.getSingleOrderById(id)
+                    .then((result) => {
+                        console.error(result, "response")
+                        const { id } = result;
                         const orderBundleObj = {
-                            OrderId: resp.data.id,
+                            OrderId: id,
                             BundleId: this.props.myCart.BundleId,
                             Quantity: this.props.myCart.Quantity,
                             UnitCost: this.props.myCart.unitPrice,
